@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -23,6 +22,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->isRole()===1){
+            return view('admin.admin');
+        }
+        else if (Auth::user()->isRole()===2){
+            return view('mentor.mentor');
+        }
         return view('home');
     }
 }

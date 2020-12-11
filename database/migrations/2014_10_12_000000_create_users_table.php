@@ -14,13 +14,32 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->bigIncrements('id');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->default(DB::raw("CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()"));
+            $table->tinyInteger('role_id')->nullable()->default(3);
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('full_name');
+            $table->string('student_id', 20)->unique()->nullable();
+            $table->string('phone', 10)->nullable();
+            $table->date('birthday')->nullable()->default('1994-11-11');
+            $table->tinyInteger('gender')->nullable();
+            $table->string('class', 20)->nullable();
+            $table->string('department')->nullable();
+            $table->string('faculty')->nullable();
+            $table->string('language')->nullable();
+            $table->text('about_me')->nullable();
+            $table->string('avatar_path')->nullable();
+            $table->boolean('is_active')->default(1);
+            $table->boolean('is_email_confirmed')->default(0);
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
-            $table->timestamps();
+
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
+
         });
     }
 
