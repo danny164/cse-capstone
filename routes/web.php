@@ -16,8 +16,8 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return view('welcome'); // login
-});
+    return redirect('/home'); // login
+})->middleware('auth');
 
 Auth::routes(['verify' => true]);
 

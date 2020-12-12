@@ -28,6 +28,6 @@ class HomeController extends Controller
         else if (Auth::user()->isRole()===2){
             return view('mentor.index');
         }
-        return view('home');
+        return view('user.home');
     }
 }

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Admin Page')
+@section('title', 'Mentor Page')
 @section('content')
 
     <!-- begin a container -->
@@ -9,7 +9,7 @@
 
             <div class="card mt-2">
                 <div class="card-body">
-                    <p class="text-center">Admin Panel</p>
+                    <p class="text-center">Mentor Panel</p>
                 </div>
             </div>
 
