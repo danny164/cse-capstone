@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MentorController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +36,22 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 // ===================
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function() {
-    Route::get('/', [App\Http\Controllers\AdminController::class, 'index']);
+// Admin
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']], function() {
+    Route::get('/', [AdminController::class, 'index']);
+
+});
+
+// Mentor
+Route::group(['prefix' => 'mentor', 'middleware' => ['auth', 'mentor', 'verified']], function() {
+    Route::get('/', [MentorController::class, 'index']);
+
+});
+
+// User
+Route::group(['prefix' => 'user', 'middleware' => ['auth', 'verified']], function() {
+    Route::get('/', [AdminController::class, 'index']);
+
 });
