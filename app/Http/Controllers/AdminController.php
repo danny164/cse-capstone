@@ -12,13 +12,10 @@ class AdminController extends Controller
 {
 
     public function index(Request $request){
+
         $manage_announcements=DB::table('announcements')->orderBy('created_at','desc')->get();
         $all_manage_announcements=view('admin.index')->with('manage_announcements', $manage_announcements);
         return view('layouts.master')->with('admin.index', $all_manage_announcements);
-//         test
-//         echo '<pre>';
-//         print_r($manage_announcements);
-//         echo '</pre>';
 
     }
     public function edit_announcement_home(Request $request, $id)
@@ -44,23 +41,20 @@ class AdminController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+                return back()->withErrors($validator);
             }
 
-            DB::table('announcements')->where('id',$id)->update($data);
+            DB::table('announcements')->where('id', $id)->update($data);
             return redirect('admin')->withSuccess('Post Created Successfully!');
         }
     }
     public function save_announcement(Request $request, $id){
+
         $data = [];
         $data['title'] = $request->input('title');
         $data['content'] = $request->input('content');
         $data['visibility']=$request->input('visibility');
         $data['user_id']=$id;
-        /**
-         * TODO: Cần sửa chỗ này chổ này ko có thông báo vì biến ID
-         */
-
 
         if($request->isMethod('post')){
             $validator = Validator::make($request->all(), [
@@ -70,7 +64,7 @@ class AdminController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+                return back()->withErrors($validator);
             }
 
             DB::table('announcements')->insert($data);
@@ -93,7 +87,7 @@ class AdminController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+                return back()->withErrors($validator);
             }
 
             DB::table('announcements')->insert($data);
@@ -141,7 +135,7 @@ class AdminController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+                return back()->withErrors($validator);
             }
 
             DB::table('announcements')->where('id',$id)->update($data);
@@ -152,9 +146,10 @@ class AdminController extends Controller
     public function delete_announcement(Request $request, $id){
 
         DB::table('announcements')->where('id', $id)->delete();
-        Alert::success('Success Title', 'Success Message');
-        return  redirect('admin/announcements');
+
+        return  redirect('admin/announcements')->withSuccess('Deleted Successfully!');
     }
+
     // Cái này Q nó bảo cho hết xuống dưới
     public function new_announcement(){
         return view('admin.new-announcement');
