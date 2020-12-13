@@ -19,6 +19,7 @@ class UsersTableSeeder extends Seeder
             'full_name' => 'Nguyễn Đức Mận',
             'email'=> 'admin@gmail.com',
             'password' => bcrypt('secret'),
+            'email_verified_at' => now(),
             'role_id' => 1
 
         ]);
