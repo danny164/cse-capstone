@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 class AdminController extends Controller
 // announcements
 {
@@ -17,36 +16,14 @@ class AdminController extends Controller
         return view('layouts.master')->with('admin.index', $all_manage_announcements);
 
     }
-    public function edit_announcement_home(Request $request, $id)
-    {
-        $edit_new_announcement=DB::table('announcements')->where('id', $id)->get();
-
-        $all_manage_announcements=view('admin.edit-announcement-home')->with('edit_new_announcement', $edit_new_announcement);
-
-        return view('layouts.master')->with('admin.edit-announcement-home', $all_manage_announcements);
-    }
-    public function update_announcement_home(Request $request, $id){
-
-        $data = [];
-        $data['title'] = $request->input('title');
-        $data['content'] = $request->input('content');
-        $data['visibility']=$request->input('visibility');
-
-        if($request->isMethod('post')){
-            $validator = Validator::make($request->all(), [
-                'title' => 'required|min:5|max:255',
-                'content' => 'required|min:5',
-                'visibility' => 'required'
-            ]);
-
-            if ($validator->fails()) {
-                return back()->withErrors($validator);
-            }
-
-            DB::table('announcements')->where('id', $id)->update($data);
-            return redirect('admin')->withSuccess('Post Created Successfully!');
-        }
-    }
+    /**
+     * SAVE/EDIT/UPATE/DELETE/MANAGE
+     * ANNOUNCEMENTS AND HOME
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return void
+     */
     public function save_announcement(Request $request, $id){
 
         $data = [];
@@ -71,6 +48,50 @@ class AdminController extends Controller
         }
 
     }
+
+    public function edit_announcement(Request $request, $id){
+
+        $edit_new_announcement=DB::table('announcements')->orderBy('created_at','desc')->where('id',$id)->get();
+
+        $all_manage_announcements=view('admin.edit-announcement')->with('edit_new_announcement', $edit_new_announcement);
+
+        return view('layouts.master')->with('admin.edit-announcement', $all_manage_announcements);
+
+    }
+
+    public function update_announcement(Request $request, $id){
+
+        $data = [];
+        $data['title'] = $request->input('title');
+        $data['content'] = $request->input('content');
+        $data['visibility']=$request->input('visibility');
+
+        if($request->isMethod('post')){
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|min:5|max:255',
+                'content' => 'required|min:5',
+                'visibility' => 'required'
+            ]);
+
+            if ($validator->fails()) {
+                return back()->withErrors($validator);
+            }
+
+            DB::table('announcements')->where('id',$id)->update($data);
+            return redirect('/admin/announcements')->withSuccess('Post Created Successfully!');
+        }
+
+    }
+
+    public function delete_announcement(Request $request, $id){
+
+        DB::table('announcements')->where('id', $id)->delete();
+
+        return  redirect('admin/announcements')->withSuccess('Deleted Successfully!');
+
+    }
+
+    // ANNOUNCEMENT HOME
     public function save_announcement_home(Request $request, $id){
 
         $data = [];
@@ -94,33 +115,19 @@ class AdminController extends Controller
         }
 
     }
-    public function delete_announcement_home(Request $request, $id){
 
-        DB::table('announcements')->where('id',$id)->delete();
+    public function edit_announcement_home(Request $request, $id)
+    {
+        $edit_new_announcement=DB::table('announcements')->where('id', $id)->get();
 
-       // Session::put('message','Xóa thành công');
+        $all_manage_announcements=view('admin.edit-announcement-home')->with('edit_new_announcement', $edit_new_announcement);
 
-        return  redirect('admin')->withSuccess('Deleted Successfully!');
-    }
-    public function manage_announcements(){
-
-        $manage_announcements=DB::table('announcements')->orderBy('created_at','desc')->get();
-
-        $all_manage_announcements=view('admin.manage-announcements')->with('manage_announcements', $manage_announcements);
-
-        return view('layouts.master')->with('admin.manage-announcements', $all_manage_announcements);
+        return view('layouts.master')->with('admin.edit-announcement-home', $all_manage_announcements);
 
     }
-    public function edit_announcement(Request $request, $id){
 
-        $edit_new_announcement=DB::table('announcements')->orderBy('created_at','desc')->where('id',$id)->get();
+    public function update_announcement_home(Request $request, $id){
 
-        $all_manage_announcements=view('admin.edit-announcement')->with('edit_new_announcement', $edit_new_announcement);
-
-        return view('layouts.master')->with('admin.edit-announcement', $all_manage_announcements);
-    }
-
-    public function update_announcement(Request $request, $id){
         $data = [];
         $data['title'] = $request->input('title');
         $data['content'] = $request->input('content');
@@ -137,25 +144,37 @@ class AdminController extends Controller
                 return back()->withErrors($validator);
             }
 
-            DB::table('announcements')->where('id',$id)->update($data);
-            return redirect('/admin/announcements')->withSuccess('Post Created Successfully!');
+            DB::table('announcements')->where('id', $id)->update($data);
+            return redirect('admin')->withSuccess('Post Created Successfully!');
         }
 
     }
-    public function delete_announcement(Request $request, $id){
 
-        DB::table('announcements')->where('id', $id)->delete();
+    public function delete_announcement_home(Request $request, $id){
 
-        return  redirect('admin/announcements')->withSuccess('Deleted Successfully!');
+        DB::table('announcements')->where('id',$id)->delete();
+
+        return  redirect('admin')->withSuccess('Deleted Successfully!');
+
     }
-// faculty
-    public function manage_faculties(){
-        $manage_faculties=DB::table('faculties')->orderBy('created_at','desc')->get();
 
-        $all_manage_faculties=view('admin.manage-faculties')->with('manage_faculties', $manage_faculties);
+    // MANAGE ANNOUNCEMENTS
+    public function manage_announcements(){
 
-        return view('layouts.master')->with('admin.manage-faculties', $all_manage_faculties);
+        $manage_announcements=DB::table('announcements')->orderBy('created_at','desc')->get();
+
+        $all_manage_announcements=view('admin.manage-announcements')->with('manage_announcements', $manage_announcements);
+
+        return view('layouts.master')->with('admin.manage-announcements', $all_manage_announcements);
+
     }
+
+    /**
+     * SAVE/EDIT/UPDATE/DELETE/MANAGE
+     * FACULTY
+     *
+     * @return void
+     */
     public function save_new_faculty(Request $request){
 
         $data = [];
@@ -175,18 +194,28 @@ class AdminController extends Controller
             DB::table('faculties')->insert($data);
             return redirect('/admin/faculties/new')->withSuccess('Post Created Successfully!');
         }
+
     }
+
+    public function edit_faculties(Request $request, $id){
+
+        $edit_new_faculty=DB::table('faculties')->orderBy('created_at','desc')->where('id',$id)->get();
+
+        $all_manage_faculty=view('admin.edit-faculty')->with('edit_new_faculty', $edit_new_faculty);
+
+        return view('layouts.master')->with('admin.edit-faculty', $all_manage_faculty);
+
+    }
+
     public function update_faculties(Request $request,$id){
         $data = [];
         $data['faculty_name'] = $request->input('faculty_name');
         $data['description'] = $request->input('description');
-        // $data['visibility']=$request->input('visibility');
 
         if($request->isMethod('post')){
             $validator = Validator::make($request->all(), [
                 'faculty_name' => 'required|min:3|max:100|unique:faculties', //form
                 'description' => 'required|max:500',
-                // 'visibility' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -198,13 +227,7 @@ class AdminController extends Controller
         }
 
     }
-    public function edit_faculties(Request $request, $id){
-        $edit_new_faculty=DB::table('faculties')->orderBy('created_at','desc')->where('id',$id)->get();
 
-        $all_manage_faculty=view('admin.edit-faculty')->with('edit_new_faculty', $edit_new_faculty);
-
-        return view('layouts.master')->with('admin.edit-faculty', $all_manage_faculty);
-    }
     public function delete_faculties(Request $request,$id){
 
         DB::table('faculties')->where('id',$id)->delete();
@@ -213,39 +236,21 @@ class AdminController extends Controller
 
     }
 
-//     departments
-    public function edit_department($id){
-        $edit_departments=DB::table('departments')->orderBy('id','desc')->where('departments.id',$id)->get();
-        $faculties=DB::table('faculties')->orderBy('id','desc')->get();
-        $all_department = view('admin.edit-departments')->with('edit_departments',$edit_departments)
-            ->with('faculties',$faculties);
-        return view('layouts.master')->with('admin.edit-departments', $all_department );
-        // $manage_departments=DB::table('departments')
-        // ->join('faculties','faculties.id','=','departments.faculty_id')
-        // ->select('departments.id','faculties.faculty_name','departments.faculty_id','departments.department_name','departments.description')
-        // ->orderBy('departments.created_at','desc')->where('departments.id',$id)->get();
-        // $all_manage_departments=view('admin.edit-departments')->with('edit_departments', $manage_departments);
-        // return view('layouts.master')->with('admin.edit-departments', $all_manage_departments );
+    public function manage_faculties(){
+        $manage_faculties=DB::table('faculties')->orderBy('created_at','desc')->get();
 
-    }
-    public function update_department(Request $request,$id){
-        $data = [];
-        $data['department_name'] = $request->input('department_name');
-        $data['description'] = $request->input('description');
-        $data['faculty_id'] = $request->input('faculty_id');
-        if($data['department_name']==null||$data['description']==null){
-            return  redirect('/admin/departments/management/'.$id.'/edit');
-        }
-        else{
-            DB::table('departments')->where('id',$id)->update($data);
-            return  redirect('/admin/departments');}
-    }
-    public function delete_department(Request $request,$id){
-        DB::table('departments')->where('id',$id)->delete();
-        //Session::put('messages','Xóa thành công');
+        $all_manage_faculties=view('admin.manage-faculties')->with('manage_faculties', $manage_faculties);
 
-        return  redirect('/admin/departments');
+        return view('layouts.master')->with('admin.manage-faculties', $all_manage_faculties);
     }
+
+    /**
+     * SAVE/EDIT/UPDATE/DELETE/MANAGE
+     * DEPARTMENT
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function save_new_department(Request $request){
 
         $data = [];
@@ -265,23 +270,63 @@ class AdminController extends Controller
             return redirect('/admin/departments/new')->withSuccess('Post Created Successfully!');
         }
     }
-    public function new_department(){
-        //return view('admin.new-department');
-        $manage_faculties=DB::table('faculties')->orderBy('id','asc')->get();
-        $all_manage_faculties=view('admin.new-department')->with('manage_faculties', $manage_faculties);
-        return view('layouts.master')->with('admin.new-department', $all_manage_faculties);
+
+    public function edit_department($id){
+
+        $edit_departments=DB::table('departments')->orderBy('id','desc')->where('departments.id',$id)->get();
+        $faculties=DB::table('faculties')->orderBy('id','desc')->get();
+        $all_department = view('admin.edit-departments')->with('edit_departments',$edit_departments)
+            ->with('faculties',$faculties);
+        return view('layouts.master')->with('admin.edit-departments', $all_department );
+        // $manage_departments=DB::table('departments')
+        // ->join('faculties','faculties.id','=','departments.faculty_id')
+        // ->select('departments.id','faculties.faculty_name','departments.faculty_id','departments.department_name','departments.description')
+        // ->orderBy('departments.created_at','desc')->where('departments.id',$id)->get();
+        // $all_manage_departments=view('admin.edit-departments')->with('edit_departments', $manage_departments);
+        // return view('layouts.master')->with('admin.edit-departments', $all_manage_departments );
+
     }
+
+    public function update_department(Request $request,$id){
+        $data = [];
+        $data['department_name'] = $request->input('department_name');
+        $data['description'] = $request->input('description');
+        $data['faculty_id'] = $request->input('faculty_id');
+        if($data['department_name']==null||$data['description']==null){
+            return  redirect('/admin/departments/management/'.$id.'/edit');
+        }
+        else{
+            DB::table('departments')->where('id',$id)->update($data);
+            return  redirect('/admin/departments')->withSuccess('Updated Successfully!');
+        }
+    }
+
+    public function delete_department(Request $request,$id){
+        DB::table('departments')->where('id',$id)->delete();
+
+        return  redirect('/admin/departments')->withSuccess('Deleted Successfully!');
+    }
+
     public function manage_departments(){
+
         $manage_departments=DB::table('departments')
             ->join('faculties','faculties.id','=','departments.faculty_id')
             ->select('departments.id','faculties.faculty_name','departments.faculty_id','departments.department_name')
             ->orderBy('departments.created_at','desc')->get();
         $all_manage_departments=view('admin.manage-departments')->with('manage_departments', $manage_departments);
         return view('layouts.master')->with('admin.manage-departments', $all_manage_departments);
-    }
-// Profile
 
+    }
+
+    /**
+     * Profile
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return void
+     */
     public function account_settings(Request $request, $id){
+
         $departments=DB::table('departments')->orderBy('id','desc')->get();
         $faculties=DB::table('faculties')->orderBy('id','desc')->get();
         $users=DB::table('users')->where('users.id',$id)->get();
@@ -292,7 +337,7 @@ class AdminController extends Controller
             ->with('users',$users);
 
         return view('layouts.master')->with('admin.account-settings', $account_settings );
-        return view('admin.');
+
     }
 
     public function account_update(Request $request,$id){
@@ -319,17 +364,10 @@ class AdminController extends Controller
         }
         if($request->isMethod('post')){
             $validator = Validator::make($request->all(), [
-                // 'student_id' => [
-                //     'required',
-                //     'max:20',
-                //     Rule::unique('users')->ignore($user->id),
-                // ],
+
                 'student_id' => 'required|max:20|unique:users,student_id,'.$id,
                 'profile-phone-number' => 'required|min:9|max:11|',
                 'profile-class' => 'required|min:3|max:20|',
-                //'student_id' => ['required','max:20', ''],
-                // 'phone' => ['required','max:11', 'unique:users'],
-
 
             ]);
 
@@ -341,8 +379,8 @@ class AdminController extends Controller
             DB::table('users')->where('id',$id)->update($data);
             return redirect('admin/profile/'.$id.'/update')->withSuccess('Update Successfully!');
         }
+
     }
-//Control
 
 
 
@@ -352,13 +390,22 @@ class AdminController extends Controller
 
 
 
-    // Cái này Q nó bảo cho hết xuống dưới
+
+    // ? CHO HẾT TẤT CẢ MỤC SHOW FORM NEW Ở DƯỚI ĐÂY
     public function new_announcement(){
         return view('admin.new-announcement');
     }
     public function new_faculty(){
         return view('admin.new-faculty');
     }
+
+    public function new_department(){
+        //return view('admin.new-department');
+        $manage_faculties=DB::table('faculties')->orderBy('id','asc')->get();
+        $all_manage_faculties=view('admin.new-department')->with('manage_faculties', $manage_faculties);
+        return view('layouts.master')->with('admin.new-department', $all_manage_faculties);
+    }
+
     public function control_panel(){
         return view('admin.control-panel');
     }
