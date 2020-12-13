@@ -57,9 +57,39 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
 
     Route::post('/announcements/management/{id}/update', [AdminController::class, 'update_announcement']);
     Route::post('/announcements/{id}/update', [AdminController::class, 'update_announcement_home']);
+// faculty
+    Route::get('faculties/new',[AdminController:: class, 'new_faculty']);
+    Route::get('faculties',[AdminController:: class, 'manage_faculties']);
+    Route::POST('/faculty/new-faculty',[AdminController:: class, 'save_new_faculty']);
+    Route::get('/faculties/management/{id}/edit',[AdminController:: class, 'edit_faculties']);
+    Route::get('/faculties/management/{id}/delete',[AdminController:: class, 'delete_faculties']);
+    Route::post('/faculties/management/{id}/update',[AdminController:: class, 'update_faculties']);
+
+
+//  departments
+
+    Route::get('departments/new',[AdminController :: class ,'new_department']);
+    Route::get('departments',[AdminController :: class,'manage_departments']);
+    Route::POST('/department/new-department',[AdminController :: class,'save_new_department']);
+    Route::get('/departments/management/{id}/edit',[AdminController :: class,'edit_department']);
+    Route::get('/departments/management/{id}/delete',[AdminController :: class,'delete_department']);
+    Route::post('/departments/management/{id}/update',[AdminController :: class,'update_department']);
+
+// profile
+    Route::get('profile/{id}/update',[AdminController::class, 'account_settings']);
+    Route::post('profile/{id}/update',[AdminController::class, 'account_update']);
+
+// contro
+    Route::get('control/users',[AdminController::class ,'control_panel']);
+    Route::get('control/users/add',[AdminController::class ,'add_user']);
+
 
 
 });
+
+
+
+
 
 // Mentor
 Route::group(['prefix' => 'mentor', 'middleware' => ['auth', 'mentor', 'verified']], function() {
