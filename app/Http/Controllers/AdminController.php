@@ -218,7 +218,7 @@ class AdminController extends Controller
 
         if($request->isMethod('post')){
             $validator = Validator::make($request->all(), [
-                'faculty_name' => 'required|min:3|max:100|unique:faculties', //form
+                'faculty_name' => 'required|min:3|max:100|unique:faculties,faculty_name,'.$id, //form
                 'description' => 'required|max:500',
             ]);
 
@@ -296,12 +296,17 @@ class AdminController extends Controller
         $data['department_name'] = $request->input('department_name');
         $data['description'] = $request->input('description');
         $data['faculty_id'] = $request->input('faculty_id');
-        if($data['department_name']==null||$data['description']==null){
-            return  redirect('/admin/departments/management/'.$id.'/edit');
-        }
-        else{
+
+        if($request->isMethod('post')){
+            $validator = Validator::make($request->all(), [
+                'department_name' => 'required|min:3|max:100|unique:departments,department_name,'.$id,
+                'description' => 'required|max:500',
+            ]);
+            if ($validator->fails()) {
+                return back()->withErrors($validator);
+            }
             DB::table('departments')->where('id',$id)->update($data);
-            return  redirect('/admin/departments')->withSuccess('Updated Successfully!');
+            return redirect('/admin/departments')->withSuccess('Update Successfully!');
         }
     }
 
@@ -382,6 +387,35 @@ class AdminController extends Controller
             DB::table('users')->where('id',$id)->update($data);
             return redirect('admin/profile/'.$id.'/update')->withSuccess('Update Successfully!');
         }
+
+    }
+    public function  new_user(Request $request){
+        $data = [];
+        $data['full_name'] = $request->input('full-name');
+        $data['email'] = $request->input('email');
+        $data['password'] = bcrypt($request->input('password'));
+        $data['role_id'] = $request->input('user-role');
+        $data['email_verified_at'] = now();
+
+
+        if($request->isMethod('post')){
+            $validator = Validator::make($request->all(), [
+
+                'full-name' => 'required|max:55',
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'regex:/^[a-z|A-Z|0-9]+@((dtu|duytan)\.edu\.vn)$/i'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+
+            ]);
+
+            if ($validator->fails()) {
+
+                return back()->withErrors($validator);
+            }
+
+            DB::table('users')->insert($data);
+            return back()->withSuccess('Update Successfully!');
+        }
+
 
     }
 
