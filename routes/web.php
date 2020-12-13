@@ -71,7 +71,6 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['auth', 'mentor', 'verified
 });
 
 // User
-Route::group(['prefix' => 'user', 'middleware' => ['auth', 'verified']], function() {
-    Route::get('/', [AdminController::class, 'index']);
+Route::group(['middleware' => ['auth', 'verified']], function() {
 
 });
