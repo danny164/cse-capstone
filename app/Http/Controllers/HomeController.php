@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -23,10 +24,10 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::user()->isRole()===1){
-            return view('admin.index');
+            return redirect('admin');
         }
         else if (Auth::user()->isRole()===2){
-            return view('mentor.index');
+            return redirect('mentor');
         }
         return view('user.home');
     }
