@@ -17,6 +17,7 @@
     <link href="{{asset('assets/css/datatables.min.css')}}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{asset('assets/css/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{asset('assets/css/dataTables.checkboxes.css')}}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{asset('assets/css/toastr.min.css')}}" rel="stylesheet" type="text/css" media="all" />
     @yield('css')
 
 </head>
@@ -35,7 +36,6 @@
 
     </div>
 
-  	@include('sweetalert::alert')
 
     <!-- Required vendor scripts (Do not remove) -->
     <script type="text/javascript" src="{{asset('assets/js/jquery.min.js')}}"></script>
@@ -61,10 +61,51 @@
     <script type="text/javascript" src="{{asset('assets/js/datatables.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/js/dataTables.checkboxes.min.js')}}"></script>
+    <!-- Toastr alerts-->
+    <script type="text/javascript" src="{{asset('assets/js/toastr.min.js')}}"></script>
 
     <!-- Required theme scripts (Do not remove) -->
     <script type="text/javascript" src="{{asset('assets/js/theme.js')}}"></script>
 
+    <script>
+
+        function toasterOptions() {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+        };
+
+        toasterOptions();
+        @if(Session::has('errors'))
+            toastr.error("{{ Session::get('errors')->first() }}");
+            // @if(count($errors) > 0)
+            //     @foreach($errors->all() as $error)
+            //         toastr.error("{{ $error }}");
+            //     @endforeach
+            // @endif
+        @endif
+
+        @if(Session::has('success'))
+            toastr.success("{{ Session::get('success') }}");
+        @endif
+
+
+
+    </script>
 
     @yield('script')
 
