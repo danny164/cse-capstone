@@ -50,7 +50,7 @@
                             <form method="POST" action="{{ url('admin/profile/'.$cate_pro->id.'/update') }}" enctype="multipart/form-data">
                                   {{csrf_field()}}
                                 <div class="media mb-4">
-                                    <img id="img-avatar" alt="Image" src="{{ URL::to('public/uploads/'.$cate_pro->avatar_path) }}"class="avatar avatar-lg" />
+                                    <img id="img-avatar" alt="Image" src="{{ URL::to('images/'.$cate_pro->avatar_path) }}"class="avatar avatar-lg" />
                                     <div class="media-body ml-3">
                                         <div class="custom-file custom-file-naked d-block mb-1">
 
@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                                 <!--end of avatar-->
-                               
+
 
 
 
