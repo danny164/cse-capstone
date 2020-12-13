@@ -41,26 +41,23 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 // Admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']], function() {
     Route::get('/', [AdminController::class, 'index']);
-   // Route::get('/','AdminController@index');
-    Route::get('announcements/new','AdminController@new_announcement');
-    Route::get('announcements','AdminController@manage_announcements');
- //create
-//announcements
-    Route::POST('/announcements/save/{id}','AdminController@save_announcement');
-    Route::POST('/announcements/home/save/{id}','AdminController@save_announcement_home');
-//
 
+    Route::get('announcements/new', [AdminController::class, 'new_announcement']);
+    Route::get('announcements', [AdminController::class, 'manage_announcements']);
 
-//============================ Edit & Delete & Update //
-//announcements
-    Route::get('/announcements/management/{id}/edit','AdminController@edit_announcement');
-    Route::get('/announcements/{id}/edit','AdminController@edit_announcement_home');
+    Route::POST('/announcements/save/{id}', [AdminController::class, 'save_announcement']);
+    Route::POST('/announcements/home/save/{id}',[AdminController::class, 'save_announcement_home']);
 
-    Route::get('/announcements/management/{id}/delete','AdminController@delete_announcement');
-    Route::get('/announcements/{id}/delete','AdminController@delete_announcement_home');
+    //  Manage Announcements
+    Route::get('/announcements/management/{id}/edit', [AdminController::class, 'edit_announcement']);
+    Route::get('/announcements/{id}/edit', [AdminController::class, 'edit_announcement_home']);
 
-    Route::post('/announcements/management/{id}/update','AdminController@update_announcement');
-    Route::post('/announcements/{id}/update','AdminController@update_announcement_home');
+    Route::get('/announcements/management/{id}/delete',[AdminController::class, 'delete_announcement']);
+    Route::get('/announcements/{id}/delete', [AdminController::class, 'delete_announcement_home']);
+
+    Route::post('/announcements/management/{id}/update', [AdminController::class, 'update_announcement']);
+    Route::post('/announcements/{id}/update', [AdminController::class, 'update_announcement_home']);
+
 
 });
 
