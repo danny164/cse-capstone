@@ -13,7 +13,11 @@ class AdminController extends Controller
 
     public function index(Request $request){
         $manage_announcements=DB::table('announcements')->orderBy('created_at','desc')->get();
-        $all_manage_announcements=view('admin.index')->with('manage_announcements', $manage_announcements);
+        $all_user=DB::table('users')->get();
+        $all_manage_announcements=view('admin.index')
+            ->with('manage_announcements', $manage_announcements)
+            ->with('all_use', $all_user);
+
         return view('layouts.master')->with('admin.index', $all_manage_announcements);
 //         test
 //         echo '<pre>';
@@ -304,7 +308,6 @@ class AdminController extends Controller
             ->with('users',$users);
 
         return view('layouts.master')->with('admin.account-settings', $account_settings );
-        return view('admin.');
     }
 
     public function account_update(Request $request,$id){

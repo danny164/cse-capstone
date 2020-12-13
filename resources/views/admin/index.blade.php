@@ -34,11 +34,15 @@
                                 {{ session('success_message') }}
                             @endif
                             <div class="content-list-body">
-                                @foreach( $manage_announcements ?? '' as $key => $cate_pro)
+                                @foreach( $manage_announcements  as $key => $cate_pro)
                                     <div class="card card-note">
                                         <div class="card-header">
                                             <div class="media align-items-center text-break">
-                                                <img  src="{{ URL::to('public/uploads/'.Auth::user()->avatar_path) }}" class="avatar" data-toggle="tooltip" data-title="{{ (Auth::user()-> full_name)}}" data-filter-by="alt" />
+                                                @foreach($all_use  as $key => $value)
+                                                    @if($value->id == $cate_pro->user_id)
+                                                <img  src="{{ URL::to('public/uploads/'.$value->avatar_path) }}" class="avatar" data-toggle="tooltip" data-title="{{ ($value-> full_name)}}" data-filter-by="alt" />
+                                                    @endif
+                                                @endforeach
                                                 <div class="media-body">
                                                     <h6 class="mb-0 text-danger" data-filter-by="text">{{ Str::limit($cate_pro->title, 200) }}</h6>
                                                 </div>
