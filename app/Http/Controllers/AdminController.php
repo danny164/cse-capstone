@@ -291,8 +291,70 @@ class AdminController extends Controller
         $all_manage_departments=view('admin.manage-departments')->with('manage_departments', $manage_departments);
         return view('layouts.master')->with('admin.manage-departments', $all_manage_departments);
     }
+// Profile
+
+    public function account_settings(Request $request, $id){
+        $departments=DB::table('departments')->orderBy('id','desc')->get();
+        $faculties=DB::table('faculties')->orderBy('id','desc')->get();
+        $users=DB::table('users')->where('users.id',$id)->get();
+
+        $account_settings = view('admin.account-settings')
+            ->with('departments',$departments)
+            ->with('faculties',$faculties)
+            ->with('users',$users);
+
+        return view('layouts.master')->with('admin.account-settings', $account_settings );
+        return view('admin.');
+    }
+
+    public function account_update(Request $request,$id){
+
+        $data = [];
+        $data['full_name'] = $request->input('full-name');
+        $data['gender'] = $request->input('gender');
+        $data['email'] = $request->input('profile-email');
+        $data['phone'] = $request->input('profile-phone-number');
+        $data['student_id'] = $request->input('student_id');
+        $data['class'] = $request->input('profile-class');
+        $data['faculty'] = $request->input('profile-faculty');
+        $data['department'] = $request->input('profile-department');
+        $data['language'] = $request->input('profile-language');
+        $data['about_me'] = $request->input('profile-bio');
+        $data['birthday'] = $request->input('birthday');
+        $get_image = $request ->file('avatar_path');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('public/uploads/',$new_image);
+            $data['avatar_path'] = $new_image;
+        }
+        if($request->isMethod('post')){
+            $validator = Validator::make($request->all(), [
+                // 'student_id' => [
+                //     'required',
+                //     'max:20',
+                //     Rule::unique('users')->ignore($user->id),
+                // ],
+                'student_id' => 'required|max:20|unique:users,student_id,'.$id,
+                'profile-phone-number' => 'required|min:9|max:11|',
+                'profile-class' => 'required|min:3|max:20|',
+                //'student_id' => ['required','max:20', ''],
+                // 'phone' => ['required','max:11', 'unique:users'],
 
 
+            ]);
+
+            if ($validator->fails()) {
+
+                return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+            }
+
+            DB::table('users')->where('id',$id)->update($data);
+            return redirect('admin/profile/'.$id.'/update')->withSuccess('Update Successfully!');
+        }
+    }
+//Control
 
 
 
@@ -309,4 +371,75 @@ class AdminController extends Controller
     public function new_faculty(){
         return view('admin.new-faculty');
     }
+    public function control_panel(){
+        return view('admin.control-panel');
+    }
+    public function add_user(){
+        return view('admin.add-user');
+    }
+    public function edit_team(){
+        return view('admin.edit-team');
+    }
+
+    public function edit_topic(){
+        return view('admin.edit-topic');
+    }
+
+    public function group_details(){
+        return view('admin.group-details');
+    }
+    public function manage_groups(){
+        return view('admin.manage-groups');
+    }
+
+    public function manage_plans(){
+        return view('admin.manage-plans');
+    }
+
+    public function manage_tasks(){
+        return view('admin.manage-tasks');
+    }
+
+    public function manage_topics(){
+        return view('admin.manage-topics');
+    }
+
+    public function new_group(){
+        return view('admin.new-group');
+    }
+
+    public function new_team(){
+        return view('admin.new-team');
+    }
+
+    public function new_task(){
+        return view('admin.new-task');
+    }
+
+    public function new_plan(){
+        return view('admin.new-plan');
+    }
+
+    public function new_topic(){
+        return view('admin.new-topic');
+    }
+
+    public function pending_topics(){
+        return view('admin.pending-topics');
+    }
+
+    public function statistics(){
+        return view('admin.statistics');
+    }
+
+    public function team_details(){
+        return view('admin.team-details');
+    }
+
+    public function template(){
+        return view('admin.template');
+    }
+
+
+
 }
