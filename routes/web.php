@@ -58,6 +58,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     Route::post('/announcements/management/{id}/update', [AdminController::class, 'update_announcement']);
     Route::post('/announcements/{id}/update', [AdminController::class, 'update_announcement_home']);
 
+
 });
 
 // Mentor
