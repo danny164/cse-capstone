@@ -1,8 +1,7 @@
 <?php
 namespace App\Http\Controllers;
-//use Illuminate\Support\Facades\DB;
-use DB;
-use Session;
+
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
