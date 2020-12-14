@@ -328,6 +328,100 @@ class AdminController extends Controller
 
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Profile
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return void
+     */
+    public function account_settings(Request $request, $id){
+
+        $departments=DB::table('departments')->orderBy('id','desc')->get();
+        $faculties=DB::table('faculties')->orderBy('id','desc')->get();
+        $users=DB::table('users')->where('users.id',$id)->get();
+
+        $account_settings = view('admin.account-settings')
+            ->with('departments',$departments)
+            ->with('faculties',$faculties)
+            ->with('users',$users);
+
+        return view('layouts.master')->with('admin.account-settings', $account_settings );
+    }
+
+    public function account_update(Request $request,$id){
+
+        $data = [];
+        $data['full_name'] = $request->input('full-name');
+        $data['gender'] = $request->input('gender');
+        $data['email'] = $request->input('profile-email');
+        $data['phone'] = $request->input('profile-phone-number');
+        $data['student_id'] = $request->input('student_id');
+        $data['class'] = $request->input('profile-class');
+        $data['faculty'] = $request->input('profile-faculty');
+        $data['department'] = $request->input('profile-department');
+        $data['language'] = $request->input('profile-language');
+        $data['about_me'] = $request->input('profile-bio');
+        $data['birthday'] = $request->input('birthday');
+        $get_image = $request ->file('avatar_path');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,999999999).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('images/',$new_image);
+            $data['avatar_path'] = $new_image;
+        }
+        if($request->isMethod('post')){
+            $validator = Validator::make($request->all(), [
+
+                'student_id' => 'required|max:20|unique:users,student_id,'.$id,
+                'profile-phone-number' => 'required|min:9|max:11|',
+                'profile-class' => 'required|min:3|max:20|',
+
+            ]);
+
+            if ($validator->fails()) {
+
+                return back()->withErrors($validator);
+            }
+
+            DB::table('users')->where('id',$id)->update($data);
+            return redirect('admin/profile/'.$id.'/update')->withSuccess('Update Successfully!');
+        }
+
+    }
+    public function  new_user(Request $request){
+        $data = [];
+        $data['full_name'] = $request->input('full-name');
+        $data['email'] = $request->input('email');
+        $data['password'] = bcrypt($request->input('password'));
+        $data['role_id'] = $request->input('user-role');
+        $data['email_verified_at'] = now();
+
+
+        if($request->isMethod('post')){
+            $validator = Validator::make($request->all(), [
+
+                'full-name' => 'required|max:55',
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'regex:/^[a-z|A-Z|0-9]+@((dtu|duytan)\.edu\.vn)$/i'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+
+            ]);
+
+            if ($validator->fails()) {
+
+                return back()->withErrors($validator);
+            }
+
+            DB::table('users')->insert($data);
+            return back()->withSuccess('Update Successfully!');
+        }
+
+
+    }
+>>>>>>> 692b3f1cd15a5f9e951c15a45f48db7e0552606a
 
 
 

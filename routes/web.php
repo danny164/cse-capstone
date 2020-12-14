@@ -75,7 +75,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     Route::get('/departments/management/{id}/delete',[AdminController :: class,'delete_department']);
     Route::post('/departments/management/{id}/update',[AdminController :: class,'update_department']);
 
-// contro
+// control
     Route::get('control/users',[AdminController::class ,'control_panel']);
     Route::get('control/users/add',[AdminController::class ,'add_user']);
     Route::post('control/users/save',[AdminController::class ,'new_user']);
