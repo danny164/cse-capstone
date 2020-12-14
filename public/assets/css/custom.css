@@ -465,3 +465,9 @@ table.dataTable tfoot th, table.dataTable tfoot td {
     border-top-width: 5px;
     border-top-style: solid;
 }
+
+.avatar {
+    border: 2px solid rgba(255,255,255,0) !important;
+    background: rgba(255,255,255,0) !important;
+    color: rgba(255,255,255,0) !important;
+}

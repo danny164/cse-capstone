@@ -94,7 +94,7 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['auth', 'mentor', 'verified
 // User
 Route::group(['middleware' => ['auth', 'verified']], function() {
 
-    Route::get('profile/{id}', [HomeController::class, 'account_settings']);
-    Route::post('profile/{id}', [HomeController::class, 'account_update']);
+    Route::get('profile/{id}', [HomeController::class, 'account_settings'])->middleware('profile.owner')->name('profile');
+    Route::post('profile/{id}', [HomeController::class, 'account_update'])->middleware('profile.owner');
 
 });
