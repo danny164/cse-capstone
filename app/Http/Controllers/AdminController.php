@@ -418,14 +418,50 @@ class AdminController extends Controller
 
 
     }
+    // Groups
+    public function search(Request $request) // $id
+    {
+        if ($request->ajax()) {
+            $output = "";
+            $student = DB::table('users')->where('full_name', 'LIKE', '%' . $request->search . "%")->get();
+            return Response($student);
+        }
+    }
+    public function save_new_groups(Request $request)
+    {
+        $data = [];
+        $data['full_name'] = $request->input('group-name');
+        $data['email'] = $request->input('group-description');
+        $data['password'] = $request->input('group-start');
+        $data['role_id'] = $request->input('group-due');
+        $data['role_id'] = $request->input('visibility');
+        $data['role_id'] = $request->input('group-start');
+        $data['role_id'] = $request->input('group-start');
+        $data['role_id'] = $request->input('group-start');
+        $data['role_id'] = $request->input('group-start');
+        $data['role_id'] = $request->input('group-start');
+        $data['role_id'] = $request->input('group-start');
+        $data['email_verified_at'] = now();
 
 
+        if($request->isMethod('post')){
+            $validator = Validator::make($request->all(), [
 
+                'full-name' => 'required|max:55',
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'regex:/^[a-z|A-Z|0-9]+@((dtu|duytan)\.edu\.vn)$/i'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
 
+            ]);
 
+            if ($validator->fails()) {
 
+                return back()->withErrors($validator);
+            }
 
-
+            DB::table('users')->insert($data);
+            return back()->withSuccess('Update Successfully!');
+        }
+    }
 
 
     // ? CHO HẾT TẤT CẢ MỤC SHOW FORM NEW Ở DƯỚI ĐÂY

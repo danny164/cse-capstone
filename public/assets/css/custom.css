@@ -465,3 +465,6 @@ table.dataTable tfoot th, table.dataTable tfoot td {
     border-top-width: 5px;
     border-top-style: solid;
 }
+.display-none{
+    display: none;
+}
