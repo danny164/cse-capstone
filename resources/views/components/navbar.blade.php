@@ -189,7 +189,7 @@
 
                 <div class="dropdown-menu text-center">
 
-                    <a href="{{ url('admin/profile/'.Auth::user()->id).'/update' }}" class="dropdown-item">Profile</a>
+                    <a href="{{ url('profile/'.Auth::user()->id) }}" class="dropdown-item">Profile</a>
 
                     <a href="{{ url('admin/control/users') }}" class="dropdown-item">Control Panel</a>
 

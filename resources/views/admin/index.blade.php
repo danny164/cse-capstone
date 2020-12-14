@@ -98,11 +98,11 @@
                             <div class="modal-body">
                                 <div class="form-group row align-items-center">
                                     <label class="col-3">Title</label>
-                                    <input class="form-control col" type="text" placeholder="Title" name="title" />
+                                    <input class="form-control @error('title') is-invalid @enderror col" type="text" placeholder="Title" name="title" />
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-3">Content</label>
-                                    <textarea class="form-control col" rows="10" placeholder="Write something here..." name="content"></textarea>
+                                    <textarea class="form-control @error('content') is-invalid @enderror col" rows="10" placeholder="Write something here..." name="content"></textarea>
                                 </div>
                                 <hr>
                                 <h6>Visibility</h6>

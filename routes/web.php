@@ -75,10 +75,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     Route::get('/departments/management/{id}/delete',[AdminController :: class,'delete_department']);
     Route::post('/departments/management/{id}/update',[AdminController :: class,'update_department']);
 
-// profile
-    Route::get('profile/{id}/update',[AdminController::class, 'account_settings']);
-    Route::post('profile/{id}/update',[AdminController::class, 'account_update']);
-
 // contro
     Route::get('control/users',[AdminController::class ,'control_panel']);
     Route::get('control/users/add',[AdminController::class ,'add_user']);
@@ -86,9 +82,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
 
 
 });
-
-
-
 
 
 // Mentor
@@ -99,5 +92,8 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['auth', 'mentor', 'verified
 
 // User
 Route::group(['middleware' => ['auth', 'verified']], function() {
+
+    Route::get('profile/{id}', [HomeController::class, 'account_settings']);
+    Route::post('profile/{id}', [HomeController::class, 'account_update']);
 
 });
