@@ -106,7 +106,7 @@
 {{--                                                <input type="text" class="form-controller" id="search" name="search"></input>--}}
                                                 <textarea class="form-control col" rows="3" placeholder="Add users by email, each email separated by commas&#10;e.g: matt@dtu.edu.com, joe@edu.dtu.com" id="search" name="search"></textarea>
                                             </div>
-                                            <table id="table-popup" class="table table-bordered table-hover display-none">
+                                            <table id="table-popup" class="table table-bordered table-hover display-none" >
                                                 <thead>
                                                 <tr>
                                                     <th>Name</th>
@@ -114,7 +114,7 @@
 
                                                 </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody    id="test" >
                                                 </tbody>
                                             </table>
                                             <div class="row align-items-center">
@@ -231,7 +231,7 @@
                             `<td>${student.student_id}</td>`+
                             "</tr>"
                         })
-                        $('tbody').html(output);
+                        $('#test').html(output);
                         console.log(output);
                     }
                 });
@@ -240,10 +240,25 @@
             }
 
         })
-        //posst student by ID
-        //ajjax posst
+        //post student by ID
+        //ajax post
         var onSubmitStudent = (id) => {
             console.log(id);
+            $.ajax({
+                type:'POST',
+                url:'{{url('admin/ajaxRequest')}}',
+                data:{student_id:id},
+                success:function(data){
+                    var output = '';
+                    data.forEach( nameStudent => {
+                        output+= `<p ${nameStudent.student_id}>`+
+
+                            "</p>"
+                    })
+                    $('tbody').html(output);
+                    console.log(output);
+                }
+            });
         }
     </script>
     <script >

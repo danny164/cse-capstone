@@ -20,9 +20,10 @@ class CreateArchiveFilesTable extends Migration
             $table->string('size');
             $table->string('type')->default('Unknown');
             $table->string('file_path');
-            $table->bigInteger('group_id')->unsigned();
+            $table->bigInteger('semester_id')->unsigned();
             $table->bigInteger('team_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('plan_id')->unsigned();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw("CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()"));
 
