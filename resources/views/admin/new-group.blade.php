@@ -21,7 +21,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-11 col-xl-10">
 
-                <form class="mt-3">
+                <form class="mt-3"method="POST" action="{{ url('admin/groups/new-groups') }}" enctype="multipart/form-data">
                     <div class="modal-content">
 
                         <div class="modal-header">
@@ -76,21 +76,21 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="visibility-everyone" name="visibility" class="custom-control-input">
-                                                <label class="custom-control-label" for="visibility-everyone">Everyone</label>
+                                                <input value="1" type="radio" id="visibility-everyone" name="visibility" class="custom-control-input">
+                                                <label  class="custom-control-label" for="visibility-everyone" >Everyone</label>
                                             </div>
                                         </div>
 
                                         <div class="col">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="visibility-members" name="visibility" class="custom-control-input" checked>
+                                                <input value="2" type="radio" id="visibility-members" name="visibility" class="custom-control-input" checked>
                                                 <label class="custom-control-label" for="visibility-members">Members</label>
                                             </div>
                                         </div>
 
                                         <div class="col">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="visibility-me" name="visibility" class="custom-control-input">
+                                                <input value="3" type="radio" id="visibility-me" name="visibility" class="custom-control-input">
                                                 <label class="custom-control-label" for="visibility-me">Just me</label>
                                             </div>
                                         </div>
@@ -103,8 +103,20 @@
                                         <div class="mb-3">
 
                                             <div class="form-group row">
-                                                <textarea class="form-control col" rows="3" placeholder="Add users by email, each email separated by commas&#10;e.g: matt@example.com, joe@sample.com" name="group-description"></textarea>
+{{--                                                <input type="text" class="form-controller" id="search" name="search"></input>--}}
+                                                <textarea class="form-control col" rows="3" placeholder="Add users by email, each email separated by commas&#10;e.g: matt@dtu.edu.com, joe@edu.dtu.com" id="search" name="search"></textarea>
                                             </div>
+                                            <table id="table-popup" class="table table-bordered table-hover display-none">
+                                                <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Student ID</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
                                             <div class="row align-items-center">
                                                 <div class="col">
                                                     <button type="button" class="btn btn-outline-primary"><i class="fad fa-user-plus"></i>Add</button><span> &ensp; or &ensp; </span>
@@ -132,6 +144,8 @@
                                                             <th></th>
                                                             <th class="text-left">Full name</th>
                                                             <th class="text-left">Email</th>
+                                                            <th class="text-left">Student ID</th>
+
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -141,6 +155,8 @@
                                                             <td></td>
                                                             <td class="text-left">Nguyễn Văn Quỳnh</td>
                                                             <td class="text-left">qnv164@gmail.com</td>
+                                                            <td class="text-left">123456789</td>
+
                                                             <td>
                                                                 <a href="#"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
                                                             </td>
@@ -151,6 +167,8 @@
                                                             <th></th>
                                                             <th class="text-left">Full name</th>
                                                             <th class="text-left">Email</th>
+                                                            <th class="text-left">Student ID</th>
+
                                                             <th>Action</th>
                                                         </tr>
                                                     </tfoot>
@@ -194,31 +212,44 @@
 
     </script>
 
-    <script>
-        // $(document).ready(function() {
-        //     $('#example').DataTable({
 
-        //     });
-        // });
 
-        $(document).ready(function() {
-            var table = $('#example').DataTable({
-                'columnDefs': [
-                    {
-                        'targets': 0,
-                        'checkboxes': {
-                            'selectRow': true
-                        }
+    <script >
+        $('#search').on('keyup',function(){
+            $value=$(this).val();
+            if($value !== '' && $value !== null){
+                $('#table-popup').removeClass('display-none');
+                $.ajax({
+                    type : 'get',
+                    url : '{{url('admin/search')}}',
+                    data:{'search':$value},//  data:{id}
+                    success:function(data){
+                        var output = '';
+                        data.forEach(student => {
+                            output+= `<tr onclick="onSubmitStudent('${student.student_id}')">`+
+                            `<td>${student.full_name}</td>`+
+                            `<td>${student.student_id}</td>`+
+                            "</tr>"
+                        })
+                        $('tbody').html(output);
+                        console.log(output);
                     }
-                ],
-                'select': {
-                    'style': 'multi'
-                },
-                'order': [[1, 'asc']]
-            });
+                });
+            }else{
+               $('#table-popup').addClass('display-none');
+            }
 
-        });
+        })
+        //posst student by ID
+        //ajjax posst
+        var onSubmitStudent = (id) => {
+            console.log(id);
+        }
     </script>
+    <script >
+        $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
 @endsection
 

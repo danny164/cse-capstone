@@ -80,7 +80,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     Route::get('control/users/add',[AdminController::class ,'add_user']);
     Route::post('control/users/save',[AdminController::class ,'new_user']);
 
-
+// groups
+    Route::get('groups/new',[AdminController::class, 'new_group']);
+    Route::get('groups',[AdminController::class, 'manage_groups']);
+    Route::get('group-details',[AdminController::class, 'group_details']);
+    Route::post('groups/new-groups',[AdminController:: class,'save_new_groups']);
+    Route::get('/search',[AdminController:: class,'search']);
 
 });
 
