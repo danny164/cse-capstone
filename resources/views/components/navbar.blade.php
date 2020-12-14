@@ -178,7 +178,7 @@
             <!-- already Logged in -->
             <div class="dropup media align-items-center">
                 <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img alt="avatar" src="{{ URL::to('images/'.Auth::user()->avatar_path) }}"  class="avatar" />
+                    <img alt="avatar" src="{{ URL::to('images/'.Auth::user()->avatar_path) }}"  class="avatar avatar--2" />
                 </a>
                 <p class="d-inline-block ml-1 mb-0 text-light">Welcome, <br>
                     <span class="text-warning">
