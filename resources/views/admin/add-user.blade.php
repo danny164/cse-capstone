@@ -7,7 +7,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('admin') }}">Home</a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Control Panel</a>
+                <li class="breadcrumb-item"><a href="{{ url('admin/control/users') }}">Control Panel</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Add Users</li>
             </ol>
@@ -24,7 +24,8 @@
                 <div class="mt-3">
                     <h3>Add user</h3>
                     <hr>
-                    <form>
+                    <form method="post" action="{{ url('admin/control/users/save') }}">
+                        {{csrf_field()}}
 
                         <div class="form-group row align-items-center">
                             <label class="col-3">Full name</label>
@@ -43,14 +44,14 @@
                         <div class="form-group row align-items-center">
                             <label class="col-3">Password</label>
                             <div class="col">
-                                <input type="password" placeholder="Enter password" name="password-new" class="form-control" />
+                                <input type="password" placeholder="Enter password" name="password" class="form-control" />
                             </div>
                         </div>
 
                         <div class="form-group row align-items-center">
                             <label class="col-3">Confirm Password</label>
                             <div class="col">
-                                <input type="password" placeholder="Confirm your password" name="password-new-confirm" class="form-control" />
+                                <input type="password" placeholder="Confirm your password" name="password_confirmation" required autocomplete="new-password" class="form-control" />
                             </div>
                         </div>
 
@@ -58,9 +59,9 @@
                             <label class="col-3">User Level</label>
                             <div class="col">
                                 <select name="user-role" class="form-control">
-                                    <option>Admin</option>
-                                    <option>Mentor</option>
-                                    <option selected>Student</option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Mentor</option>
+                                    <option value="3" selected>Student</option>
                                 </select>
                             </div>
                         </div>
@@ -69,7 +70,7 @@
                             <div class="col text-right">
                                 <span>
                                     <button role="button" class="btn btn-primary" type="submit">
-                                        Update
+                                        Add
                                     </button>
                                 </span>
                                 <span class="mx-2">

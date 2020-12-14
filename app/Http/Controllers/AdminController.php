@@ -219,7 +219,7 @@ class AdminController extends Controller
 
         if($request->isMethod('post')){
             $validator = Validator::make($request->all(), [
-                'faculty_name' => 'required|min:3|max:100|unique:faculties', //form
+                'faculty_name' => 'required|min:3|max:100|unique:faculties,faculty_name,'.$id, //form
                 'description' => 'required|max:500',
             ]);
 
@@ -297,12 +297,17 @@ class AdminController extends Controller
         $data['department_name'] = $request->input('department_name');
         $data['description'] = $request->input('description');
         $data['faculty_id'] = $request->input('faculty_id');
-        if($data['department_name']==null||$data['description']==null){
-            return  redirect('/admin/departments/management/'.$id.'/edit');
-        }
-        else{
+
+        if($request->isMethod('post')){
+            $validator = Validator::make($request->all(), [
+                'department_name' => 'required|min:3|max:100|unique:departments,department_name,'.$id,
+                'description' => 'required|max:500',
+            ]);
+            if ($validator->fails()) {
+                return back()->withErrors($validator);
+            }
             DB::table('departments')->where('id',$id)->update($data);
-            return  redirect('/admin/departments')->withSuccess('Updated Successfully!');
+            return redirect('/admin/departments')->withSuccess('Update Successfully!');
         }
     }
 

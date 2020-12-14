@@ -46,7 +46,7 @@
 
                                 <td>
                                     <a href="{{url('/admin/departments/management/'.$value->id.'/edit')}}"><span class="ic-dark"><i class="fad fa-pencil"></i></span></a>
-                                    <a href="{{url('/admin/departments/management/'.$value->id.'/delete')}}"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
+                                    <a onclick="return confirm('Are you sure to delete?')"href="{{url('/admin/departments/management/'.$value->id.'/delete')}}"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
                                     <a href="#"><span class="ic-dark"><i class="fad fa-eye"></i></span></a>
                                 </td>
                             </tr>

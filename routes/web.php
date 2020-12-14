@@ -78,6 +78,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
 // contro
     Route::get('control/users',[AdminController::class ,'control_panel']);
     Route::get('control/users/add',[AdminController::class ,'add_user']);
+    Route::post('control/users/save',[AdminController::class ,'new_user']);
 
 
 

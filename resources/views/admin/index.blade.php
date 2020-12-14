@@ -40,7 +40,7 @@
                                             <div class="media align-items-center text-break">
                                                 @foreach($all_use  as $key => $value)
                                                     @if($value->id == $cate_pro->user_id)
-                                                <img  src="{{ URL::to('public/uploads/'.$value->avatar_path) }}" class="avatar" data-toggle="tooltip" data-title="{{ ($value-> full_name)}}" data-filter-by="alt" />
+                                                <img  src="{{ URL::to('images/'.$value->avatar_path) }}" class="avatar" data-toggle="tooltip" data-title="{{ ($value-> full_name)}}" data-filter-by="alt" />
                                                     @endif
                                                 @endforeach
                                                 <div class="media-body">
