@@ -6,22 +6,23 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 class AdminController extends Controller
 // announcements
 {
 
     public function index(Request $request){
 
-        $manage_announcements=DB::table('announcements')->orderBy('created_at','desc')->get();
+        $manage_announcements=DB::table('announcements')->orderBy('created_at','desc')->paginate(10);
         $all_user=DB::table('users')->get();
-        $all_manage_announcements=view('admin.index')
-            ->with('manage_announcements', $manage_announcements)
-            ->with('all_use', $all_user);
 
-        return view('layouts.master')->with('admin.index', $all_manage_announcements);
+        if ($request->ajax()) {
+            return view('admin.load', compact('manage_announcements', 'all_user'))->render();
+        }
+
+        return view('admin.index', compact('manage_announcements', 'all_user'));
 
     }
+
     /**
      * SAVE/EDIT/UPATE/DELETE/MANAGE
      * ANNOUNCEMENTS AND HOME
@@ -59,10 +60,7 @@ class AdminController extends Controller
 
         $edit_new_announcement=DB::table('announcements')->orderBy('created_at','desc')->where('id',$id)->get();
 
-        $all_manage_announcements=view('admin.edit-announcement')->with('edit_new_announcement', $edit_new_announcement);
-
-        return view('layouts.master')->with('admin.edit-announcement', $all_manage_announcements);
-
+        return view('admin.edit-announcement', compact('edit_new_announcement'));
     }
 
     public function update_announcement(Request $request, $id){
@@ -126,9 +124,7 @@ class AdminController extends Controller
     {
         $edit_new_announcement=DB::table('announcements')->where('id', $id)->get();
 
-        $all_manage_announcements=view('admin.edit-announcement-home')->with('edit_new_announcement', $edit_new_announcement);
-
-        return view('layouts.master')->with('admin.edit-announcement-home', $all_manage_announcements);
+        return view('admin.edit-announcement-home', compact('edit_new_announcement'));
 
     }
 
@@ -169,9 +165,7 @@ class AdminController extends Controller
 
         $manage_announcements=DB::table('announcements')->orderBy('created_at','desc')->get();
 
-        $all_manage_announcements=view('admin.manage-announcements')->with('manage_announcements', $manage_announcements);
-
-        return view('layouts.master')->with('admin.manage-announcements', $all_manage_announcements);
+        return view('admin.manage-announcements', compact('manage_announcements'));
 
     }
 
@@ -207,9 +201,7 @@ class AdminController extends Controller
 
         $edit_new_faculty=DB::table('faculties')->orderBy('created_at','desc')->where('id',$id)->get();
 
-        $all_manage_faculty=view('admin.edit-faculty')->with('edit_new_faculty', $edit_new_faculty);
-
-        return view('layouts.master')->with('admin.edit-faculty', $all_manage_faculty);
+        return view('admin.edit-faculty', compact('edit_new_faculty'));
 
     }
 
@@ -243,11 +235,10 @@ class AdminController extends Controller
     }
 
     public function manage_faculties(){
+
         $manage_faculties=DB::table('faculties')->orderBy('created_at','desc')->get();
 
-        $all_manage_faculties=view('admin.manage-faculties')->with('manage_faculties', $manage_faculties);
-
-        return view('layouts.master')->with('admin.manage-faculties', $all_manage_faculties);
+        return view('admin.manage-faculties', compact('manage_faculties'));
     }
 
     /**
@@ -280,20 +271,14 @@ class AdminController extends Controller
     public function edit_department($id){
 
         $edit_departments=DB::table('departments')->orderBy('id','desc')->where('departments.id',$id)->get();
-        $faculties=DB::table('faculties')->orderBy('id','desc')->get();
-        $all_department = view('admin.edit-departments')->with('edit_departments',$edit_departments)
-            ->with('faculties',$faculties);
-        return view('layouts.master')->with('admin.edit-departments', $all_department );
-        // $manage_departments=DB::table('departments')
-        // ->join('faculties','faculties.id','=','departments.faculty_id')
-        // ->select('departments.id','faculties.faculty_name','departments.faculty_id','departments.department_name','departments.description')
-        // ->orderBy('departments.created_at','desc')->where('departments.id',$id)->get();
-        // $all_manage_departments=view('admin.edit-departments')->with('edit_departments', $manage_departments);
-        // return view('layouts.master')->with('admin.edit-departments', $all_manage_departments );
 
+        $faculties=DB::table('faculties')->orderBy('id','desc')->get();
+
+        return view('admin.edit-departments', compact('edit_departments', 'faculties') );
     }
 
     public function update_department(Request $request,$id){
+
         $data = [];
         $data['department_name'] = $request->input('department_name');
         $data['description'] = $request->input('description');
@@ -324,8 +309,8 @@ class AdminController extends Controller
             ->join('faculties','faculties.id','=','departments.faculty_id')
             ->select('departments.id','faculties.faculty_name','departments.faculty_id','departments.department_name')
             ->orderBy('departments.created_at','desc')->get();
-        $all_manage_departments=view('admin.manage-departments')->with('manage_departments', $manage_departments);
-        return view('layouts.master')->with('admin.manage-departments', $all_manage_departments);
+
+        return view('admin.manage-departments', compact('manage_departments'));
 
     }
 
@@ -410,10 +395,9 @@ class AdminController extends Controller
     }
 
     public function new_department(){
-        //return view('admin.new-department');
+
         $manage_faculties=DB::table('faculties')->orderBy('id','asc')->get();
-        $all_manage_faculties=view('admin.new-department')->with('manage_faculties', $manage_faculties);
-        return view('layouts.master')->with('admin.new-department', $all_manage_faculties);
+        return view('admin.new-department', compact('manage_faculties'));
     }
 
     public function control_panel(){

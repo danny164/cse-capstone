@@ -457,6 +457,32 @@ table.dataTable tfoot th, table.dataTable tfoot td {
     border-top: 1px solid #505458 !important;
 }
 
+/* comment section */
+.card-footer.comment {
+    padding-top: 0;
+    background-color: inherit;
+    border-top: none;
+}
+
+.chat-module .chat-module-bottom.comment {
+    position: relative;
+    padding-top: 1rem;
+    border-top: 1px dashed #ff9800;
+    background: transparent;
+}
+
+.form-control.comment, .form-control.comment:focus {
+    border: none;
+}
+
+.chat-item > .media-comment {
+    margin-left: 0.75rem;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background: #fff;
+    flex: 1;
+}
+
 /* card-note override*/
 .card-note {
     background: #FFF3D4;
@@ -471,7 +497,6 @@ table.dataTable tfoot th, table.dataTable tfoot td {
     background: inherit;
     color: inherit;
 }
-
 
 .display-none{
     display: none;
