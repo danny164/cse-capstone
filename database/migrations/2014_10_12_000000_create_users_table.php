@@ -30,8 +30,8 @@ class CreateUsersTable extends Migration
             $table->string('faculty')->nullable();
             $table->string('language')->nullable();
             $table->text('about_me')->nullable();
-            $table->string('avatar_path')->nullable();
-            $table->boolean('is_active')->default(1);
+            $table->string('avatar_path')->nullable()->default('avatar.png');
+            $table->boolean('is_active')->default(0);
             $table->boolean('is_email_confirmed')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

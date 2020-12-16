@@ -328,16 +328,6 @@ class AdminController extends Controller
 
     }
 
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-=======
     // Groups
     public function search(Request $request) // $id
     {
@@ -381,7 +371,6 @@ class AdminController extends Controller
             return back()->withSuccess('Update Successfully!');
         }
     }
->>>>>>> daae7fbd29eb362020c9f9c1df821a802cb4ad0f
 
 
     // ? CHO HẾT TẤT CẢ MỤC SHOW FORM NEW Ở DƯỚI ĐÂY
