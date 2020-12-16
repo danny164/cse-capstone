@@ -114,11 +114,11 @@
 
     </script>
 
-    <script>
+    {{-- <script>
         toastr.options.timeOut = 10800000;
         toastr.options.extendedTimeOut = 10800000;
         toastr.info('Vui lòng cập nhật đầy đủ thông tin để <strong>kích hoạt</strong> tài khoản!')
-    </script>
+    </script> --}}
 
     @yield('script')
 
