@@ -103,8 +103,8 @@
                                         <div class="mb-3">
 
                                             <div class="form-group row">
-{{--                                                <input type="text" class="form-controller" id="search" name="search"></input>--}}
-                                                <textarea class="form-control col" rows="3" placeholder="Add users by email, each email separated by commas&#10;e.g: matt@dtu.edu.com, joe@edu.dtu.com" id="search" name="search"></textarea>
+
+                                                <textarea class="form-control col" rows="3" placeholder="Add users by name" id="search" name="search"></textarea>
                                             </div>
                                             <table id="table-popup" class="table table-bordered table-hover display-none" >
                                                 <thead>
@@ -119,7 +119,7 @@
                                             </table>
                                             <div class="row align-items-center">
                                                 <div class="col">
-                                                    <button type="button" class="btn btn-outline-primary"><i class="fad fa-user-plus"></i>Add</button><span> &ensp; or &ensp; </span>
+                                                    <button id="save" type="button" class="btn btn-outline-primary"><i class="fad fa-user-plus"></i>Add</button><span> &ensp; or &ensp; </span>
                                                     <button type="button" class="btn btn-chartjs"><i class="fad fa-upload"></i>Using CSV</button>
                                                 </div>
                                                 <div class="d-none d-md-block col-4 col-lg-5 text-right">
@@ -149,7 +149,7 @@
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody >
 
                                                         <tr>
                                                             <td></td>
@@ -226,11 +226,14 @@
                     success:function(data){
                         var output = '';
                         data.forEach(student => {
+                            if(student.student_id!=null){
                             output+= `<tr onclick="onSubmitStudent('${student.student_id}')">`+
                             `<td>${student.full_name}</td>`+
                             `<td>${student.student_id}</td>`+
                             "</tr>"
+                            }
                         })
+                       
                         $('#test').html(output);
                         console.log(output);
                     }
@@ -245,26 +248,58 @@
         var onSubmitStudent = (id) => {
             console.log(id);
             $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 type:'POST',
-                url:'{{url('admin/ajaxRequest')}}',
-                data:{student_id:id},
+                url:'{{url('admin/ajaxRequest/')}}',
+                data:id,
                 success:function(data){
-                    var output = '';
-                    data.forEach( nameStudent => {
-                        output+= `<p ${nameStudent.student_id}>`+
+                    console.log(data);
+                    var result=[];
+                    $('#search').val(data[0].full_name);
 
-                            "</p>"
-                    })
-                    $('tbody').html(output);
-                    console.log(output);
+                    // var output = '';
+                    // data.forEach( nameStudent => {
+                    //     output+= `<p ${nameStudent.student_id}>`+
+
+                    //         "</p>"
+                    // })
+                    // $('tbody').html(output);
+                    // console.log(output);
                 }
             });
         }
     </script>
+
     <script >
         $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
+
+    <script>
+
+
+        $(document).ready(function() {
+            var table = $('#example').DataTable({
+                'columnDefs': [
+                    {
+                        'targets': 0,
+                        'checkboxes': {
+                            'selectRow': true
+                        }
+                    }
+                ],
+                'select': {
+                    'style': 'multi'
+                },
+                'order': [[1, 'asc']]
+            });
+
+        });
+    </script>
 
 @endsection
 

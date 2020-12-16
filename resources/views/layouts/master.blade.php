@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- CSRF Token -->
-    <meta name="csrf-token" content=" csrf_token() ">
+    <!-- <meta name="csrf-token" content=" csrf_token() "> -->
 
     <title>@yield('title', 'Capstone Tracking')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{asset('assets/img/DTU.ico')}}" rel="icon" type="image/x-icon">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Gothic+A1" rel="stylesheet">
@@ -66,7 +67,7 @@
 
     <!-- Required theme scripts (Do not remove) -->
     <script type="text/javascript" src="{{asset('assets/js/theme.js')}}"></script>
-{{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>--}}
+
 
     <script>
 

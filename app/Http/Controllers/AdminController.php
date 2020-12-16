@@ -334,34 +334,21 @@ class AdminController extends Controller
     public function search(Request $request) // $id
     {
         if ($request->ajax()) {
-            $output = "";
+            // $output = "";
             $student = DB::table('users')->where('full_name', 'LIKE', '%' . $request->search . "%")->get();
             return Response($student);
         }
     }
     public function ajaxRequest(Request $request) // $id
     {
-        $output = "";
 
-        $input = $request->all();
-        $users=DB::table('users')->select('users.student_id')->get();
-        foreach ($users  as $key => $edit_value ){
-            if ($edit_value->student_id==$input){
-                $nameStudent=$edit_value->full_name;
-                return Response($nameStudent);
-            }
+        $bodyContent = $request->getContent();
+        $users=DB::table('users')->where('student_id', $bodyContent)->get();
+        // $data=[];
+        // $data['user_id']=$users->student_id;
+        // DB::table('semesters_users')->insert('user_id', $users->student_id);
+        return Response($users);
 
-
-        }
-
-
-
-        return response()->json(['success'=>'Got Simple Ajax Request.']);
-//        if ($request->ajax()) {
-//            $output = "";
-//            $student = DB::table('users')->where('full_name', 'LIKE', '%' . $request->search . "%")->get();
-//            return Response($student);
-//        }
     }
 
 
