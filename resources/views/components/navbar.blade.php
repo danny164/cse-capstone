@@ -26,8 +26,7 @@
 
         </div>
 
-        <!-- remove -notimportant to show navbar selected and close others, current using auto collapse in custom.css -->
-        <div class="collapse navbar-collapse flex-column" id="navbar-collapse-notimportant">
+        <div class="collapse navbar-collapse flex-column" id="navbar-collapse">
             <ul class="navbar-nav d-lg-block">
 
                 <li class="nav-item">
@@ -178,7 +177,7 @@
             <!-- already Logged in -->
             <div class="dropup media align-items-center">
                 <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img alt="avatar" src="{{ URL::to('images/'.Auth::user()->avatar_path) }}"  class="avatar avatar--2" />
+                    <img alt="avatar" src="{{ url('images/'.Auth::user()->avatar_path) }}"  class="avatar avatar--2" />
                 </a>
                 <p class="d-inline-block ml-1 mb-0 text-light">Welcome, <br>
                     <span class="text-warning">

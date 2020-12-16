@@ -30,53 +30,9 @@
                                 </form>
                             </div>
                             <!-- end of content list head-->
-                            @if (session('success_message'))
-                                {{ session('success_message') }}
-                            @endif
-                            <div class="content-list-body">
-                                @foreach( $manage_announcements  as $key => $cate_pro)
-                                    <div class="card card-note">
-                                        <div class="card-header">
-                                            <div class="media align-items-center text-break">
-                                                @foreach($all_use  as $key => $value)
-                                                    @if($value->id == $cate_pro->user_id)
-                                                <img  src="{{ URL::to('images/'.$value->avatar_path) }}" class="avatar" data-toggle="tooltip" data-title="{{ ($value-> full_name)}}" data-filter-by="alt" />
-                                                    @endif
-                                                @endforeach
-                                                <div class="media-body">
-                                                    <h6 class="mb-0 text-danger" data-filter-by="text">{{ Str::limit($cate_pro->title, 200) }}</h6>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center flex-shrink-0">
-                                                <span data-filter-by="text">{{ Carbon\Carbon::parse($cate_pro->created_at)->diffForHumans() }}</span>
-                                                <div class="ml-1 dropdown card-options">
-                                                    <button class="btn-options" type="button" id="note-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="material-icons">more_vert</i>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="{{URL::to('/admin/announcements/'.$cate_pro->id.'/edit')}}">Edit</a>
-                                                        <a class="dropdown-item text-chartjs" onclick="return confirm('Are you sure to delete?')"href="{{URL::to('/admin/announcements/'.$cate_pro->id.'/delete')}}">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body" data-filter-by="text">
-                                        {{ $cate_pro->content }}
-                                        <!--
-                                            <div class="media media-attachment">
-                                                <div class="text-primary">
-                                                        <i class="material-icons">attach_file</i>
-                                                </div>
-                                                <div class="media-body">
-                                                    <a href="#" data-filter-by="text">Template Proposal.docx</a>
-                                                <span data-filter-by="text">24kb Document</span>
-                                            </div>
-                                            -->
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-
+                            <section class="load">
+                                @include('admin.load')
+                            </section>
                         </div>
                         <!-- end of content list-->
                     </div>
@@ -141,4 +97,36 @@
     </div>
     <!-- end div container -->
 
+@endsection
+
+@section('script')
+
+    <script type="text/javascript">
+
+        $(function() {
+            $('body').on('click', '.pagination a', function(e) {
+                e.preventDefault();
+
+                $('#load a').css('color', '#dfecf6');
+                $('#load').append('<img style="position: absolute; left: 0; top: 0; z-index: 100000;" src="assets/img/loader.svg" />');
+
+                var url = $(this).attr('href');
+                getArticles(url);
+                window.history.pushState("", "", url);
+            });
+
+            function getArticles(url) {
+                $.ajax({
+                    url : url
+                }).done(function (data) {
+                    $('.load').html(data);
+                    $('html, body').animate({ scrollTop: 0 }, 'slow');
+                }).fail(function () {
+                    alert('Could not be loaded.');
+                });
+            }
+
+        });
+
+    </script>
 @endsection
