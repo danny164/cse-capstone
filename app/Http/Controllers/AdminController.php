@@ -468,7 +468,4 @@ class AdminController extends Controller
     public function template(){
         return view('admin.template');
     }
-
-
-
 }
