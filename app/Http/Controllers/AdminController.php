@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use http\Env\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -329,6 +330,7 @@ class AdminController extends Controller
     }
 
     // Groups
+
     public function search(Request $request) // $id
     {
         if ($request->ajax()) {
@@ -337,6 +339,32 @@ class AdminController extends Controller
             return Response($student);
         }
     }
+    public function ajaxRequest(Request $request) // $id
+    {
+        $output = "";
+
+        $input = $request->all();
+        $users=DB::table('users')->select('users.student_id')->get();
+        foreach ($users  as $key => $edit_value ){
+            if ($edit_value->student_id==$input){
+                $nameStudent=$edit_value->full_name;
+                return Response($nameStudent);
+            }
+
+
+        }
+
+
+
+        return response()->json(['success'=>'Got Simple Ajax Request.']);
+//        if ($request->ajax()) {
+//            $output = "";
+//            $student = DB::table('users')->where('full_name', 'LIKE', '%' . $request->search . "%")->get();
+//            return Response($student);
+//        }
+    }
+
+
     public function save_new_groups(Request $request)
     {
         $data = [];

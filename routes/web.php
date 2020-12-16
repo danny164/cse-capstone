@@ -86,6 +86,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     Route::get('group-details',[AdminController::class, 'group_details']);
     Route::post('groups/new-groups',[AdminController:: class,'save_new_groups']);
     Route::get('/search',[AdminController:: class,'search']);
+    Route::post('/ajaxRequest',[AdminController:: class,'ajaxRequest']);
 
 });
 
