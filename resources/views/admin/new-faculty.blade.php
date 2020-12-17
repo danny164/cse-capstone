@@ -5,7 +5,7 @@
     <div class="breadcrumb-bar navbar bg-white sticky-top">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Home</a>
+                <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ url('admin/faculties') }}">Faculties</a>
                 </li>
@@ -25,7 +25,7 @@
                       {{csrf_field()}}
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
-                            <h5 class="modal-title">Create a Faculty</h5> 
+                            <h5 class="modal-title">Create a Faculty</h5>
                         </div>
                         <!--end of modal head-->
                         <div class="modal-body">
@@ -34,13 +34,13 @@
                                 <input class="form-control col" type="text" placeholder="Faculty name" name="faculty_name"/>
                                 @foreach($errors->get('name') as $error)
                                     <span class="help-block">{{ $error }}</span>
-                                @endforeach                                
+                                @endforeach
                             </div>
                             <div class="form-group row">
                                 <label class="col-2">Description</label>
                                 <textarea class="form-control col" rows="10" placeholder="Write something here..." name="description" ></textarea>
                             </div>
-                        
+
                         </div>
                         <!--end of modal body-->
                         <div class="modal-footer">

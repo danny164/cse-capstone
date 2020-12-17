@@ -441,6 +441,7 @@ body {
     min-height: 100vh;
 }
 
+/* custom datatable's color */
 .text-table, .dataTables_wrapper .dataTables_length,
 .dataTables_wrapper .dataTables_filter,
 .dataTables_wrapper .dataTables_info,
@@ -457,7 +458,7 @@ table.dataTable tfoot th, table.dataTable tfoot td {
     border-top: 1px solid #505458 !important;
 }
 
-/* comment section */
+/* custom comment section */
 .card-footer.comment {
     padding-top: 0;
     background-color: inherit;
@@ -492,12 +493,37 @@ table.dataTable tfoot th, table.dataTable tfoot td {
     border-top-style: solid;
 }
 
+/* custom avatar to transparent */
 .avatar.avatar--2 {
     border: 2px solid rgba(255,255,255,0);
     background: inherit;
     color: inherit;
 }
 
+/* Style the header: fixed position (always stay at the top) */
+.scroll-process {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    background-color: #F1F1F1;
+}
+
+/* The progress container (grey background) */
+.progress-container {
+    width: 100%;
+    height: 3px;
+    background: #F8F9FA;
+}
+
+/* The progress bar (scroll indicator) */
+.progress-bar {
+    height: 3px;
+    background: #343A40;
+    width: 0%;
+}
+
+/* Testing */
 .display-none{
     display: none;
 }
