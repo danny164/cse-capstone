@@ -16,10 +16,26 @@
                     <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img alt="Image" src="{{ URL::to('images/'.Auth::user()->avatar_path) }}" class="avatar" />
                     </a>
+
                     <div class="dropdown-menu dropdown-menu-right text-center">
-                        <a href="{{ url('admin/account-settings') }}" class="dropdown-item">Profile</a>
-                        <a href="{{ url('admin/control/users') }}" class="dropdown-item">Control Panel</a>
-                    <a href="{{ url('logout') }}" class="dropdown-item">Log Out</a>
+
+                        <a href="{{ url('profile/'.Auth::user()->id) }}" class="dropdown-item">Profile</a>
+
+                        @admin
+                            <a href="{{ url('admin/control/users') }}" class="dropdown-item">Control Panel</a>
+                        @endadmin
+
+                        <a href="{{ url('logout') }}"
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();"
+                            class="dropdown-item" >
+                            {{ __('Log out') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -31,84 +47,127 @@
 
                 <li class="nav-item">
 
-                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">Announcements</a>
-                    <div id="submenu-1" class="collapse" data-parent="#navbar-collapse">
-                        <ul class="nav nav-small flex-column">
+                    @admin
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">Announcements</a>
+                        <div id="submenu-1" class="collapse" data-parent="#navbar-collapse">
+                            <ul class="nav nav-small flex-column">
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/announcements/new') }}">New Announcement</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('admin/announcements/new') }}">New Announcement</a>
+                                </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/announcements') }}">Announcement Management</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('admin/announcements') }}">Announcement Management</a>
+                                </li>
 
-                        </ul>
-                    </div>
+                            </ul>
+                        </div>
+                    @else
+                        <a class="nav-link" href="{{ url('home') }}">Announcements</a>
+                    @endadmin
+
+                </li>
+
+                <li class="nav-item">
+                    @admin
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2">Semesters</a>
+                        <div id="submenu-2" class="collapse" data-parent="#navbar-collapse">
+                            <ul class="nav nav-small flex-column">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('admin/semesters/new') }}">New Semester</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('admin/semesters') }}">Semester Management</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    @endadmin
+
+                    @mentor
+                        <a class="nav-link" href="{{ url('#') }}">Tracking Team</a>
+                    @endmentor
+
+                    @user
+                        <a class="nav-link" href="{{ url('#') }}">My Team</a>
+                    @enduser
 
                 </li>
 
                 <li class="nav-item">
 
-                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2">Semesters</a>
-                    <div id="submenu-2" class="collapse" data-parent="#navbar-collapse">
-                        <ul class="nav nav-small flex-column">
+                    @admin
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3">Topics</a>
+                        <div id="submenu-3" class="collapse" data-parent="#navbar-collapse">
+                            <ul class="nav nav-small flex-column">
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/groups/new') }}">New Semester</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('admin/topics/new') }}">New Topic</a>
+                                </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/groups') }}">Semester Management</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('admin/topics/pending') }}">Pending Topics</a>
+                                </li>
 
-                        </ul>
-                    </div>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('admin/topics') }}">Topic Management</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    @endadmin
+
+                    @mentor
+                        <a class="nav-link" href="{{ url('#') }}">Topic List</a>
+                    @endmentor
+
+                    @user
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3">Topics</a>
+                        <div id="submenu-3" class="collapse" data-parent="#navbar-collapse">
+                            <ul class="nav nav-small flex-column">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('#') }}">Pick Topic</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('#') }}">Request Topic</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    @enduser
 
                 </li>
 
                 <li class="nav-item">
 
-                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3">Topics</a>
-                    <div id="submenu-3" class="collapse" data-parent="#navbar-collapse">
-                        <ul class="nav nav-small flex-column">
+                    @admin
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4">Plans</a>
+                        <div id="submenu-4" class="collapse" data-parent="#navbar-collapse">
+                            <ul class="nav nav-small flex-column">
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/topics/new') }}">New Topic</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('admin/plans/new') }}">New Plan</a>
+                                </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/topics/pending') }}">Pending Topics</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('admin/plans') }}">Plan Management</a>
+                                </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/topics') }}">Topic Management</a>
-                            </li>
+                            </ul>
+                        </div>
+                    @endadmin
 
-                        </ul>
-                    </div>
-
-                </li>
-
-                <li class="nav-item">
-
-                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4">Plans</a>
-                    <div id="submenu-4" class="collapse" data-parent="#navbar-collapse">
-                        <ul class="nav nav-small flex-column">
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/plans/new') }}">New Plan</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/plans') }}">Plan Management</a>
-                            </li>
-
-                        </ul>
-                    </div>
+                    @user
+                        <a class="nav-link" href="{{ url('#') }}">Reports</a>
+                    @enduser
 
                 </li>
 
+                @admin
                 <li class="nav-item">
 
                     <a class="nav-link" href="{{ url('admin/statistics') }}">Statistics</a>
@@ -154,6 +213,7 @@
                     </div>
 
                 </li>
+                @endadmin
 
             </ul>
             <hr>
@@ -190,7 +250,9 @@
 
                     <a href="{{ url('profile/'.Auth::user()->id) }}" class="dropdown-item">Profile</a>
 
-                    <a href="{{ url('admin/control/users') }}" class="dropdown-item">Control Panel</a>
+                    @admin
+                        <a href="{{ url('admin/control/users') }}" class="dropdown-item">Control Panel</a>
+                    @endadmin
 
                     <a href="{{ url('logout') }}"
                         onclick="event.preventDefault();
@@ -206,12 +268,10 @@
             </div>
             <!-- already Logged in -->
 
-            <!-- For guest only -->
-            <!-- <a href="login.html"><button type="button" class="btn btn-outline-warning">Login</button></a>
-            <a href="register.html"><button type="button" class="btn btn-outline-info">Register</button></a> -->
-            <!-- For guest only -->
         </div>
-    @else
+    @endauth
+
+    @guest
         <div class="d-flex align-items-center">
 
             <!-- For guest only -->
@@ -260,5 +320,5 @@
             <a href="{{URL::to('/login')}}"><button type="button" class="btn btn-outline-warning">Login</button></a>
             <a href="{{URL::to('/register')}}" ><button type="button" class="btn btn-outline-info">Register</button></a>
         </div>
-    @endauth
+    @endguest
 </div>

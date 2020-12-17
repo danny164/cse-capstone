@@ -12,6 +12,8 @@
             <li class="breadcrumb-item active" aria-current="page">Anncouncement Management</li>
             </ol>
         </nav>
+
+        <a href="#"><button class="btn btn-chartjs btn-sm"><i class="fad fa-trash-alt"></i>Delete</button></a>
     </div>
     <!-- end breadcrumb -->
     <!-- Thông báo -->
@@ -79,7 +81,6 @@
                                 <td>
                                     <a  href="{{URL::to('/admin/announcements/management/'.$cate_pro->id.'/edit')}}"><span class="ic-dark"><i class="fad fa-pencil"></i></span></a>
                                     <a onclick="return confirm('Are you sure to delete?')"href="{{URL::to('/admin/announcements/management/'.$cate_pro->id.'/delete')}}"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
-                                    <a href="#"><span class="ic-dark"><i class="fad fa-eye"></i></span></a>
                                 </td>
                             </tr>
                             @endforeach

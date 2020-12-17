@@ -8,9 +8,9 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ url('admin/groups') }}">Groups</a>
+                <li class="breadcrumb-item"><a href="{{ url('admin/semesters') }}">Semesters</a>
                 </li>
-                <li class="breadcrumb-item"><a href="#">Tên Group</a>
+                <li class="breadcrumb-item"><a href="#">Tên Semester</a>
                 </li>
                 <li class="breadcrumb-item"><a href="#">Tên Team</a>
                 </li>
@@ -51,12 +51,12 @@
                                     <h6>General Details</h6>
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Name</label>
-                                        <input class="form-control col" type="text" placeholder="Team name" name="team-name" />
+                                        <input class="form-control col" type="text" placeholder="Team name" name="team_name" />
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-3">Description</label>
-                                        <textarea class="form-control col" rows="3" placeholder="Write something here..." name="team-description"></textarea>
+                                        <textarea class="form-control col" rows="3" placeholder="Write something here..." name="description"></textarea>
                                     </div>
 
                                     <hr>
@@ -107,7 +107,7 @@
                                 </div>
 
                                 <div class="tab-pane fade" id="team-add-members" role="tabpanel">
-                                <div class="users-manage" data-filter-list="form-group-users">
+                                <div class="users-manage" data-filter-list="form-semester-users">
                                     <div class="mb-3">
                                         <ul class="avatars text-center">
                                             <li>
@@ -115,27 +115,6 @@
                                                     <img alt="Lý Hiện" class="avatar" src="{{ asset('assets/img/avatar-gun.jpg') }}" />
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Ngọc Trinh">
-                                                    <img alt="Ngọc Trinh" class="avatar" src="{{ asset('assets/img/avatar-ngoc-trinh.jpg') }}" />
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Lý Hiện">
-                                                    <img alt="Tống Uy Long" class="avatar" src="{{ asset('assets/img/avatar-tong-uy-long.jpg') }}" />
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Lý Hiện">
-                                                    <img alt="Lý Hiện" class="avatar" src="{{ asset('assets/img/avatar-gun.jpg') }}" />
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Lý Hiện">
-                                                    <img alt="Sơn Tùng MTP" class="avatar" src="{{ asset('assets/img/avatar-sontung-mtp.jpg') }}" />
-                                                </a>
-                                            </li>
-
                                         </ul>
                                     </div>
                                     <hr>

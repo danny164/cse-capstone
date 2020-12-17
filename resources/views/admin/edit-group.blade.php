@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Edit Group')
+@section('title', 'Edit Semester')
 @section('content')
 
     <div class="breadcrumb-bar navbar bg-white sticky-top">
@@ -7,9 +7,9 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ url('admin/groups') }}">Groups</a>
+                <li class="breadcrumb-item"><a href="{{ url('admin/semesters') }}">Semesters</a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ url('#') }}">Tên Group</a>
+                <li class="breadcrumb-item"><a href="{{ url('#') }}">Tên Semesters</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Edit</li>
             </ol>
@@ -28,32 +28,32 @@
                     <div class="modal-content">
 
                         <div class="modal-header">
-                            <h5 class="modal-title">Edit Group</h5>
+                            <h5 class="modal-title">Edit Semester</h5>
                         </div>
 
                         <!--end of modal head-->
                         <ul class="nav nav-tabs nav-fill" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="group-edit-details-tab" data-toggle="tab" href="#group-edit-details" role="tab" aria-controls="group-edit-details" aria-selected="true">Details</a>
+                                <a class="nav-link active" id="semester-edit-details-tab" data-toggle="tab" href="#semester-edit-details" role="tab" aria-controls="semester-edit-details" aria-selected="true">Details</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="group-edit-members-tab" data-toggle="tab" href="#group-edit-members" role="tab" aria-controls="group-edit-members" aria-selected="false">Add Member</a>
+                                <a class="nav-link" id="semester-edit-members-tab" data-toggle="tab" href="#semester-edit-members" role="tab" aria-controls="semester-edit-members" aria-selected="false">Add Member</a>
                             </li>
                         </ul>
 
                         <div class="modal-body">
                             <div class="tab-content">
-                                <div class="tab-pane fade show active" id="group-edit-details" role="tabpanel">
+                                <div class="tab-pane fade show active" id="semester-edit-details" role="tabpanel">
 
                                     <h6>General Details</h6>
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Name</label>
-                                        <input class="form-control col" type="text" placeholder="Group name" name="group-name" required/>
+                                        <input class="form-control col" type="text" placeholder="Semester name" name="semester-name" required/>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-3">Description</label>
-                                        <textarea class="form-control col" rows="3" placeholder="Group description" name="group-description"></textarea>
+                                        <textarea class="form-control col" rows="3" placeholder="Semester description" name="semester-description"></textarea>
                                     </div>
 
                                     <hr>
@@ -61,12 +61,12 @@
                                     <h6>Timeline</h6>
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Start Date</label>
-                                        <input class="form-control col" id="startDate" type="text" name="group-start" placeholder="Select a date" data-alt-input="true" />
+                                        <input class="form-control col" id="startDate" type="text" name="semester-start" placeholder="Select a date" data-alt-input="true" />
                                     </div>
 
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Due Date</label>
-                                        <input class="form-control col" id="dueDate" type="text" name="group-due" placeholder="Select a date" data-alt-input="true" />
+                                        <input class="form-control col" id="dueDate" type="text" name="semester-due" placeholder="Select a date" data-alt-input="true" />
                                     </div>
 
                                     <div class="alert alert-warning text-small" role="alert">
@@ -119,13 +119,13 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade" id="group-edit-members" role="tabpanel">
-                                    <div class="users-manage" data-filter-list="form-group-users">
+                                <div class="tab-pane fade" id="semester-edit-members" role="tabpanel">
+                                    <div class="users-manage" data-filter-list="form-semester-users">
 
                                         <div class="mb-3">
 
                                             <div class="form-group row">
-                                                <textarea class="form-control col" rows="3" placeholder="Add users by email, each email separated by commas&#10;e.g: matt@example.com, joe@sample.com" name="group-description"></textarea>
+                                                <textarea class="form-control col" rows="3" placeholder="Add users by email, each email separated by commas&#10;e.g: matt@example.com, joe@sample.com" name="semester-description"></textarea>
                                             </div>
                                             <div class="row align-items-center">
                                                 <div class="col">

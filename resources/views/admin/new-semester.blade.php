@@ -7,9 +7,9 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ url('admin/groups') }}">Groups</a>
+                <li class="breadcrumb-item"><a href="{{ url('admin/groups') }}">Semesters</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">New Group</li>
+                <li class="breadcrumb-item active" aria-current="page">New Semester</li>
             </ol>
         </nav>
 
@@ -25,32 +25,32 @@
                     <div class="modal-content">
 
                         <div class="modal-header">
-                            <h5 class="modal-title">Create a Group</h5>
+                            <h5 class="modal-title">Create a Semester</h5>
                         </div>
 
                         <!--end of modal head-->
                         <ul class="nav nav-tabs nav-fill" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="group-create-details-tab" data-toggle="tab" href="#group-create-details" role="tab" aria-controls="group-create-details" aria-selected="true">Details</a>
+                                <a class="nav-link active" id="semester-create-details-tab" data-toggle="tab" href="#semester-create-details" role="tab" aria-controls="semester-create-details" aria-selected="true">Details</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="group-add-members-tab" data-toggle="tab" href="#group-add-members" role="tab" aria-controls="group-add-members" aria-selected="false">Add Member</a>
+                                <a class="nav-link" id="semester-add-members-tab" data-toggle="tab" href="#semester-add-members" role="tab" aria-controls="semester-add-members" aria-selected="false">Add Member</a>
                             </li>
                         </ul>
 
                         <div class="modal-body">
                             <div class="tab-content">
-                                <div class="tab-pane fade show active" id="group-create-details" role="tabpanel">
+                                <div class="tab-pane fade show active" id="semester-create-details" role="tabpanel">
 
                                     <h6>General Details</h6>
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Name</label>
-                                        <input class="form-control col" type="text" placeholder="Group name" name="group-name" required/>
+                                        <input class="form-control col" type="text" placeholder="Semester name" name="semester-name" required/>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-3">Description</label>
-                                        <textarea class="form-control col" rows="3" placeholder="Group description" name="group-description"></textarea>
+                                        <textarea class="form-control col" rows="3" placeholder="Semester description" name="semester-description"></textarea>
                                     </div>
 
                                     <hr>
@@ -58,12 +58,12 @@
                                     <h6>Timeline</h6>
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Start Date</label>
-                                        <input class="form-control col" id="startDate" type="text" name="group-start" placeholder="Select a date" data-alt-input="true" />
+                                        <input class="form-control col" id="startDate" type="text" name="semester-start" placeholder="Select a date" data-alt-input="true" />
                                     </div>
 
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Due Date</label>
-                                        <input class="form-control col" id="dueDate" type="text" name="group-due" placeholder="Select a date" data-alt-input="true" />
+                                        <input class="form-control col" id="dueDate" type="text" name="semester-due" placeholder="Select a date" data-alt-input="true" />
                                     </div>
 
                                     <div class="alert alert-warning text-small" role="alert">
@@ -97,8 +97,8 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade" id="group-add-members" role="tabpanel">
-                                    <div class="users-manage" data-filter-list="form-group-users">
+                                <div class="tab-pane fade" id="semester-add-members" role="tabpanel">
+                                    <div class="users-manage" data-filter-list="form-semester-users">
 
                                         <div class="mb-3">
 
@@ -290,6 +290,10 @@
                         'checkboxes': {
                             'selectRow': true
                         }
+                    },
+                    {
+                        'targets': 4,
+                        'orderable': false
                     }
                 ],
                 'select': {

@@ -51,7 +51,6 @@
                                 <td>
                                     <a href="{{ url('admin/edit-topic') }}"><span class="ic-dark"><i class="fad fa-pencil"></i></span></a>
                                     <a href="#"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
-                                    <a href="#"><span class="ic-dark"><i class="fad fa-eye"></i></span></a>
                                 </td>
                             </tr>
                             <tr>
@@ -65,7 +64,6 @@
                                 <td>
                                     <a href="#" data-toggle="modal" data-target="#topic-edit-modal"><span class="ic-dark"><i class="fad fa-pencil"></i></span></a>
                                     <a href="#"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
-                                    <a href="#"><span class="ic-dark"><i class="fad fa-eye"></i></span></a>
                                 </td>
                             </tr>
 

@@ -31,34 +31,34 @@
                         <div class="modal-body">
                             <div class="form-group row align-items-center">
                                 <label class="col-2">Title</label>
-                                <input class="form-control col" type="text" placeholder="Title in English" name="english-title" required />
+                                <input class="form-control col" type="text" placeholder="Title in English" name="english_title" required />
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-2"></label>
-                                <input class="form-control col" type="text" placeholder="Title in Vietnamese" name="vietnamese-title" required />
+                                <input class="form-control col" type="text" placeholder="Title in Vietnamese" name="vietnamese_title" required />
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-2"></label>
-                                <input class="form-control col" type="text" placeholder="Initial Title" name="initial-title" required />
+                                <input class="form-control col" type="text" placeholder="Initial Title" name="initial_title" required />
                             </div>
                             <div class="form-group row">
                                 <label class="col-2">Description</label>
-                                <textarea class="form-control col" rows="10" placeholder="Write something here..." name="note-description" required ></textarea>
+                                <textarea class="form-control col" rows="10" placeholder="Write something here..." name="description" required ></textarea>
                             </div>
                             <div class="form-group row align-items-center">
-                                <label class="col-2">Group</label>
-                                <select name="groups" class="form-control col" required>
-                                    <option selected>Group 2</option>
-                                    <option>Group 1</option>
+                                <label class="col-2">Semester</label>
+                                <select name="semesters" class="form-control col" required>
+                                    <option selected>Choose</option>
+                                    <option value="1">Semester 1</option>
                                 </select>
                             </div>
                             <div class="form-group row">
                                 <label class="col-2">Team</label>
-                                <select name="groups" class="form-control col">
-                                    <option selected>-- Select One (Optional) --</option>
-                                    <option>Team 7</option>
-                                    <option>Team 8</option>
-                                    <option>Team 9</option>
+                                <select name="teams" class="form-control col">
+                                    <option selected>Choose..</option>
+                                    <option value="1">Team 7</option>
+                                    <option value="2">Team 8</option>
+                                    <option value="3">Team 9</option>
                                 </select>
                             </div>
 

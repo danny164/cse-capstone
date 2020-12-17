@@ -2,6 +2,8 @@
 @section('title', 'Home Page')
 @section('content')
 
+    @include('components.scroll-process')
+
     <!-- begin a container -->
     <div class="container">
         <div class="row justify-content-center">

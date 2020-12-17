@@ -328,7 +328,7 @@ class AdminController extends Controller
     }
 
 
-    public function save_new_groups(Request $request)
+    public function save_new_semesters(Request $request)
     {
         $data = [];
         $data['full_name'] = $request->input('group-name');
@@ -392,11 +392,11 @@ class AdminController extends Controller
         return view('admin.edit-topic');
     }
 
-    public function group_details(){
-        return view('admin.group-details');
+    public function semester_details(){
+        return view('admin.semester-details');
     }
-    public function manage_groups(){
-        return view('admin.manage-groups');
+    public function manage_semesters(){
+        return view('admin.manage-semesters');
     }
 
     public function manage_plans(){
@@ -411,8 +411,8 @@ class AdminController extends Controller
         return view('admin.manage-topics');
     }
 
-    public function new_group(){
-        return view('admin.new-group');
+    public function new_semester(){
+        return view('admin.new-semester');
     }
 
     public function new_team(){

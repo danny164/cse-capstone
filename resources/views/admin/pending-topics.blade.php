@@ -36,7 +36,7 @@
                                     <tr>
                                         <th></th>
                                         <th class="text-left">Topic Name</th>
-                                        <th>Group</th>
+                                        <th>Semester</th>
                                         <th>Team</th>
                                         <th>Confirm</th>
                                         <th>Action</th>
@@ -53,9 +53,8 @@
                                             <a href="#"><span class="text-danger"><i class="fad fa-times"></i></span></a>
                                         </td>
                                         <td>
-                                            <a href="#" data-toggle="modal" data-target="#topic-edit-modal"><span class="ic-dark"><i class="fad fa-pencil"></i></span></a>
+                                            <a href="#"><span class="ic-dark"><i class="fad fa-pencil"></i></span></a>
                                             <a href="#"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
-                                            <a href="#"><span class="ic-dark"><i class="fad fa-eye"></i></span></a>
                                         </td>
                                     </tr>
 
@@ -64,7 +63,7 @@
                                     <tr>
                                         <th></th>
                                         <th class="text-left">Topic Name</th>
-                                        <th>Group</th>
+                                        <th>Semester</th>
                                         <th>Team</th>
                                         <th>Confirm</th>
                                         <th>Action</th>
@@ -80,63 +79,6 @@
 
                 </div>
                 <!-- End tab content -->
-
-                <!-- Edit Topic -->
-                <form class="modal fade" id="topic-edit-modal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header bg-primary">
-                                <h5 class="modal-title">Edit Topic</h5>
-                                <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
-                                    <i class="material-icons">close</i>
-                                </button>
-                            </div>
-                            <!--end of modal head-->
-                            <div class="modal-body">
-                                <div class="form-group row align-items-center">
-                                    <label class="col-2">Title</label>
-                                    <input class="form-control col" type="text" placeholder="Title in English" name="english-title" required />
-                                </div>
-                                <div class="form-group row align-items-center">
-                                    <label class="col-2"></label>
-                                    <input class="form-control col" type="text" placeholder="Title in Vietnamese" name="vietnamese-title" required />
-                                </div>
-                                <div class="form-group row align-items-center">
-                                    <label class="col-2"></label>
-                                    <input class="form-control col" type="text" placeholder="Initial Title" name="initial-title" required />
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-2">Description</label>
-                                    <textarea class="form-control col" rows="10" placeholder="Write something here..." name="note-description" required ></textarea>
-                                </div>
-                                <div class="form-group row align-items-center">
-                                    <label class="col-2">Group</label>
-                                    <select name="groups" class="form-control col" required>
-                                        <option selected>Group 2</option>
-                                        <option>Group 1</option>
-                                    </select>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-2">Team</label>
-                                    <select name="groups" class="form-control col">
-                                        <option selected>-- Select One (Optional) --</option>
-                                        <option>Team 7</option>
-                                        <option>Team 8</option>
-                                        <option>Team 9</option>
-                                    </select>
-                                </div>
-
-                            </div>
-                            <!--end of modal body-->
-                            <div class="modal-footer">
-                                <button role="button" class="btn btn-primary" type="submit">
-                                    Update
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <!-- End Edit Topic -->
 
             </div>
         </div>
