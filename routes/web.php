@@ -88,6 +88,19 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     Route::get('/search',[AdminController:: class,'search']);
     Route::post('/ajaxRequest',[AdminController:: class,'ajaxRequest']);
 
+
+    //test
+    Route::get('teams/new',[AdminController::class,'new_team']);
+    // Thiếu route quản lý team
+    Route::get('team-details',[AdminController::class,'team_details']);
+
+    Route::get('topics/new',[AdminController:: class,'new_topic']);
+    Route::get('topics/pending',[AdminController::class, 'pending_topics']);
+    Route::get('topics',[AdminController:: class,'manage_topics']);
+
+    Route::get('plans/new',[AdminController:: class,'new_plan']);
+    Route::get('plans',[AdminController:: class,'manage_plans']);
+
 });
 
 
@@ -104,3 +117,4 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::post('profile/{id}', [HomeController::class, 'account_update'])->middleware('profile.owner');
 
 });
+
