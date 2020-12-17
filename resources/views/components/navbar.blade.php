@@ -50,16 +50,16 @@
 
                 <li class="nav-item">
 
-                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2">Groups</a>
+                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2">Semesters</a>
                     <div id="submenu-2" class="collapse" data-parent="#navbar-collapse">
                         <ul class="nav nav-small flex-column">
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/groups/new') }}">New Group</a>
+                                <a class="nav-link" href="{{ url('admin/groups/new') }}">New Semester</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/groups') }}">Group Management</a>
+                                <a class="nav-link" href="{{ url('admin/groups') }}">Semester Management</a>
                             </li>
 
                         </ul>

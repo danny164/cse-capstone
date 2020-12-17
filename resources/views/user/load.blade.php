@@ -5,7 +5,7 @@
                 <div class="media align-items-center text-break">
                     @foreach($all_user  as $key => $value)
                         @if($value->id == $cate_pro->user_id)
-                    <img  src="{{ URL::to('images/'.$value->avatar_path) }}" class="avatar" data-toggle="tooltip" data-title="{{ ($value-> full_name)}}" data-filter-by="alt" />
+                            <img src="{{ URL::to('images/'.$value->avatar_path) }}" class="avatar" data-toggle="tooltip" data-title="{{ ($value->full_name)}}" data-filter-by="alt" />
                         @endif
                     @endforeach
                     <div class="media-body">
@@ -14,15 +14,17 @@
                 </div>
                 <div class="d-flex align-items-center flex-shrink-0">
                     <span data-filter-by="text">{{ Carbon\Carbon::parse($cate_pro->created_at)->diffForHumans() }}</span>
-                    <div class="ml-1 dropdown card-options">
-                        <button class="btn-options" type="button" id="note-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="material-icons">more_vert</i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="{{URL::to('/admin/announcements/'.$cate_pro->id.'/edit')}}">Edit</a>
-                            <a class="dropdown-item text-chartjs" onclick="return confirm('Are you sure to delete?')"href="{{URL::to('/admin/announcements/'.$cate_pro->id.'/delete')}}">Delete</a>
+                    @if(Auth::user()->role_id == 1)
+                        <div class="ml-1 dropdown card-options">
+                            <button class="btn-options" type="button" id="note-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="{{URL::to('/admin/announcements/'.$cate_pro->id.'/edit')}}">Edit</a>
+                                <a class="dropdown-item text-chartjs" onclick="return confirm('Are you sure to delete?')"href="{{URL::to('/admin/announcements/'.$cate_pro->id.'/delete')}}">Delete</a>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
             <div class="card-body" data-filter-by="text">
