@@ -30,7 +30,11 @@
         @include('components.navbar')
 
         <div class="main-container @guest fullscreen @endguest">
+
+            @include('components.scroll-process')
+
             @yield('content')
+
         </div>
 
         @include('components.copyright')
@@ -42,8 +46,6 @@
     <script type="text/javascript" src="{{asset('assets/js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/js/popper.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/js/bootstrap.js')}}"></script>
-
-    <!-- Optional Vendor Scripts (Remove the plugin script here and comment initializer script out of index.js if site does not use that feature) -->
 
     <!-- Autosize - resizes textarea inputs as user types -->
     <script type="text/javascript" src="{{asset('assets/js/autosize.min.js')}}"></script>
@@ -119,6 +121,17 @@
         $('body,html').animate({
             scrollTop: 0
         }, 600);
+    </script>
+
+    <script>
+        window.onscroll = function() {myFunction()};
+
+        function myFunction() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("myBar").style.width = scrolled + "%";
+        }
     </script>
 
     {{-- <script>

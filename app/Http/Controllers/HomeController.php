@@ -26,15 +26,16 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (Auth::user()->isRole()===1){
-            return redirect('/admin');
+        $manage_announcements=DB::table('announcements')->orderBy('created_at','desc')->paginate(10);
+        $all_user=DB::table('users')->get();
+
+        if ($request->ajax()) {
+            return view('user.load', compact('manage_announcements', 'all_user'))->render();
         }
-        else if (Auth::user()->isRole()===2){
-            return redirect('/mentor');
-        }
-        return view('user.home');
+
+        return view('user.home', compact('manage_announcements', 'all_user'));
     }
 
     /**

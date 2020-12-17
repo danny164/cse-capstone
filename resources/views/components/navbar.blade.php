@@ -1,6 +1,6 @@
 <div class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
 
-    <a class="navbar-brand" href="{{ url('admin') }}">
+    <a class="navbar-brand" href="{{ url('/home') }}">
         <img alt="dtu" src="{{ url('assets/img/duytan-university.svg') }}"/>
     </a>
 

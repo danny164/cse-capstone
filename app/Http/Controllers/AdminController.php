@@ -12,15 +12,6 @@ class AdminController extends Controller
 
     public function index(Request $request){
 
-        $manage_announcements=DB::table('announcements')->orderBy('created_at','desc')->paginate(10);
-        $all_user=DB::table('users')->get();
-
-        if ($request->ajax()) {
-            return view('admin.load', compact('manage_announcements', 'all_user'))->render();
-        }
-
-        return view('admin.index', compact('manage_announcements', 'all_user'));
-
     }
 
     /**
@@ -115,7 +106,7 @@ class AdminController extends Controller
             }
 
             DB::table('announcements')->insert($data);
-            return redirect('admin')->withSuccess('Post Created Successfully!');
+            return redirect('/home')->withSuccess('Post Created Successfully!');
         }
 
     }
@@ -147,7 +138,7 @@ class AdminController extends Controller
             }
 
             DB::table('announcements')->where('id', $id)->update($data);
-            return redirect('admin')->withSuccess('Post Created Successfully!');
+            return redirect('/home')->withSuccess('Post Created Successfully!');
         }
 
     }
@@ -156,7 +147,7 @@ class AdminController extends Controller
 
         DB::table('announcements')->where('id',$id)->delete();
 
-        return  redirect('admin')->withSuccess('Deleted Successfully!');
+        return  redirect('/home')->withSuccess('Deleted Successfully!');
 
     }
 

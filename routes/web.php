@@ -40,7 +40,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 
 // Admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']], function() {
-    Route::get('/', [AdminController::class, 'index']);
+    // Route::get('/', [AdminController::class, 'index']);
 
     Route::get('announcements/new', [AdminController::class, 'new_announcement']);
     Route::get('announcements', [AdminController::class, 'manage_announcements']);
@@ -57,7 +57,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
 
     Route::post('/announcements/management/{id}/update', [AdminController::class, 'update_announcement']);
     Route::post('/announcements/{id}/update', [AdminController::class, 'update_announcement_home']);
-// faculty
+
+    // Faculty
     Route::get('faculties/new',[AdminController:: class, 'new_faculty']);
     Route::get('faculties',[AdminController:: class, 'manage_faculties']);
     Route::POST('/faculty/new-faculty',[AdminController:: class, 'save_new_faculty']);
@@ -66,7 +67,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     Route::post('/faculties/management/{id}/update',[AdminController:: class, 'update_faculties']);
 
 
-//  departments
+    //  Departments
 
     Route::get('departments/new',[AdminController :: class ,'new_department']);
     Route::get('departments',[AdminController :: class,'manage_departments']);
@@ -75,12 +76,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     Route::get('/departments/management/{id}/delete',[AdminController :: class,'delete_department']);
     Route::post('/departments/management/{id}/update',[AdminController :: class,'update_department']);
 
-// control
+    // Control Panel
     Route::get('control/users',[AdminController::class ,'control_panel']);
     Route::get('control/users/add',[AdminController::class ,'add_user']);
     Route::post('control/users/save',[AdminController::class ,'new_user']);
 
-// groups
+    // Groups
     Route::get('groups/new',[AdminController::class, 'new_group']);
     Route::get('groups',[AdminController::class, 'manage_groups']);
     Route::get('group-details',[AdminController::class, 'group_details']);
@@ -93,7 +94,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
 
 // Mentor
 Route::group(['prefix' => 'mentor', 'middleware' => ['auth', 'mentor', 'verified']], function() {
-    Route::get('/', [MentorController::class, 'index']);
+    // Route::get('/', [MentorController::class, 'index']);
 
 });
 
