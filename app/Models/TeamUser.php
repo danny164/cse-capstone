@@ -6,12 +6,10 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class TeamUser extends Pivot
 {
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+    protected $table = "teams_users";
 
-    // public function team(){
-    //     return $this->belongsToMany(Team::class, 'team_id');
-    // }
+    public function team_user()
+    {
+        return $this->belongsToMany(Team::class,'teams_users', 'user_id', 'team_id');
+    }
 }

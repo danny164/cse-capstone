@@ -19,7 +19,7 @@ class Team extends Model
     // 1 team có nhiều id user, 1 user có thể ở trong nhiều id team (nhưng khác group vẫn được chấp nhận)
     public function team_user()
     {
-        return $this->belongsToMany(User::class, 'team_id');
+        return $this->belongsToMany(TeamUser::class,'teams_users', 'user_id', 'team_id');
     }
 
 }
