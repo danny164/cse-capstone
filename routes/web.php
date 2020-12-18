@@ -102,7 +102,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     Route::get('plans/new',[AdminController:: class,'new_plan']);
     Route::get('plans',[AdminController:: class,'manage_plans']);
     // Teams test
-    // Route::get('new-team',[AdminController::class, 'new_team']); // test
+    Route::get('new-team',[AdminController::class, 'new_team']); // test
 
 });
 

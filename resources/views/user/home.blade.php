@@ -16,11 +16,11 @@
                             <div class="row content-list-head">
                                 <div class="col-auto">
                                     <h3>Announcements</h3>
-                                    @if(Auth::user()->role_id == 1)
+                                    @admin
                                         <button class="btn btn-round" data-toggle="modal" data-target="#note-add-modal">
                                             <i class="material-icons">add</i>
                                         </button>
-                                    @endif
+                                    @endadmin
                                 </div>
                                 <form class="col-md-auto">
                                     <div class="input-group input-group-round">
