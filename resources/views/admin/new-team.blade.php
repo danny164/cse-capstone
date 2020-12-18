@@ -7,15 +7,15 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ url('admin/groups') }}">Groups</a>
+                <li class="breadcrumb-item"><a href="{{ url('admin/semesters') }}">Semesters</a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ url('#') }}">Tên Group</a>
+                <li class="breadcrumb-item"><a href="{{ url('#') }}">Tên Semester</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">New Team</li>
             </ol>
         </nav>
 
-        <a href="{{ url('#') }}"><h5 class="modal-title"><i class="fad fa-angle-left"></i>Back</h5></a>
+        <a href="{{ url('#') }}"><h6 class="modal-title text-table"><i class="fad fa-angle-left"></i>Back</h6></a>
 
     </div>
     <!-- end breadcrumb -->
@@ -112,27 +112,6 @@
                                                     <img alt="Lý Hiện" class="avatar" src="{{ asset('assets/img/avatar-gun.jpg') }}" />
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Ngọc Trinh">
-                                                    <img alt="Ngọc Trinh" class="avatar" src="{{ asset('assets/img/avatar-ngoc-trinh.jpg') }}" />
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Lý Hiện">
-                                                    <img alt="Tống Uy Long" class="avatar" src="{{ asset('assets/img/avatar-tong-uy-long.jpg') }}" />
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Lý Hiện">
-                                                    <img alt="Lý Hiện" class="avatar" src="{{ asset('assets/img/avatar-gun.jpg') }}" />
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Lý Hiện">
-                                                    <img alt="Sơn Tùng MTP" class="avatar" src="{{ asset('assets/img/avatar-sontung-mtp.jpg') }}" />
-                                                </a>
-                                            </li>
-
                                         </ul>
                                     </div>
                                     <hr>

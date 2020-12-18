@@ -7,7 +7,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Announcements</a>
+                <li class="breadcrumb-item"><a href="{{ url('/home') }}">Announcements</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">New Announcement</li>
             </ol>

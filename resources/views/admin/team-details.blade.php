@@ -7,9 +7,9 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ url('admin/groups') }}">Groups</a>
+                <li class="breadcrumb-item"><a href="{{ url('admin/semesters') }}">Semesters</a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ url('#') }}">Tên Group</a>
+                <li class="breadcrumb-item"><a href="{{ url('#') }}">Tên Semesters</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Tên Team</li>
             </ol>
@@ -24,7 +24,7 @@
                 <a class="dropdown-item" href="{{ url('admin/edit-team') }}">Edit Team</a>
                 <a class="dropdown-item" href="{{ url('#') }}">Share</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item text-chartjs" href="#"><i class="fas fa-lock-alt"></i>Close Team</a>
+                <a class="dropdown-item text-chartjs" href="#"><i class="fad fa-lock"></i>Close Team</a>
 
             </div>
         </div>

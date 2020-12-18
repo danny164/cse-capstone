@@ -82,16 +82,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     Route::post('control/users/save',[AdminController::class ,'new_user']);
 
     // Groups
-    Route::get('groups/new',[AdminController::class, 'new_group']);
-    Route::get('groups',[AdminController::class, 'manage_groups']);
-    Route::get('group-details',[AdminController::class, 'group_details']);
-    Route::post('groups/new-groups',[AdminController:: class,'save_new_groups']);
+    Route::get('semesters/new',[AdminController::class, 'new_semester']);
+    Route::get('semesters',[AdminController::class, 'manage_semesters']);
+    Route::get('semester-details',[AdminController::class, 'semester_details']); // test
+    Route::post('semester/new-semester',[AdminController:: class,'save_new_semesters']); // test
     Route::get('/search',[AdminController:: class,'search']);
     Route::post('/ajaxRequest',[AdminController:: class,'ajaxRequest']);
 
 
     //test
-    Route::get('teams/new',[AdminController::class,'new_team']);
+    // Route::get('teams/new',[AdminController::class,'new_team']);
     // Thiếu route quản lý team
     Route::get('team-details',[AdminController::class,'team_details']);
 
@@ -101,6 +101,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
 
     Route::get('plans/new',[AdminController:: class,'new_plan']);
     Route::get('plans',[AdminController:: class,'manage_plans']);
+    // Teams
+    Route::get('new-team',[AdminController::class, 'new_team']); // test
 
 });
 

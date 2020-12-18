@@ -1,83 +1,127 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- CSRF Token -->
+    <!-- <meta name="csrf-token" content=" csrf_token() "> -->
+
+    <title>@yield('title', 'Capstone Tracking')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="{{asset('assets/img/DTU.ico')}}" rel="icon" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Gothic+A1" rel="stylesheet">
+    <link href="{{asset('assets/css/all.min.css')}}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{asset('assets/css/theme.css')}}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{asset('assets/css/datatables.min.css')}}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{asset('assets/css/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{asset('assets/css/dataTables.checkboxes.css')}}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{asset('assets/css/toastr.min.css')}}" rel="stylesheet" type="text/css" media="all" />
+    @yield('css')
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+    @yield('content')
 
-                    </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
+    <!-- Required vendor scripts (Do not remove) -->
+    <script type="text/javascript" src="{{asset('assets/js/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/js/popper.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/js/bootstrap.js')}}"></script>
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->full_name }}
-                                </a>
+    <!-- Autosize - resizes textarea inputs as user types -->
+    <script type="text/javascript" src="{{asset('assets/js/autosize.min.js')}}"></script>
+    <!-- Flatpickr (calendar/date/time picker UI) -->
+    <script type="text/javascript" src="{{asset('assets/js/flatpickr.min.js')}}"></script>
+    <!-- Prism - displays formatted code boxes -->
+    <script type="text/javascript" src="{{asset('assets/js/prism.js')}}"></script>
+    <!-- Shopify Draggable - drag, drop and sort items on page -->
+    <script type="text/javascript" src="{{asset('assets/js/draggable.bundle.legacy.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/js/swap-animation.js')}}"></script>
+    <!-- Dropzone - drag and drop files onto the page for uploading -->
+    <script type="text/javascript" src="{{asset('assets/js/dropzone.min.js')}}"></script>
+    <!-- List.js - filter list elements -->
+    <script type="text/javascript" src="{{asset('assets/js/list.min.js')}}"></script>
+    <!-- DataTables.js - sort, seach, pagination -->
+    <script type="text/javascript" src="{{asset('assets/js/datatables.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/js/dataTables.checkboxes.min.js')}}"></script>
+    <!-- Toastr alerts-->
+    <script type="text/javascript" src="{{asset('assets/js/toastr.min.js')}}"></script>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+    <!-- Required theme scripts (Do not remove) -->
+    <script type="text/javascript" src="{{asset('assets/js/theme.js')}}"></script>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+    <script>
+
+        function toasterOptions() {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+        };
+
+        toasterOptions();
+        @if(Session::has('errors'))
+            toastr.error("{{ Session::get('errors')->first() }}");
+            // @if(count($errors) > 0)
+            //     @foreach($errors->all() as $error)
+            //         toastr.error("{{ $error }}");
+            //     @endforeach
+            // @endif
+        @endif
+
+        @if(Session::has('success'))
+            toastr.success("{{ Session::get('success') }}");
+        @endif
+
+        @if(Session::has('warning'))
+            toastr.warning("{{ Session::get('warning') }}");
+        @endif
+
+        @if(Session::has('info'))
+            toastr.info("{{ Session::get('info') }}");
+        @endif
+
+    </script>
+
+    <script>
+        $('body,html').animate({
+            scrollTop: 0
+        }, 600);
+    </script>
+
+    <script>
+        window.onscroll = function() {myFunction()};
+
+        function myFunction() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("myBar").style.width = scrolled + "%";
+        }
+    </script>
+
+    @yield('script')
+
 </body>
+
 </html>

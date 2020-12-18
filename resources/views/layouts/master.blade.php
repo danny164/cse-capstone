@@ -31,8 +31,6 @@
 
         <div class="main-container @guest fullscreen @endguest">
 
-            @include('components.scroll-process')
-
             @yield('content')
 
         </div>
