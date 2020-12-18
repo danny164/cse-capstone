@@ -22,6 +22,7 @@ class CreateAnnouncementsTable extends Migration
             $table->tinyInteger('visibility');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw("CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()"));
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';

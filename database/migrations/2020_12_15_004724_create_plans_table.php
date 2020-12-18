@@ -15,7 +15,7 @@ class CreatePlansTable extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('team_id')->unsigned();
+            $table->bigInteger('semester_id')->unsigned();
             $table->text('title');
             $table->longText('description');
             $table->dateTime('start_date');
@@ -23,7 +23,7 @@ class CreatePlansTable extends Migration
             $table->text('file_path')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw("CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()"));
-            $table->foreign('team_id')->references('id')->on('teams_users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('semester_id')->references('id')->on('semesters')->onUpdate('cascade')->onDelete('cascade');
 
 
             $table->engine = 'InnoDB';

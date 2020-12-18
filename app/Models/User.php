@@ -41,19 +41,21 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+
     public function isRole()
     {
         return $this->role_id;
     }
 
-    public function isActive()
+    // 1 user có nhiều id thông báo
+    public function announcement()
     {
-        return $this->is_active;
+        return $this->hasMany(Announcement::class, 'user_id');
     }
 
-    public function isEmailConfirmed()
+    // semester + user = semseters_users table
+    public function semester()
     {
-        return $this->is_email_confirmed;
+        return $this->belongsToMany(Semester::class, 'semesters_users', 'semester_id', 'user_id')->as('semesters_users');
     }
-
 }
