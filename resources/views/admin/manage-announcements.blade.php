@@ -5,9 +5,9 @@
     <div class="breadcrumb-bar navbar bg-white sticky-top">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url('admin') }}">Home</a>
+            <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a>
             </li>
-            <li class="breadcrumb-item"><a href="{{ url('admin') }}">Announcements</a>
+            <li class="breadcrumb-item"><a href="{{ url('/home') }}">Announcements</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Anncouncement Management</li>
             </ol>

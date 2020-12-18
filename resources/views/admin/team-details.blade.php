@@ -7,7 +7,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ url('admin/groups') }}">Semesters</a>
+                <li class="breadcrumb-item"><a href="{{ url('admin/semesters') }}">Semesters</a>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ url('#') }}">Tên Semesters</a>
                 </li>
