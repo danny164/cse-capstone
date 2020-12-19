@@ -159,9 +159,9 @@
                                         <label class="col-3">Bio</label>
                                         <div class="col">
                                             <textarea placeholder="Tell us a little about yourself" name="bio" class="form-control" rows="4">{{$cate_pro->about_me}}</textarea>
-                                            @if(Auth::user()->isRole()===3)
+                                            @user
                                                 <small><span class="font-weight-bold text-danger-2">You will take a F point for this course if the above information is NOT true</span></small>
-                                            @endif
+                                            @enduser
                                         </div>
                                     </div>
 
