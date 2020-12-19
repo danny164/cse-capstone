@@ -32,7 +32,7 @@ class Semester extends Model
     // semester + user = semseters_users table
     public function user()
     {
-        return $this->belongsToMany(User::class, 'semesters_users', 'semester_id', 'user_id')->using(TeamUser::class);
+        return $this->belongsToMany(User::class, 'semesters_users', 'semester_id', 'user_id')->withTimestamps();
     }
 
 }
