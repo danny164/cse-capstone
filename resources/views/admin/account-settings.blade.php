@@ -39,7 +39,7 @@
                             <div class="tab-pane fade show active" role="tabpanel" id="profile">
                             @foreach($users as $key => $cate_pro)
                             <form method="POST" action="{{ url('profile/'.$cate_pro->id) }}" enctype="multipart/form-data">
-                                  {{csrf_field()}}
+                                @csrf
                                 <div class="media mb-4">
                                     <img id="img-avatar" alt="Image" src="{{ URL::to('images/'.$cate_pro->avatar_path) }}"class="avatar avatar-lg" />
                                     <div class="media-body ml-3">
@@ -78,7 +78,7 @@
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Gender</label>
                                         <div class="col">
-                                            <select name="gender" class="form-control" >
+                                            <select name="gender" class="form-control">
                                                 <option value=1  {{  ($cate_pro->gender == 1 ? ' selected' : '') }}>Male</option>
                                                 <option value=2 {{  ($cate_pro->gender == 2 ? ' selected' : '') }}>Female</option>
                                                 <option value=3 {{  ($cate_pro->gender == 3 ? ' selected' : '') }}>Others</option>
@@ -99,7 +99,7 @@
                                             <input type="text" placeholder="Enter your phone number" name="phone" class="form-control" value="{{$cate_pro->phone}}" required />
                                         </div>
                                     </div>
-                                @if(Auth::user()->isRole()===3)
+                                @user
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Student ID</label>
                                         <div class="col">
@@ -113,21 +113,19 @@
                                             <input type="text" placeholder="Enter your class" name="class" value="{{$cate_pro->class}}" class="form-control"  />
                                         </div>
                                     </div>
-                                @endif
+                                @enduser
 
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Faculty</label>
                                         <div class="col">
                                             <select name="faculty" class="form-control" >
-
-                                            @foreach($faculties as $key => $value)
-                                                @if($value->id == $cate_pro->faculty)
-                                                    <option  value="{{$value->id}}"selected>{{$value->faculty_name}}</option>
-                                                 @else
-                                                     <option value="{{$value->id}}">{{$value->faculty_name}}</option>
-                                                @endif
-                                            @endforeach
-
+                                                @foreach($faculties as $key => $value)
+                                                    @if($value->id == $cate_pro->faculty)
+                                                        <option  value="{{$value->id}}"selected>{{$value->faculty_name}}</option>
+                                                    @else
+                                                        <option value="{{$value->id}}">{{$value->faculty_name}}</option>
+                                                    @endif
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -136,13 +134,13 @@
                                         <label class="col-3">Department</label>
                                         <div class="col">
                                             <select name="department" class="form-control">
-                                            @foreach($departments as $key => $value)
-                                                @if($value->id == $cate_pro->department)
-                                                    <option  value="{{$value->id}}"selected>{{$value->department_name}}</option>
-                                                 @else
-                                                     <option value="{{$value->id}}">{{$value->department_name}}</option>
-                                                @endif
-                                            @endforeach
+                                                @foreach($departments as $key => $value)
+                                                    @if($value->id == $cate_pro->department)
+                                                        <option  value="{{$value->id}}"selected>{{$value->department_name}}</option>
+                                                    @else
+                                                        <option value="{{$value->id}}">{{$value->department_name}}</option>
+                                                    @endif
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
