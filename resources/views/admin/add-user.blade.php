@@ -30,7 +30,7 @@
                         <div class="form-group row align-items-center">
                             <label class="col-3">Full name</label>
                             <div class="col">
-                                <input type="text" placeholder="Enter Your full name" value="" name="full-name" class="form-control" autofocus />
+                                <input type="text" placeholder="Enter Your full name" value="" name="full_name" class="form-control" autofocus />
                             </div>
                         </div>
 
