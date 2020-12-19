@@ -62,7 +62,7 @@
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Full Name</label>
                                         <div class="col">
-                                            <input type="text" value="{{ $cate_pro->full_name }}" name="full_name" class="form-control" required />
+                                            <input type="text" value="{{ $cate_pro->full_name }}" name="full_name" class="form-control @error('full_name') is-invalid @enderror" required />
                                         </div>
                                     </div>
 
@@ -96,21 +96,21 @@
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Phone</label>
                                         <div class="col">
-                                            <input type="text" placeholder="Enter your phone number" name="phone" class="form-control" value="{{$cate_pro->phone}}" required />
+                                            <input type="text" placeholder="Enter your phone number" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{$cate_pro->phone}}" required />
                                         </div>
                                     </div>
                                 @user
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Student ID</label>
                                         <div class="col">
-                                            <input type="text" placeholder="Enter your student ID" value="{{$cate_pro->student_id}}" name="student_id" class="form-control" required />
+                                            <input type="text" placeholder="Enter your student ID" value="{{$cate_pro->student_id}}" name="student_id" class="form-control @error('student_id') is-invalid @enderror" required />
                                         </div>
                                     </div>
 
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Class</label>
                                         <div class="col">
-                                            <input type="text" placeholder="Enter your class" name="class" value="{{$cate_pro->class}}" class="form-control"  />
+                                            <input type="text" placeholder="Enter your class" name="class" value="{{$cate_pro->class}}" class="form-control @error('class') is-invalid @enderror"  />
                                         </div>
                                     </div>
                                 @enduser
@@ -158,7 +158,7 @@
                                     <div class="form-group row">
                                         <label class="col-3">Bio</label>
                                         <div class="col">
-                                            <textarea placeholder="Tell us a little about yourself" name="bio" class="form-control" rows="4">{{$cate_pro->about_me}}</textarea>
+                                            <textarea placeholder="Tell us a little about yourself" name="bio" class="form-control @error('bio') is-invalid @enderror" rows="4">{{$cate_pro->about_me}}</textarea>
                                             @user
                                                 <small><span class="font-weight-bold text-danger-2">You will take a F point for this course if the above information is NOT true</span></small>
                                             @enduser

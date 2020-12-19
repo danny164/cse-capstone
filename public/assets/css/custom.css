@@ -1,3 +1,6 @@
+a {
+    cursor: pointer; }
+
 /** Button  **/
 
 .btn-chartjs { background-color: #f27173; border-color: #f27173; color: white; }
@@ -521,6 +524,10 @@ table.dataTable tfoot th, table.dataTable tfoot td {
     height: 3px;
     background: #343A40;
     width: 0%;
+}
+
+a.toggle-vis {
+    color: #36A2EB!important;
 }
 
 /* Testing */

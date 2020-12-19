@@ -30,28 +30,28 @@
                         <div class="form-group row align-items-center">
                             <label class="col-3">Full name</label>
                             <div class="col">
-                                <input type="text" placeholder="Enter Your full name" value="" name="full-name" class="form-control" autofocus />
+                                <input type="text" placeholder="Enter your full name" value="{{ old('full_name') }}" name="full_name" class="form-control @error('full_name') is-invalid @enderror" autofocus />
                             </div>
                         </div>
 
                         <div class="form-group row align-items-center">
                             <label class="col-3">Email</label>
                             <div class="col">
-                                <input type="text" placeholder="Enter Your email" value="" name="email" class="form-control" />
+                                <input type="text" placeholder="Enter your email" value="{{ old('email') }}" name="email" class="form-control @error('email') is-invalid @enderror" />
                             </div>
                         </div>
 
                         <div class="form-group row align-items-center">
                             <label class="col-3">Password</label>
                             <div class="col">
-                                <input type="password" placeholder="Enter password" name="password" class="form-control" />
+                                <input type="password" placeholder="Enter password" name="password" class="form-control @error('password') is-invalid @enderror" />
                             </div>
                         </div>
 
                         <div class="form-group row align-items-center">
                             <label class="col-3">Confirm Password</label>
                             <div class="col">
-                                <input type="password" placeholder="Confirm your password" name="password_confirmation" required autocomplete="new-password" class="form-control" />
+                                <input type="password" placeholder="Confirm your password" name="password_confirmation" class="form-control @error('password') is-invalid @enderror" />
                             </div>
                         </div>
 
