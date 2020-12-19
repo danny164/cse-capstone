@@ -370,7 +370,7 @@ class AdminController extends Controller
 
         public function  new_user(Request $request){
             $data = [];
-            $data['full_name'] = $request->input('full_name');
+            $data['full_name'] = Str::of($request->input('full_name'))->replaceMatches('/[^a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{1,}/', ' ')->replaceMatches('/[ ]{2,}/', ' ')->trim()->title();
             $data['email'] = $request->input('email');
             $data['password'] = bcrypt($request->input('password'));
             $data['role_id'] = $request->input('user-role');
