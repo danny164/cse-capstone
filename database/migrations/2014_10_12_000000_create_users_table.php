@@ -35,6 +35,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_email_confirmed')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
+            $table->timestamps();
 
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';

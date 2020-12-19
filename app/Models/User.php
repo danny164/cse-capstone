@@ -56,6 +56,12 @@ class User extends Authenticatable implements MustVerifyEmail
     // semester + user = semseters_users table
     public function semester()
     {
-        return $this->belongsToMany(Semester::class, 'semesters_users', 'semester_id', 'user_id')->as('semesters_users');
+        return $this->belongsToMany(Semester::class, 'semesters_users', 'semester_id', 'user_id')->as('semesters_users')->withTimestamps();
+    }
+
+    // team + user = teams_users table
+    public function team()
+    {
+        return $this->belongsToMany(Team::class, 'teams_users', 'user_id', 'team_id')->withTimestamps();
     }
 }
