@@ -51,12 +51,7 @@ class HomeController extends Controller
         $faculties=DB::table('faculties')->orderBy('id','desc')->get();
         $users=DB::table('users')->where('users.id',$id)->get();
 
-        $account_settings = view('admin.account-settings')
-            ->with('departments',$departments)
-            ->with('faculties',$faculties)
-            ->with('users',$users);
-
-        return view('layouts.master')->with('admin.account-settings', $account_settings );
+        return view('admin.account-settings', compact('departments', 'faculties', 'users'));
     }
 
     public function account_update(Request $request,$id){
@@ -70,8 +65,10 @@ class HomeController extends Controller
         $data['faculty'] = $request->input('faculty');
         $data['department'] = $request->input('department');
         $data['language'] = $request->input('language');
-        $data['about_me'] = $request->input('bio');
+        $data['about_me'] = Str::of($request->input('bio'))->replaceMatches('/[ ]{2,}/', ' ')->trim();
         $get_image = $request ->file('avatar_path');
+
+
         if($get_image){
             $get_name_image = $get_image->getClientOriginalName();
             $name_image = current(explode('.',$get_name_image));
@@ -80,13 +77,18 @@ class HomeController extends Controller
             $data['avatar_path'] = $new_image;
         }
         if($request->isMethod('post')){
+
+            $messages = [
+                'phone.required' => 'We need to know your phone!',
+            ];
+
             $validator = Validator::make($request->all(), [
 
-                // 'student_id' => 'required|min:10|max:20|unique:users,student_id,'.$id,
-                'phone' => 'required|size:10',
-                // 'profile-class' => 'required|min:3|max:20',
+                'full_name' => 'filled|min:3|max:50',
+                'student_id' => 'required_if:role_id,3|min:10|max:20|unique:users,student_id,'.$id,
+                'phone' => 'required|min:10|max:11|regex:/^[0-9]+$/i',
 
-            ]);
+            ], $messages);
 
             if ($validator->fails()) {
 
