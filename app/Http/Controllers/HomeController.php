@@ -80,6 +80,7 @@ class HomeController extends Controller
 
             $messages = [
                 'phone.required' => 'We need to know your phone!',
+                'mimes' => 'Only jpeg, png, bmp,tiff are allowed.'
             ];
 
             $validator = Validator::make($request->all(), [
@@ -87,7 +88,7 @@ class HomeController extends Controller
                 'full_name' => 'filled|min:3|max:50',
                 'student_id' => 'required_if:role_id,3|min:10|max:20|unique:users,student_id,'.$id,
                 'phone' => 'required|min:10|max:11|regex:/^[0-9]+$/i',
-
+                 'new_image' => 'mimes:jpg,jpeg,png,bmp,tiff |max:4096|unique:users,avatar_path,'.$id,
             ], $messages);
 
             if ($validator->fails()) {

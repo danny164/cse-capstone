@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use App\Providers\RouteServiceProvider;
+use App\Models\User;
 class AdminController extends Controller
 // announcements
 {
@@ -363,7 +366,37 @@ class AdminController extends Controller
         }
     }
 
+// add user
 
+        public function  new_user(Request $request){
+            $data = [];
+            $data['full_name'] = Str::of($request->input('full_name'))->replaceMatches('/[^a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{1,}/', ' ')->replaceMatches('/[ ]{2,}/', ' ')->trim()->title();
+            $data['email'] = $request->input('email');
+            $data['password'] = bcrypt($request->input('password'));
+            $data['role_id'] = $request->input('user-role');
+            $data['email_verified_at'] = now();
+
+
+            if($request->isMethod('post')){
+                $validator = Validator::make($request->all(), [
+
+                    'full_name' => ['required', 'string', 'min:3', 'max:50', 'regex:/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$/i'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'regex:/^[a-z|A-Z|0-9]+@((dtu|duytan)\.edu\.vn)$/i'],
+                    'password' => ['required', 'string', 'min:8', 'confirmed'],
+                    
+                ]);
+
+                if ($validator->fails()) {
+
+                    return back()->withErrors($validator);
+                }
+   
+                DB::table('users')->insert($data);
+               return back()->withSuccess('Update Successfully!');
+            }
+
+
+}
     // ? CHO HẾT TẤT CẢ MỤC SHOW FORM NEW Ở DƯỚI ĐÂY
     public function new_announcement(){
         return view('admin.new-announcement');
