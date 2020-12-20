@@ -178,7 +178,7 @@ class AdminController extends Controller
         if($request->isMethod('post')){
             $validator = Validator::make($request->all(), [
                 'faculty_name' => 'required|min:3|max:100|unique:faculties',
-                'description' => 'required|max:500',
+                'description' => 'max:500',
             ]);
 
             if ($validator->fails()) {
@@ -207,7 +207,7 @@ class AdminController extends Controller
         if($request->isMethod('post')){
             $validator = Validator::make($request->all(), [
                 'faculty_name' => 'required|min:3|max:100|unique:faculties,faculty_name,'.$id, //form
-                'description' => 'required|max:500',
+                'description' => 'max:500',
             ]);
 
             if ($validator->fails()) {
@@ -252,7 +252,7 @@ class AdminController extends Controller
         if($request->isMethod('post')){
             $validator = Validator::make($request->all(), [
                 'department_name' => 'required|min:3|max:100|unique:departments',
-                'description' => 'required|max:500',
+                'description' => 'max:500',
             ]);
             if ($validator->fails()) {
                 return back()->withErrors($validator)->withInput();
@@ -281,7 +281,7 @@ class AdminController extends Controller
         if($request->isMethod('post')){
             $validator = Validator::make($request->all(), [
                 'department_name' => 'required|min:3|max:100|unique:departments,department_name,'.$id,
-                'description' => 'required|max:500',
+                'description' => 'max:500',
             ]);
             if ($validator->fails()) {
                 return back()->withErrors($validator);
@@ -383,14 +383,14 @@ class AdminController extends Controller
                     'full_name' => ['required', 'string', 'min:3', 'max:50', 'regex:/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$/i'],
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'regex:/^[a-z|A-Z|0-9]+@((dtu|duytan)\.edu\.vn)$/i'],
                     'password' => ['required', 'string', 'min:8', 'confirmed'],
-                    
+
                 ]);
 
                 if ($validator->fails()) {
 
                     return back()->withErrors($validator);
                 }
-   
+
                 DB::table('users')->insert($data);
                return back()->withSuccess('Update Successfully!');
             }
