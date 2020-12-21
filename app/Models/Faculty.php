@@ -11,6 +11,11 @@ class Faculty extends Model
 
     protected $table = "faculties";
 
+    protected $fillable = [
+        'faculty_name',
+        'description'
+    ];
+
     public function department()
     {
         return $this->hasMany(Department::class, 'faculty_id');

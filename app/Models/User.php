@@ -47,6 +47,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->role_id;
     }
 
+    // Overrides markEmailAsVerified function in MustVerifyEmail
+    public function markEmailAsVerified()
+    {
+        return $this->forceFill([
+            'email_verified_at' => $this->freshTimestamp(),
+            'is_email_confirmed' => 1,
+        ])->save();
+    }
+
     // 1 user có nhiều id thông báo
     public function announcement()
     {
