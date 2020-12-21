@@ -42,29 +42,33 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($manage_semesters as $key =>$value)
                             <tr>
-                                <td></td>
-                                <td class="text-left">Almost before we knew it, we had left the ground. #6C757D</td>
-                                <td>05/10/2020</td>
-                                <td>05/11/2021</td>
-                                <td><a href="#"><span class="ic-dark"><i class="fad fa-check"></i></span></a></td>
+                            <td></td>
+                                <td class="text-left">{{ $value->semester_name }}</td>
+                                <td>{{ $value->start_date }}</td>
+                                <td>{{ $value->due_date }}</td>
+                                <td>
+                                <?php
+                                        if($value->visibility==1){
+
+                                            echo '<a href="#"><span class="ic-dark"><i class="fad fa-check"></i></span></a>';
+
+                                        }
+
+                                        else{
+
+                                            echo '<a href="#"><span class="ic-dark"><i class="fad fa-lock"></i></span></a>';
+
+                                        }
+                                        ?>
+                                </td>
                                 <td>
                                     <a href="{{ url('#') }}"><span class="ic-dark"><i class="fad fa-pencil"></i></span></a>
                                     <a href="#"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td></td>
-                                <td class="text-left">Almost before we knew it, we had left the ground. #6C757D</td>
-                                <td>05/10/2020</td>
-                                <td>05/11/2021</td>
-                                <td><a href="#"><span class="ic-dark"><i class="fad fa-lock"></i></span></a></td>
-                                <td>
-                                    <a href="#"><span class="ic-dark"><i class="fad fa-pencil"></i></span></a>
-                                    <a href="#"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
-                                </td>
-                            </tr>
-
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr>

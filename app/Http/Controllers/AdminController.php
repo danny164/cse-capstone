@@ -309,7 +309,15 @@ class AdminController extends Controller
     }
 
     // Groups
+    public function manage_semesters(){
 
+        $manage_semesters=DB::table('semesters')->orderBy('created_at','desc')->get();
+
+        return view('admin.manage-semesters', compact('manage_semesters'));
+        
+
+    }
+    
     public function search(Request $request) // $id
     {
         if ($request->ajax()) {
@@ -428,9 +436,7 @@ class AdminController extends Controller
     public function semester_details(){
         return view('admin.semester-details');
     }
-    public function manage_semesters(){
-        return view('admin.manage-semesters');
-    }
+
 
     public function manage_plans(){
         return view('admin.manage-plans');
