@@ -17,6 +17,8 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
 
             'full_name' => 'Nguyễn Đức Mận',
+            'gender' => 1,
+            'phone' => '0904235945',
             'email'=> 'man@duytan.edu.vn',
             'password' => bcrypt('12345678'),
             'is_active' => 1,

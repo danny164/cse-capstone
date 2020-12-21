@@ -251,7 +251,7 @@ class AdminController extends Controller
 
         if($request->isMethod('post')){
             $validator = Validator::make($request->all(), [
-                'department_name' => 'required|min:3|max:100|unique:departments',
+                'department_name' => 'required|min:3|max:100',
                 'description' => 'max:500',
             ]);
             if ($validator->fails()) {
@@ -280,7 +280,7 @@ class AdminController extends Controller
 
         if($request->isMethod('post')){
             $validator = Validator::make($request->all(), [
-                'department_name' => 'required|min:3|max:100|unique:departments,department_name,'.$id,
+                'department_name' => 'required|min:3|max:100',
                 'description' => 'max:500',
             ]);
             if ($validator->fails()) {
@@ -314,10 +314,9 @@ class AdminController extends Controller
         $manage_semesters=DB::table('semesters')->orderBy('created_at','desc')->get();
 
         return view('admin.manage-semesters', compact('manage_semesters'));
-        
 
     }
-    
+
     public function search(Request $request) // $id
     {
         if ($request->ajax()) {
