@@ -125,6 +125,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     Route::get('/plans/{id}/delete', [AdminController::class, 'delete_plans']);
     Route::post('plan/{id}/update-plan', [AdminController::class, 'update_plan']);
 
+//======
+    Route::post('ajaxTeam', [AdminController::class, 'ajax_team']);
+    Route::post('topic/new-topic', [AdminController::class, 'save_topic']);
 
 
 

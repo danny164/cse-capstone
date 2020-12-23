@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Support\Facades\Route;
+
 class AdminController extends Controller
 // announcements
 {
@@ -567,16 +569,7 @@ class AdminController extends Controller
                 $data['due_date'] = $request->input('request-due');
                 $data['semester_id'] = $request->input('semesters');
               
-                // $get_file = $request ->file('file_path');
-        
-        
-                // if($get_image){
-                //     $get_name_image = $get_image->getClientOriginalName();
-                //     $name_image = current(explode('.',$get_name_image));
-                //     $new_image = $name_image.rand(0,9999).'.'.$get_image->getClientOriginalExtension();
-                //     $get_image->move('images/',$new_image);
-                //     $data['avatar_path'] = $new_image;
-                // }
+      
                 if($request->isMethod('post')){
         
         
@@ -597,7 +590,57 @@ class AdminController extends Controller
         
             }
  
- //======================================================================================= 
+ //=====================================Topic================================================== 
+
+ public function new_topic(){
+
+
+    $semesters=DB::table('semesters')->orderBy('id','desc')->get();
+    $teams=DB::table('teams')->get();
+   
+    return view('admin.new-topic', compact('semesters','teams'));
+
+}
+
+public function ajax_team(Request $request){
+     
+    $semester_id = $request->cat_id;
+     
+    $subcategories = DB::table('teams')->where('semester_id',$semester_id)->get();
+    return Response($subcategories);
+  
+}
+public function save_topic(Request $request){
+    // Colum -> name
+            $data = [];
+            $data['title'] = Str::of($request->input('title'));
+            $data['description'] = $request->input('request-description');
+            $data['start_date'] = $request->input('request-start');
+            $data['due_date'] = $request->input('request-due');
+            $data['semester_id'] = $request->input('semesters');
+          
+  
+            if($request->isMethod('post')){
+    
+    
+    
+                $validator = Validator::make($request->all(), [
+    
+                    'title' => 'filled|min:3|max:50',
+                ]);
+    
+                if ($validator->fails()) {
+    
+                    return back()->withErrors($validator)->withInput();
+                }
+    
+                DB::table('plans')->where('id',$id)->update($data);
+                return redirect('admin/plans')->withSuccess('Update Successfully!');
+            }
+    
+        }
+
+ //=======================================================================================
 
     // ? CHO HẾT TẤT CẢ MỤC SHOW FORM NEW Ở DƯỚI ĐÂY
     public function new_announcement(){
@@ -664,9 +707,7 @@ class AdminController extends Controller
        
     }
 
-    public function new_topic(){
-        return view('admin.new-topic');
-    }
+
 
     public function pending_topics(){
         return view('admin.pending-topics');

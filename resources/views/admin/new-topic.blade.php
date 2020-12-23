@@ -20,7 +20,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-11 col-xl-10">
 
-                <form class="mt-3">
+                <form class="mt-3" method="post"  action="{{ url('admin/topic/new-topic') }}"   >
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
                             <h5 class="modal-title">Create a Topic</h5>
@@ -45,18 +45,19 @@
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-2">Semester</label>
-                                <select name="groups" class="form-control col" required>
-                                    <option selected>Group 2</option>
-                                    <option>Group 1</option>
+                                <select name="groups" class="form-control col" id="semesters" required>
+                                <option value="" selected>Please select semester </option>
+
+                                @foreach($semesters as $key => $cate_pro)
+                                    <option value="{{ $cate_pro->id }}">{{$cate_pro->semester_name}}</option>
+                                @endforeach    
                                 </select>
                             </div>
                             <div class="form-group row">
                                 <label class="col-2">Team</label>
-                                <select name="groups" class="form-control col">
-                                    <option selected>-- Select One (Optional) --</option>
-                                    <option>Team 7</option>
-                                    <option>Team 8</option>
-                                    <option>Team 9</option>
+                                
+                                <select name="groups" class="form-control col" id="team">
+                                    <option value="" selected>Please select semester first</option>
                                 </select>
                             </div>
 
@@ -77,4 +78,43 @@
 
 @endsection
 
+@section('script')
+<script>
+$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+    });
+$(document).ready(function() {
+    $('#semesters').on('change', function(e) {
+        var cat_id = e.target.value;
+        console.log(cat_id)
+        $.ajax({
+            url: '{{url('admin/ajaxTeam')}}',
+            type: "POST",
+            data: {
+                cat_id
+            },
+            success: function(data) {
+                console.log(data)
+                var result=[];
+                $('#team').empty();
+                for (var i = 0; i < data.length; i++) {
+                    if(data[i].is_closed==0){
+                    $('#team').append('<option value="' + data[i].id + '">' + data[i].team_name + '</option>');
+                    }
+                  
+                }
+                // $('#subcategory').empty();
+                // $.each(data.subcategories[0].subcategories, function(index, subcategory) {
+                //     $('#subcategory').append('<option value="' + subcategory.id + '">' + subcategory.team_name + '</option>');
+                // })
+            }
+        })
+    });
+}); 
+</script>
+
+
+@endsection
 
