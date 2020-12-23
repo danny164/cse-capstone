@@ -5,7 +5,7 @@
                 <div class="media align-items-center text-break">
                     @foreach($all_user  as $key => $value)
                         @if($value->id == $cate_pro->user_id)
-                            <img src="{{ URL::to('images/'.$value->avatar_path) }}" class="avatar" data-toggle="tooltip" data-title="{{ ($value->full_name)}}" data-filter-by="alt" />
+                            <img src="{{ URL::to('storage/images/'.$value->avatar_path) }}" class="avatar" data-toggle="tooltip" data-title="{{ ($value->full_name)}}" data-filter-by="alt" />
                         @endif
                     @endforeach
                     <div class="media-body">
@@ -31,7 +31,7 @@
                 {{ $cate_pro->content }}
             </div>
 
-            <div class="card-footer comment">
+            {{-- <div class="card-footer comment">
                 <div class="chat-module" data-filter-list="chat-module-body">
                     <div class="chat-module-bottom comment mb-2">
                         <form class="chat-form">
@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="media chat-item">
-                        <img alt="avatar" src="images/avatar.png" class="avatar" />
+                        <img alt="avatar" src="{{ URL::to('storage/images/'.$value->avatar_path) }}" class="avatar" />
                         <div class="media-comment">
                           <div class="chat-item-title">
                             <span class="chat-item-author" data-filter-by="text">{{ $value->full_name }}</span>
@@ -66,7 +66,7 @@
                     </div>
 
                 </div>
-            </div>
+            </div> --}}
         </div>
 
     @endforeach
