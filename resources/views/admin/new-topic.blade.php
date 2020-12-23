@@ -50,12 +50,12 @@
 
                                 @foreach($semesters as $key => $cate_pro)
                                     <option value="{{ $cate_pro->id }}">{{$cate_pro->semester_name}}</option>
-                                @endforeach    
+                                @endforeach
                                 </select>
                             </div>
                             <div class="form-group row">
                                 <label class="col-2">Team</label>
-                                
+
                                 <select name="groups" class="form-control col" id="team">
                                     <option value="" selected>Please select semester first</option>
                                 </select>
@@ -103,7 +103,7 @@ $(document).ready(function() {
                     if(data[i].is_closed==0){
                     $('#team').append('<option value="' + data[i].id + '">' + data[i].team_name + '</option>');
                     }
-                  
+
                 }
                 // $('#subcategory').empty();
                 // $.each(data.subcategories[0].subcategories, function(index, subcategory) {
@@ -112,7 +112,7 @@ $(document).ready(function() {
             }
         })
     });
-}); 
+});
 </script>
 
 

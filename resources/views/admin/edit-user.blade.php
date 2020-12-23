@@ -104,7 +104,7 @@
                                         <label class="col-3">Faculty</label>
                                         <div class="col">
                                             <select name="faculty" class="form-control" >
-                                            <option selected>Choose...</option>
+                                            <option value="">Choose...</option>
 
                                                 @foreach($faculties as $key => $value)
                                                     @if($value->id == $cate_pro->faculty)
@@ -121,7 +121,7 @@
                                         <label class="col-3">Department</label>
                                         <div class="col">
                                             <select name="department" class="form-control">
-                                            <option selected>Choose...</option>
+                                            <option value="">Choose...</option>
 
                                                 @foreach($departments as $key => $value)
                                                     @if($value->id == $cate_pro->department)

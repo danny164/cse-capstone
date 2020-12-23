@@ -48,14 +48,14 @@
                             <div class="form-group row align-items-center">
                                 <label class="col-2">Semester</label>
                                 <select name="semesters" class="form-control col" required>
-                                    <option selected>Choose</option>
+                                    <option value="">Choose...</option>
                                     <option value="1">Semester 1</option>
                                 </select>
                             </div>
                             <div class="form-group row">
                                 <label class="col-2">Team</label>
                                 <select name="teams" class="form-control col">
-                                    <option selected>Choose..</option>
+                                    <option value="">Choose...</option>
                                     <option value="1">Team 7</option>
                                     <option value="2">Team 8</option>
                                     <option value="3">Team 9</option>

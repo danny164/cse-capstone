@@ -569,8 +569,8 @@ class AdminController extends Controller
                 $data['start_date'] = $request->input('request-start');
                 $data['due_date'] = $request->input('request-due');
                 $data['semester_id'] = $request->input('semesters');
-              
-      
+
+
                 if($request->isMethod('post')){
 
 
@@ -590,26 +590,27 @@ class AdminController extends Controller
                 }
 
             }
- 
- //=====================================Topic================================================== 
+
+ //=====================================Topic==================================================
 
  public function new_topic(){
 
 
     $semesters=DB::table('semesters')->orderBy('id','desc')->get();
     $teams=DB::table('teams')->get();
-   
+
     return view('admin.new-topic', compact('semesters','teams'));
 
 }
 
 public function ajax_team(Request $request){
-     
+
     $semester_id = $request->cat_id;
-     
+
     $subcategories = DB::table('teams')->where('semester_id',$semester_id)->get();
+
     return Response($subcategories);
-  
+
 }
 public function save_topic(Request $request){
     // Colum -> name
@@ -619,26 +620,26 @@ public function save_topic(Request $request){
             $data['start_date'] = $request->input('request-start');
             $data['due_date'] = $request->input('request-due');
             $data['semester_id'] = $request->input('semesters');
-          
-  
+
+
             if($request->isMethod('post')){
-    
-    
-    
+
+
+
                 $validator = Validator::make($request->all(), [
-    
+
                     'title' => 'filled|min:3|max:50',
                 ]);
-    
+
                 if ($validator->fails()) {
-    
+
                     return back()->withErrors($validator)->withInput();
                 }
-    
+
                 DB::table('plans')->where('id',$id)->update($data);
                 return redirect('admin/plans')->withSuccess('Update Successfully!');
             }
-    
+
         }
 
  //=======================================================================================
