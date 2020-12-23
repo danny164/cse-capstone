@@ -27,6 +27,7 @@ class CreateTopicsTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw("CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()"));
             $table->foreign('semester_id')->references('id')->on('semesters')->onUpdate('cascade')->onDelete('cascade');
+            $table->text('duoc_chon');
 
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
