@@ -30,12 +30,15 @@
                                     <img alt="Nguyễn Đức Mận" class="avatar" src="{{ asset('assets/img/avatar-man.png') }}" />
                                 </a>
                             </li>
+                            <li>
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="Nguyễn Đức Mận">
+                                    <img alt="Nguyễn Đức Mận" class="avatar" src="{{ asset('assets/img/avatar-man.png') }}" />
+                                </a>
+                            </li>
 
                         </ul>
                     </div>
                 </div>
-
-                <hr>
 
                 <div class="content-list mt-3">
                     <div class="content-list-body row">
@@ -44,7 +47,7 @@
                             <div class="card card-project">
 
                                 <div class="progress">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%"></div>
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 0%"></div>
                                 </div>
 
                                 <div class="card-body">
@@ -74,7 +77,7 @@
                                             <i class="material-icons mr-1">playlist_add_check</i>
                                             <span class="text-small">6/10</span>
                                         </div>
-                                        <span class="text-small" data-filter-by="text">#</span>
+                                        <span class="text-small" data-filter-by="text">#34</span>
                                     </div>
 
                                 </div>

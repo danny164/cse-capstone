@@ -129,11 +129,11 @@
                             <ul class="nav nav-small flex-column">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('#') }}">Pick Topic</a>
+                                    <a class="nav-link" href="{{ url('topics') }}">Pick Topic</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('#') }}">Request Topic</a>
+                                    <a class="nav-link" href="{{ url('topics/request') }}">Request Topic</a>
                                 </li>
 
                             </ul>
@@ -166,6 +166,19 @@
                     @enduser
 
                 </li>
+
+                @user
+                    <hr>
+
+                    <div class="d-none d-lg-block w-100">
+                        <span class="text-small text-muted">Quick Access</span>
+                        <ul class="nav nav-small flex-column mt-2">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">{{  Str::limit('Team 34', 20, '...') }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                @enduser
 
                 @admin
                 <li class="nav-item">

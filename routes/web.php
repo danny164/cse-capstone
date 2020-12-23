@@ -105,7 +105,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     Route::get('/new-team',[AdminController::class, 'new_team']); // test
 
 
-    // Dẹp, khỏi làm 
+    // Dẹp, khỏi làm
 
     Route::get('/users/{id}/unemail_active',[AdminController :: class,'unemail_active']);
     Route::get('/users/{id}/email_active',[AdminController :: class,'email_active']);
@@ -151,6 +151,11 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     // My Team
     Route::get('/semesters', [HomeController::class,'semesters']);
     Route::get('/semesters/id', [HomeController::class,'semester_details']);
+
+    // Topics
+    Route::get('/topics', [HomeController::class,'pick_topic']);
+    Route::get('/topics/request', [HomeController::class,'request_topic']);
+    Route::get('/topics/id', [HomeController::class,'topic_details']);
 
 
 

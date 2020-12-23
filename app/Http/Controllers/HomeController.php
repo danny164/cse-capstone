@@ -120,4 +120,17 @@ class HomeController extends Controller
     public function semester_details(Request $request){
         return view('user.semester-details');
     }
+
+    // Topic
+    public function pick_topic(Request $request){
+        return view('user.pick-topic');
+    }
+
+    public function request_topic(Request $request){
+        return view('user.request-topic');
+    }
+
+    public function topic_details(Request $request){
+        return view('user.topic-details');
+    }
 }
