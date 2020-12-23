@@ -104,6 +104,33 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     // Teams test
     Route::get('/new-team',[AdminController::class, 'new_team']); // test
 
+
+    // Dẹp, khỏi làm 
+
+    Route::get('/users/{id}/unemail_active',[AdminController :: class,'unemail_active']);
+    Route::get('/users/{id}/email_active',[AdminController :: class,'email_active']);
+
+    //=====
+    Route::get('/users/{id}/active',[AdminController :: class,'active']);
+    Route::get('/users/{id}/unactive',[AdminController :: class,'unactive']);
+    //=====
+    Route::get('/users/{id}/delete',[AdminController :: class,'delete_users']);
+
+    Route::get('/users/{id}/edit', [AdminController::class, 'edit_account']);
+    Route::post('/users/{id}/edit', [AdminController::class, 'account_update']);
+
+    //===== Plan
+    Route::post('plan/new-plan', [AdminController::class, 'save_plan']);
+    Route::get('/plans/{id}/edit', [AdminController::class, 'edit_plans']);
+    Route::get('/plans/{id}/delete', [AdminController::class, 'delete_plans']);
+    Route::post('plan/{id}/update-plan', [AdminController::class, 'update_plan']);
+
+
+
+
+
+
+
 });
 
 

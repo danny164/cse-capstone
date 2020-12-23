@@ -47,8 +47,8 @@ class HomeController extends Controller
      */
     public function account_settings(Request $request, $id){
 
-        $departments=DB::table('departments')->orderBy('id','desc')->get();
-        $faculties=DB::table('faculties')->orderBy('id','desc')->get();
+        $departments=DB::table('departments')->orderBy('id','asc')->get();
+        $faculties=DB::table('faculties')->orderBy('id','asc')->get();
         $users=DB::table('users')->where('users.id',$id)->get();
 
         return view('admin.account-settings', compact('departments', 'faculties', 'users'));

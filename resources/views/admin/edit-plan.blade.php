@@ -19,13 +19,14 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-11 col-xl-10">
+            @foreach($plans as $key => $cate_pro)
 
-                <form class="mt-3" method="post"  action="{{ url('admin/plan/new-plan') }}" >
+                <form class="mt-3" method="post"  action="{{ url('admin/plan/'.$cate_pro->id.'/update-plan') }}" >
                 {{csrf_field()}}
                     <div class="modal-content">
 
                         <div class="modal-header">
-                            <h5 class="modal-title">Create a Plan</h5>
+                            <h5 class="modal-title">Edit a Plan</h5>
                         </div>
 
                         <div class="modal-body">
@@ -35,12 +36,12 @@
                                     <h6>General Details</h6>
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Title</label>
-                                        <input class="form-control col" type="text" placeholder="Title" name="title" required/>
+                                        <input class="form-control col" type="text" placeholder="Title" name="title" value="{{ $cate_pro->title }}"/>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-3">Description</label>
-                                        <textarea class="form-control col" rows="10" placeholder="Write something here..." name="request-description"></textarea>
+                                        <textarea class="form-control col" rows="10" name="request-description">{{ $cate_pro->description }}</textarea>
                                     </div>
 
                                     <hr>
@@ -48,12 +49,17 @@
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Season</label>
                                             <select name="semesters" class="form-control col" required>
-                                            <option value="" selected>Select a Season</option>
+                                        
+                                            @foreach($semesters as $key => $value)
 
-                                            @foreach($semesters as $key => $cate_pro)
-                                                @if($cate_pro->is_closed!=1 )
+                                                @if($value->is_closed!=1 )
+                                                   @if($cate_pro->semester_id == $value->id)
 
-                                                    <option value="{{$cate_pro->id}}" >{{ ($cate_pro->semester_name)}}</option>
+                                                    <option value="{{$value->id}}" selected >{{ ($value->semester_name)}}</option>
+                                                    @else
+                                                    <option value="{{$value->id}}">{{$value->semester_name}}</option>
+                                    
+                                                    @endif
                                                 @endif
 
                                              @endforeach
@@ -65,12 +71,12 @@
                                     <h6>Timeline</h6>
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Start Date</label>
-                                        <input class="form-control col" id="startDate" type="text" name="request-start" placeholder="Select a date" data-alt-input="true" data-enable-time="true"/>
+                                        <input class="form-control col" id="startDate" type="text" name="request-start" placeholder="Select a date" data-alt-input="true" data-enable-time="true" value="{{ $cate_pro->start_date }}"/>
                                     </div>
 
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Due Date</label>
-                                        <input class="form-control col" id="dueDate" type="text" name="request-due" placeholder="Select a date" data-alt-input="true" data-enable-time="true" />
+                                        <input class="form-control col" id="dueDate" type="text" name="request-due" placeholder="Select a date" data-alt-input="true" data-enable-time="true" value="{{ $cate_pro->due_date }}"/>
                                     </div>
 
                                     <div class="alert alert-warning text-small" role="alert">
@@ -121,6 +127,7 @@
                                             </div>
                                         </li>
                                     </div>
+
                                     <form class="dropzone" action="">
                                         <span class="dz-message">Drop files or click here to upload</span>
                                     </form>
@@ -140,7 +147,7 @@
                         </div>
                     </div>
                 </form>
-
+                @endforeach
             </div>
         </div>
     </div>

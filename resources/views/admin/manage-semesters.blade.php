@@ -50,7 +50,7 @@
                                 <td>{{ $value->due_date }}</td>
                                 <td>
                                 <?php
-                                        if($value->visibility==1){
+                                        if($value->is_closed==1){
 
                                             echo '<a href="#"><span class="ic-dark"><i class="fad fa-check"></i></span></a>';
 

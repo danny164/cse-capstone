@@ -44,7 +44,7 @@
                                 <textarea class="form-control col" rows="10" placeholder="Write something here..." name="note-description" required ></textarea>
                             </div>
                             <div class="form-group row align-items-center">
-                                <label class="col-2">Group</label>
+                                <label class="col-2">Semester</label>
                                 <select name="groups" class="form-control col" required>
                                     <option selected>Group 2</option>
                                     <option>Group 1</option>

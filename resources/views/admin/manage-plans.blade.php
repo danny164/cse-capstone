@@ -37,24 +37,29 @@
                                 <th>Start Date</th>
                                 <th>Due Date</th>
                                 <th>Progress</th>
+                                <th>Season</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($plans as $key => $cate_pro)
+
                             <tr>
                                 <td></td>
-                                <td class="text-left">Almost before we knew it, we had left the ground.</td>
-                                <td>23/11/2020</td>
-                                <td>25/11/2020</td>
+                                <td class="text-left">{{ $cate_pro->title }}</td>
+                                <td>{{ $cate_pro->start_date }}</td>
+                                <td>{{ $cate_pro->due_date }}</td>
                                 <td>
                                     <span class="text-success">37/37</span>
                                 </td>
+                                <td>{{ $cate_pro-> semester_name}}</td>
+
                                 <td>
-                                    <a href="#" data-toggle="modal" data-target="#topic-edit-modal"><span class="ic-dark"><i class="fad fa-pencil"></i></span></a>
-                                    <a href="#"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
+                                    <a href="{{url('/admin/plans/'.$cate_pro->id.'/edit')}}" ><span class="ic-dark"><i class="fad fa-pencil"></i></span></a>
+                                    <a onclick="return confirm('Are you sure to delete?')"href="{{url('/admin/plans/'.$cate_pro->id.'/delete')}}"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
                                 </td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td></td>
                                 <td class="text-left">Almost before we knew it, we had left the ground.</td>
                                 <td>23/11/2020</td>
@@ -66,8 +71,8 @@
                                     <a href="#" data-toggle="modal" data-target="#topic-edit-modal"><span class="ic-dark"><i class="fad fa-pencil"></i></span></a>
                                     <a href="#"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
                                 </td>
-                            </tr>
-
+                            </tr> -->
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
@@ -76,6 +81,7 @@
                                 <th>Start Date</th>
                                 <th>Due Date</th>
                                 <th>Progress</th>
+                                <th>Season</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
