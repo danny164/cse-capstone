@@ -67,21 +67,6 @@ class HomeController extends Controller
         $data['language'] = $request->input('language');
         $data['about_me'] = Str::of($request->input('bio'))->replaceMatches('/[ ]{2,}/', ' ')->trim();
 
-        /**
-         * ? $example = current(explode(".", $str)); // avatar.png -> avatar
-         * php artisan storage:link // Put a symlink from /public/storage to /storage/app/public folder
-         */
-
-        if ($request->hasFile('avatar_path')) {
-            // get avatar original name
-            $original_name = current(explode(".", $request->file('avatar_path')->getClientOriginalName()));
-            // set random name with time + file extension name
-            $avatar_name = "IMG_".$original_name.'_'.time().'.'.request()->avatar_path->getClientOriginalExtension();
-            // save image to images folder
-            $test = $request->file('avatar_path')->storeAs('images', $avatar_name);
-            // save avatar_name to database
-            $data['avatar_path'] = $avatar_name;
-        }
         if($request->isMethod('post')){
 
             $messages = [
@@ -101,6 +86,22 @@ class HomeController extends Controller
             if ($validator->fails()) {
 
                 return back()->withErrors($validator)->withInput();
+            }
+
+            /**
+             * ? $example = current(explode(".", $str)); // avatar.png -> avatar
+             * php artisan storage:link // Put a symlink from /public/storage to /storage/app/public folder
+             */
+
+            if ($request->hasFile('avatar_path')) {
+                // get avatar original name
+                $original_name = current(explode(".", $request->file('avatar_path')->getClientOriginalName()));
+                // set random name with time + file extension name
+                $avatar_name = "IMG_".$original_name.'_'.time().'.'.request()->avatar_path->getClientOriginalExtension();
+                // save image to images folder
+                $request->file('avatar_path')->storeAs('images', $avatar_name);
+                // save avatar_name to database
+                $data['avatar_path'] = $avatar_name;
             }
 
             DB::table('users')->where('id',$id)->update($data);
