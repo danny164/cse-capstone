@@ -375,50 +375,51 @@ class AdminController extends Controller
 
 // add user
 
-        public function  new_user(Request $request){
-            $data = [];
-            $data['full_name'] = Str::of($request->input('full_name'))->replaceMatches('/[^a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{1,}/', ' ')->replaceMatches('/[ ]{2,}/', ' ')->trim()->title();
-            $data['email'] = $request->input('email');
-            $data['password'] = bcrypt($request->input('password'));
-            $data['role_id'] = $request->input('user-role');
-            $data['email_verified_at'] = now();
+    public function  new_user(Request $request){
+
+        $data = [];
+        $data['full_name'] = Str::of($request->input('full_name'))->replaceMatches('/[^a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{1,}/', ' ')->replaceMatches('/[ ]{2,}/', ' ')->trim()->title();
+        $data['email'] = $request->input('email');
+        $data['password'] = bcrypt($request->input('password'));
+        $data['role_id'] = $request->input('user-role');
+        $data['email_verified_at'] = now();
 
 
-            if($request->isMethod('post')){
-                $validator = Validator::make($request->all(), [
+        if($request->isMethod('post')){
+            $validator = Validator::make($request->all(), [
 
-                    'full_name' => ['required', 'string', 'min:3', 'max:50', 'regex:/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$/i'],
-                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'regex:/^[a-z|A-Z|0-9]+@((dtu|duytan)\.edu\.vn)$/i'],
-                    'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'full_name' => ['required', 'string', 'min:3', 'max:50', 'regex:/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$/i'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'regex:/^[a-z|A-Z|0-9]+@((dtu|duytan)\.edu\.vn)$/i'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
 
-                ]);
+            ]);
 
-                if ($validator->fails()) {
+            if ($validator->fails()) {
 
-                    return back()->withErrors($validator);
-                }
-
-                DB::table('users')->insert($data);
-               return back()->withSuccess('Update Successfully!');
+                return back()->withErrors($validator)->withInput();
             }
 
-
+            DB::table('users')->insert($data);
+            return back()->withSuccess('Update Successfully!');
         }
 
-              //======================================================================================= User List
 
-       // Mệt quá éo làm nữa
+    }
 
-       public function unemail_active($id){
-           DB::table('users')->where('id',$id)->update(['is_email_confirmed'=>1]);
-           return  Redirect('admin/control/users');
+    //======================================================================================= User List
 
+    // Mệt quá éo làm nữa
 
-       }
-       public function email_active($id){
-        DB::table('users')->where('id',$id)->update(['is_email_confirmed'=>0]);
+    public function unemail_active($id){
+
+        DB::table('users')->where('id',$id)->update(['is_email_confirmed'=>1]);
         return  Redirect('admin/control/users');
 
+    }
+    public function email_active($id){
+
+        DB::table('users')->where('id',$id)->update(['is_email_confirmed'=>0]);
+        return  Redirect('admin/control/users');
 
     }
     public function active($id){
