@@ -112,7 +112,10 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/admin/topics') }}">Topic Management</a>
+                                    <a class="nav-link" href="{{ url('/admin/topics') }}">Topic Management New</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"href="{{ url('/admin/old-topics') }}">Topic Management Old</a>
                                 </li>
 
                             </ul>

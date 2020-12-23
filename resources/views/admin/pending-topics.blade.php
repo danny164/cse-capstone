@@ -42,23 +42,28 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
+                                
                                 <tbody>
+                                @foreach($topics as $key => $cate_pro)
+                                    @if($cate_pro->duoc_chon ==0 )
                                     <tr>
                                         <td></td>
-                                        <td class="text-left">Almost before we knew it, we had left the ground.</td>
-                                        <td>2</td>
-                                        <td>15</td>
+                                        <td class="text-left">{{ $cate_pro->ini_title }}</td>
+                                        <td>{{ $cate_pro->semester_name }}</td>
+                                        <td>{{ $cate_pro->team_name }}</td>
                                         <td>
-                                            <a href="#"><span class="text-success"><i class="fad fa-check"></i></span></a>
-                                            <a href="#"><span class="text-danger"><i class="fad fa-times"></i></span></a>
+                                            <a href="{{url('/admin/topic/'.$cate_pro->id.'/duocchon')}}"><span class="text-success"><i class="fad fa-check"></i></span></a>
+                                            <!-- <a href="#"><span class="text-danger"><i class="fad fa-times"></i></span></a> -->
                                         </td>
                                         <td>
-                                            <a href="#"><span class="ic-dark"><i class="fad fa-pencil"></i></span></a>
+                                            <!-- <a href="#"><span class="ic-dark"><i class="fad fa-pencil"></i></span></a> -->
                                             <a href="#"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
                                         </td>
                                     </tr>
-
+                                    @endif
+                            @endforeach
                                 </tbody>
+
                                 <tfoot>
                                     <tr>
                                         <th></th>

@@ -128,6 +128,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
 //======
     Route::post('ajaxTeam', [AdminController::class, 'ajax_team']);
     Route::post('topic/new-topic', [AdminController::class, 'save_topic']);
+    Route::get('/old-topics', [AdminController::class,'old_topic']);
+    Route::get('topics/{id}/edit', [AdminController::class, 'edit_topic']);
+    Route::post('/topic/{id}/update-topic', [AdminController::class, 'update_topic']);
+
+    Route::get('/topics/{id}/delete', [AdminController::class, 'delete_topic']);
+    Route::get('/topic/{id}/duocchon',[AdminController :: class,'duocchon']);
 
 });
 
@@ -152,6 +158,9 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
 
     // Topics
     Route::get('/topics', [HomeController::class,'pick_topic']);
+
+    Route::get('/old-topics', [HomeController::class,'pick_topic_old']);
+
     Route::get('/topics/request', [HomeController::class,'request_topic']);
     Route::get('/topics/id', [HomeController::class,'topic_details']);
 

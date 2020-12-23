@@ -613,11 +613,13 @@ public function ajax_team(Request $request){
 public function save_topic(Request $request){
     // Colum -> name
             $data = [];
-            $data['title'] = Str::of($request->input('title'));
-            $data['description'] = $request->input('request-description');
-            $data['start_date'] = $request->input('request-start');
-            $data['due_date'] = $request->input('request-due');
-            $data['semester_id'] = $request->input('semesters');
+            $data['eng_title'] = Str::of($request->input('eng_title'));
+            $data['vie_title'] = $request->input('vie_title');
+            $data['ini_title'] = $request->input('ini_title');
+            $data['description'] = $request->input('note-description');
+            $data['semester_id'] = $request->input('groups');
+            $data['team_id'] = $request->input('team_id');
+            $data['duoc_chon'] = 1;
           
   
             if($request->isMethod('post')){
@@ -626,7 +628,11 @@ public function save_topic(Request $request){
     
                 $validator = Validator::make($request->all(), [
     
-                    'title' => 'filled|min:3|max:50',
+                    'eng_title' => 'filled|min:3|max:50|unique:topics',
+                    'vie_title' => 'filled|min:3|max:50|unique:topics',
+                    'ini_title' => 'filled|min:3|max:50|unique:topics',
+                    'groups' => 'filled|',
+                    'team_id' => 'unique:topics,team_id,',
                 ]);
     
                 if ($validator->fails()) {
@@ -634,12 +640,87 @@ public function save_topic(Request $request){
                     return back()->withErrors($validator)->withInput();
                 }
     
-                DB::table('plans')->where('id',$id)->update($data);
-                return redirect('admin/plans')->withSuccess('Update Successfully!');
+                DB::table('topics')->insert($data);
+                return redirect('admin/topics/new')->withSuccess('Create Successfully!');
             }
     
         }
+        public function manage_topics(){
 
+            $topics=DB::table('topics')
+            ->join('semesters','semesters.id','=','topics.semester_id')
+            ->join('teams','teams.id','=','topics.team_id')
+
+            // còn join cái nữa đừng xóa
+            ->select('topics.duoc_chon','topics.id','topics.eng_title','topics.vie_title','semesters.semester_name','topics.semester_id','topics.ini_title',
+                    'teams.team_name')
+            ->orderBy('topics.id','desc')->get();
+    
+            return view('admin.manage-topics', compact('topics'));
+       
+       }
+       public function old_topic(){
+
+        return view('admin.manage-topics-old',);
+   
+   }
+
+   public function edit_topic(Request $request ,$id){
+
+    $topics=DB::table('topics')->where('topics.id',$id)->get();
+    $semesters=DB::table('semesters')->orderBy('id','desc')->get();
+    $teams=DB::table('teams')->get();
+   
+    return view('admin.edit-topic', compact('semesters','teams','topics'));
+
+}
+public function update_topic(Request $request,$id){
+    // Colum -> name
+            $data['eng_title'] = Str::of($request->input('eng_title'));
+            $data['vie_title'] = $request->input('vie_title');
+            $data['ini_title'] = $request->input('ini_title');
+            $data['description'] = $request->input('note-description');
+            $data['semester_id'] = $request->input('groups');
+            $data['team_id'] = $request->input('team_id');
+
+          
+  
+            if($request->isMethod('post')){
+    
+    
+    
+                $validator = Validator::make($request->all(), [
+    
+                    'eng_title' => 'filled|min:3|max:50|unique:topics,eng_title,'.$id,
+                    'vie_title' => 'filled|min:3|max:50|unique:topics,vie_title,'.$id,
+                    'ini_title' => 'filled|min:3|max:50|unique:topics,ini_title,'.$id,
+                    'groups' => 'filled',
+                    'team_id' => 'unique:topics,team_id,'.$id,
+
+                ]);
+    
+                if ($validator->fails()) {
+    
+                    return back()->withErrors($validator)->withInput();
+                }
+    
+                DB::table('topics')->where('id',$id)->update($data);
+                return redirect('admin/topics')->withSuccess('Create Successfully!');
+            }
+    
+        }
+        public function delete_topic(Request $request,$id){
+            DB::table('topics')->where('id',$id)->delete();
+    
+            return  redirect('/admin/topics')->withSuccess('Deleted Successfully!');
+        }
+
+       public function duocchon($id){
+        DB::table('topics')->where('id',$id)->update(['duoc_chon'=>1]);
+        return  Redirect('/admin/topics/pending');
+
+
+    }
  //=======================================================================================
 
     // ? CHO HẾT TẤT CẢ MỤC SHOW FORM NEW Ở DƯỚI ĐÂY
@@ -670,9 +751,7 @@ public function save_topic(Request $request){
         return view('admin.edit-team');
     }
 
-    public function edit_topic(){
-        return view('admin.edit-topic');
-    }
+
 
     public function semester_details(){
         return view('admin.semester-details');
@@ -685,9 +764,6 @@ public function save_topic(Request $request){
         return view('admin.manage-tasks');
     }
 
-    public function manage_topics(){
-        return view('admin.manage-topics');
-    }
 
     public function new_semester(){
         return view('admin.new-semester');
@@ -710,7 +786,20 @@ public function save_topic(Request $request){
 
 
     public function pending_topics(){
-        return view('admin.pending-topics');
+
+
+        $topics=DB::table('topics')
+        ->join('semesters','semesters.id','=','topics.semester_id')
+        ->join('teams','teams.id','=','topics.team_id')
+
+        // còn join cái nữa đừng xóa
+        ->select('topics.duoc_chon','topics.id','topics.eng_title','topics.vie_title','semesters.semester_name','topics.semester_id','topics.ini_title',
+                'teams.team_name')
+        ->orderBy('topics.id','desc')->get();
+
+        return view('admin.pending-topics', compact('topics'));
+   
+        
     }
 
     public function statistics(){

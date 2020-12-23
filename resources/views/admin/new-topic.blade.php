@@ -20,7 +20,8 @@
         <div class="row justify-content-center">
             <div class="col-lg-11 col-xl-10">
 
-                <form class="mt-3" method="post"  action="{{ url('admin/topic/new-topic') }}"   >
+                <form class="mt-3" method="post" action="{{ url('admin/topic/new-topic')}}">
+                {{csrf_field()}}
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
                             <h5 class="modal-title">Create a Topic</h5>
@@ -29,15 +30,15 @@
                         <div class="modal-body">
                             <div class="form-group row align-items-center">
                                 <label class="col-2">Title</label>
-                                <input class="form-control col" type="text" placeholder="Title in English" name="english-title" required />
+                                <input class="form-control col" type="text" placeholder="Title in English" name="eng_title" required />
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-2"></label>
-                                <input class="form-control col" type="text" placeholder="Title in Vietnamese" name="vietnamese-title" required />
+                                <input class="form-control col" type="text" placeholder="Title in Vietnamese" name="vie_title" required />
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-2"></label>
-                                <input class="form-control col" type="text" placeholder="Initial Title" name="initial-title" required />
+                                <input class="form-control col" type="text" placeholder="Initial Title" name="ini_title" required />
                             </div>
                             <div class="form-group row">
                                 <label class="col-2">Description</label>
@@ -49,14 +50,16 @@
                                 <option value="" selected>Please select semester </option>
 
                                 @foreach($semesters as $key => $cate_pro)
+                                    @if($cate_pro->is_closed !=1 )
                                     <option value="{{ $cate_pro->id }}">{{$cate_pro->semester_name}}</option>
+                                    @endif
                                 @endforeach    
                                 </select>
                             </div>
                             <div class="form-group row">
                                 <label class="col-2">Team</label>
                                 
-                                <select name="groups" class="form-control col" id="team">
+                                <select name="team_id" class="form-control col" id="team">
                                     <option value="" selected>Please select semester first</option>
                                 </select>
                             </div>

@@ -9,7 +9,7 @@
             </li>
             <li class="breadcrumb-item"><a href="{{ url('admin/topics') }}">Topics</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Topic Management New</li>
+            <li class="breadcrumb-item active" aria-current="page">Topic Management Old</li>
             </ol>
         </nav>
     </div>
@@ -21,7 +21,7 @@
             <div class="col mt-3">
                 <div class="row content-list-head">
                     <div class="col-auto">
-                        <h3>Topic Management New</h3>
+                        <h3>Topic Management Old</h3>
                     </div>
                 </div>
                 <!--end of content list head-->
@@ -36,31 +36,69 @@
                                 <th>Semester</th>
                                 <th>Team</th>
                                 <th>Status</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                        @foreach($topics as $key => $cate_pro)
-                        @if($cate_pro->duoc_chon ==1 )
+
                             <tr>
                                 <td></td>
-                                <td class="text-left" >{{ $cate_pro->ini_title }}</td>
-                                <td>{{ $cate_pro->semester_name }}</td>
-                                <td>{{ $cate_pro->team_name }}</td>
+                                <td class="text-left">Đề tài từ điển</td>
+                                <td>Capstone 1 2019</td>
+                                <td>Nhóm 2</td>
 
                                 <td>
-                                    <a href="#"><span class="text-success"><i class="fad fa-check"></i></span></a>
+                                    <!-- <a href="#"><span class="text-success"><i class="fad fa-check"></i></span></a> -->
+                                    <a href="#"><span class="text-danger"><i class="fad fa-times"></i></span></a>
 
                                 </td>
                                 <td>
-                                    <a href="{{url('/admin/topics/'.$cate_pro->id.'/edit')}}"><span class="ic-dark"><i class="fad fa-pencil"></i></span></a>
-                                    <a onclick="return confirm('Are you sure to delete?')"href="{{url('/admin/topics/'.$cate_pro->id.'/delete')}}"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
+                                 
                                 </td>
                             </tr>
-                                @endif
-                            @endforeach
+                            <tr>
+                                <td></td>
+                                <td class="text-left">Đề  tài food good</td>
+                                <td>Capstone 1 2019</td>
+                                <td>Nhóm 3</td>
 
+                                <td>
+                                    <!-- <a href="#"><span class="text-success"><i class="fad fa-check"></i></span></a> -->
+                                    <a href="#"><span class="text-danger"><i class="fad fa-times"></i></span></a>
+
+                                </td>
+                                <td>
+                                 
+                                </td>
+                            </tr>                            <tr>
+                                <td></td>
+                                <td class="text-left">Đề tài game giả lập</td>
+                                <td>Capstone 1 2019</td>
+                                <td>Nhóm 4</td>
+
+                                <td>
+                                    <!-- <a href="#"><span class="text-success"><i class="fad fa-check"></i></span></a> -->
+                                    <a href="#"><span class="text-danger"><i class="fad fa-times"></i></span></a>
+
+                                </td>
+                                <td>
+                                   
+                                </td>
+                            </tr>                            <tr>
+                                <td></td>
+                                <td class="text-left">Đề tài capstone tracking </td>
+                                <td>Capstone 1 2019</td>
+                                <td>Nhóm 5</td>
+
+                                <td>
+                                    <!-- <a href="#"><span class="text-success"><i class="fad fa-check"></i></span></a> -->
+                                    <a href="#"><span class="text-danger"><i class="fad fa-times"></i></span></a>
+
+                                </td>
+                                <td>
+                                    
+                                </td>
+                            </tr>
                             <!-- <tr>
                                 <td></td>
                                 <td class="text-left">Almost before we knew it, we had left the ground.</td>
@@ -83,7 +121,6 @@
                                 <th>Semester</th>
                                 <th>Team</th>
                                 <th>Status</th>
-                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>
