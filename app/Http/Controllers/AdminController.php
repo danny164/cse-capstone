@@ -407,14 +407,14 @@ class AdminController extends Controller
 
         }
 
-              //======================================================================================= User List 
+              //======================================================================================= User List
 
-       // Mệt quá éo làm nữa 
-       
+       // Mệt quá éo làm nữa
+
        public function unemail_active($id){
            DB::table('users')->where('id',$id)->update(['is_email_confirmed'=>1]);
            return  Redirect('admin/control/users');
- 
+
 
        }
        public function email_active($id){
@@ -453,25 +453,18 @@ class AdminController extends Controller
         $data['gender'] = $request->input('gender');
         $data['email'] = $request->input('email');
         $data['phone'] = $request->input('phone');
+        $data['student_id'] = $request->input('student_id');
+        $data['class'] = $request->input('class');
         $data['faculty'] = $request->input('faculty');
         $data['department'] = $request->input('department');
         $data['language'] = $request->input('language');
         $data['about_me'] = Str::of($request->input('bio'))->replaceMatches('/[ ]{2,}/', ' ')->trim();
-        $get_image = $request ->file('avatar_path');
 
-
-        if($get_image){
-            $get_name_image = $get_image->getClientOriginalName();
-            $name_image = current(explode('.',$get_name_image));
-            $new_image = $name_image.rand(0,9999).'.'.$get_image->getClientOriginalExtension();
-            $get_image->move('images/',$new_image);
-            $data['avatar_path'] = $new_image;
-        }
         if($request->isMethod('post')){
 
             $messages = [
                 'phone.required' => 'We need to know your phone!',
-                'mimes' => 'Only jpeg, png, bmp,tiff are allowed.'
+                'avatar_path.image' => 'Only jpg, jpeg, png, svg, or webp are allowed.'
             ];
 
             $validator = Validator::make($request->all(), [
@@ -479,12 +472,29 @@ class AdminController extends Controller
                 'full_name' => 'filled|min:3|max:50',
                 'student_id' => 'required_if:role_id,3|min:10|max:20|unique:users,student_id,'.$id,
                 'phone' => 'required|min:10|max:11|regex:/^[0-9]+$/i',
-                 'new_image' => 'mimes:jpg,jpeg,png,bmp,tiff |max:4096|unique:users,avatar_path,'.$id,
+                'avatar_path' => 'filled|image|mimes:jpg,jpeg,png,svg,webp|max:4096'
+
             ], $messages);
 
             if ($validator->fails()) {
 
                 return back()->withErrors($validator)->withInput();
+            }
+
+            /**
+             * ? $example = current(explode(".", $str)); // avatar.png -> avatar
+             * php artisan storage:link // Put a symlink from /public/storage to /storage/app/public folder
+             */
+
+            if ($request->hasFile('avatar_path')) {
+                // get avatar original name
+                $original_name = current(explode(".", $request->file('avatar_path')->getClientOriginalName()));
+                // set random name with time + file extension name
+                $avatar_name = "IMG_".$original_name.'_'.time().'.'.request()->avatar_path->getClientOriginalExtension();
+                // save image to images folder
+                $request->file('avatar_path')->storeAs('images', $avatar_name);
+                // save avatar_name to database
+                $data['avatar_path'] = $avatar_name;
             }
 
             DB::table('users')->where('id',$id)->update($data);
@@ -497,7 +507,7 @@ class AdminController extends Controller
 
         return  redirect('admin/control/users')->withSuccess('Deleted Successfully!');
     }
-    // Plan ======================================================================================= 
+    // Plan =======================================================================================
 
     public function save_plan(Request $request){
 // Colum -> name
@@ -507,17 +517,7 @@ class AdminController extends Controller
         $data['start_date'] = $request->input('request-start');
         $data['due_date'] = $request->input('request-due');
         $data['semester_id'] = $request->input('semesters');
-      
-        // $get_file = $request ->file('file_path');
 
-
-        // if($get_image){
-        //     $get_name_image = $get_image->getClientOriginalName();
-        //     $name_image = current(explode('.',$get_name_image));
-        //     $new_image = $name_image.rand(0,9999).'.'.$get_image->getClientOriginalExtension();
-        //     $get_image->move('images/',$new_image);
-        //     $data['avatar_path'] = $new_image;
-        // }
         if($request->isMethod('post')){
 
 
@@ -556,7 +556,7 @@ class AdminController extends Controller
 
         $plans=DB::table('plans')->where('plans.id',$id)->get();
         $semesters=DB::table('semesters')->orderBy('id','asc')->get();
-        
+
 
         return view('admin.edit-plan', compact('plans', 'semesters'));
     }
@@ -571,23 +571,23 @@ class AdminController extends Controller
               
       
                 if($request->isMethod('post')){
-        
-        
-        
+
+
+
                     $validator = Validator::make($request->all(), [
-        
+
                         'title' => 'filled|min:3|max:50',
                     ]);
-        
+
                     if ($validator->fails()) {
-        
+
                         return back()->withErrors($validator)->withInput();
                     }
-        
+
                     DB::table('plans')->where('id',$id)->update($data);
                     return redirect('admin/plans')->withSuccess('Update Successfully!');
                 }
-        
+
             }
  
  //=====================================Topic================================================== 
@@ -704,7 +704,7 @@ public function save_topic(Request $request){
     public function new_plan(){
         $semesters=DB::table('semesters')->orderBy('id','asc')->get();
         return view('admin.new-plan', compact('semesters'));
-       
+
     }
 
 

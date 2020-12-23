@@ -81,154 +81,117 @@
                         </thead>
                         <tbody>
 
-                        @foreach($manage_users as $key => $value)
-
-                            <tr>
-                                <td></td>
-                                <td>
-                                <!-- Chổ này chỉ duy nhất nick Admin vip pro của MR. Mận có quyền xóa admin khác, còn nick này là bất tử -->
-                                @if($value->id!=1 )
-                                <a href="{{URL::to('/admin/users/'.$value->id.'/edit')}}"><i class="fad fa-pencil"></i></span></a>
-                                <a href="{{URL::to('/admin/users/'.$value->id.'/delete')}}"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
-                                 @endif                                 
-                                </td>
-                                <!-- avatar -->
-                                <td> <img src="{{ URL::to('images/'.$value->avatar_path) }}" class="avatar" data-toggle="tooltip" data-title="{{ ($value->full_name)}}" data-filter-by="alt" /></td>
-                                <!-- id -->
-                                <td>{{ ($value->id)}}</td>
-                                <!-- role  -->
-                                @if($value->role_id==1 )
-                                <td>Admin</td>
-                                @elseif($value->role_id==2 )
-                                <td>Mentor</td>
-                                @elseif($value->role_id==3 )
-                                <td>Student</td>
-                                @endif
-                                 <!-- student id    -->
-                                @if($value->student_id!=null )
-                                <td>{{ ($value->student_id)}}</td>
-                                @else
-                                <td>Undefined</td>
-                                @endif
-
-                                <!-- name -->
-                                <td>{{ ($value->full_name)}}</td>
-                                <!-- birthday -->
-                                <td>{{ ($value->birthday)}}</td>
-                                <!-- gender -->
-                                @if($value->gender==1 )
-                                <td>Male</td>
-                                @elseif($value->gender==2 )
-                                <td>Female</td>
-                                @elseif($value->gender==3 )
-                                <td>Other</td>
-                                @elseif($value->gender==null )
-                                <td>Undefined</td>
-                                @endif
-                                <!-- email -->
-                                <td>{{ ($value->email)}}</td>
-                                <!-- phone -->
-                                @if($value->phone !=null )
-                                <td>{{ ($value->phone)}}</td>
-                                @else
-                                <td>Undefined</td>
-                                @endif
-
-                                <!-- faculty teen --> 
-                                @if($value->faculty !=null )
-                                @foreach($faculties as $key => $faculty)
-                                    @if($faculty->id == $value->faculty)
-                                        <td>{{ ($faculty->faculty_name)}}</td>
+                            @foreach($manage_users as $key => $value)
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                    <!-- Không thể xóa chính mình, nếu thích có thể ràng buộc thêm middleware để chặn truy cập theo url -->
+                                        @if($value->id != auth()->user()->id)
+                                            <a href="{{url('/admin/users/'.$value->id.'/edit')}}"><i class="fad fa-pencil"></i></span></a>
+                                            <a href="{{url('/admin/users/'.$value->id.'/delete')}}"><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
+                                        @endif
+                                    </td>
+                                    <!-- avatar -->
+                                    <td>
+                                        <img src="{{ url('/storage/images/'.$value->avatar_path) }}" class="avatar" data-toggle="tooltip" data-title="{{ ($value->full_name)}}" data-filter-by="alt" />
+                                    </td>
+                                    <!-- id -->
+                                    <td>{{ ($value->id) }}</td>
+                                    <!-- role  -->
+                                    @if($value->role_id == 1)
+                                        <td>Admin</td>
+                                    @elseif($value->role_id == 2)
+                                        <td>Mentor</td>
+                                    @elseif($value->role_id == 3)
+                                        <td>Student</td>
                                     @endif
-                                @endforeach
-                                @else
-
-                                <td>Undefined</td>
-
-                                @endif
-                                <!-- department teen -->
-                                @if($value->department !=null )
-                                @foreach($departments as $key => $department)
-                                    @if($department->id == $value->department)
-                                        <td>{{ ($department->department_name)}}</td>
+                                    <!-- student id    -->
+                                    @if($value->student_id != null)
+                                        <td>{{ ($value->student_id) }}</td>
+                                    @else
+                                        <td>-</td>
                                     @endif
-                                @endforeach
-                                @else
+                                    <!-- name -->
+                                    <td>{{ ($value->full_name) }}</td>
+                                    <!-- birthday -->
+                                    <td>{{ ($value->birthday) }}</td>
+                                    <!-- gender -->
+                                    @if($value->gender == 1)
+                                        <td>Male</td>
+                                    @elseif($value->gender == 2)
+                                        <td>Female</td>
+                                    @elseif($value->gender == 3)
+                                        <td>Other</td>
+                                    @elseif($value->gender == null)
+                                        <td>-</td>
+                                    @endif
+                                    <!-- email -->
+                                    <td>{{ ($value->email) }}</td>
+                                    <!-- phone -->
+                                    @if($value->phone != null)
+                                        <td>{{ ($value->phone) }}</td>
+                                    @else
+                                        <td>-</td>
+                                    @endif
 
-                                <td>Undefined</td>
+                                    <!-- faculty teen -->
+                                    @if($value->faculty != null)
+                                        @foreach($faculties as $key => $faculty)
+                                            @if($faculty->id == $value->faculty)
+                                                <td>{{ ($faculty->faculty_name) }}</td>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        <td>-</td>
+                                    @endif
+                                    <!-- department teen -->
+                                    @if($value->department != null)
+                                        @foreach($departments as $key => $department)
+                                            @if($department->id == $value->department)
+                                                <td>{{ ($department->department_name) }}</td>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        <td>-</td>
+                                    @endif
 
-                                @endif
-                                 <!-- class -->
-                                @if($value->class !=null )
-                                <td>{{ ($value->class)}}</td>
-                                @else
-                                <td>Undefined</td>
-                                @endif
-                                  <!-- is_active -->
+                                    <!-- class -->
+                                    @if($value->class !=null)
+                                        <td>{{ ($value->class) }}</td>
+                                    @else
+                                        <td>-</td>
+                                    @endif
 
-                            <td>
-                                <?php   
-                                    if($value->is_active==1){
-                                      ?>
-                                      <a href="{{URL::to('/admin/users/'.$value->id.'/active')}}">
-                                      <span class="badge badge-primary"><i class="fad fa-check"></i>Actived</span></a>
-                                        <?php
-                                        }else{
-                                         ?>   
-                                        <a href="{{URL::to('/admin/users/'.$value->id.'/unactive')}}">
-                                        <span class="badge badge-warning"><i class="fad fa-exclamation"></i>Disabled</span></a>
-                                        <?php
-                                        }
-                                        ?>
-                                        
-                            </td>
-                                 <!-- Email Confirmed -->
+                                    <!-- is_active -->
 
-                            <td>
-                                <?php   
-                                    if($value->is_email_confirmed ==1){
-                                      ?>
-                                      <a href="{{URL::to('/admin/users/'.$value->id.'/email_active')}}">
-                                      <span class="badge badge-success"><i class="fad fa-badge-check"></i>Verified</span></a>
-                                        <?php
+                                    <td>
+                                        @if($value->is_active == 1)
+                                            <a href="{{url('/admin/users/'.$value->id.'/active')}}">
+                                            <span class="badge badge-primary"><i class="fad fa-check"></i>Actived</span></a>
+                                        @else
+                                            <a href="{{url('/admin/users/'.$value->id.'/unactive')}}">
+                                            <span class="badge badge-warning"><i class="fad fa-exclamation"></i>Disabled</span></a>
+                                        @endif
 
-                                        }else{
-                                         ?>   
-                                        <a href="{{URL::to('/admin/users/'.$value->id.'/unemail_active')}}">
-                                        <span class="badge text-danger"><i class="fad fa-exclamation-triangle"></i>Waiting</span></a>
-                                        <?php
-                                        }
-                                        ?>
-                                        
-                            </td>
-                                <td>{{ ($value->created_at)}}</td>
-                                <td>{{ ($value->updated_at)}}</td>
-                           </tr>
-                           @endforeach
-                            <!-- <tr>
-                                <td></td>
-                                <td>
-                                    <a href=""><i class="fad fa-pencil"></i></span></a>
-                                    <a href=""><span class="ic-dark"><i class="fad fa-trash-alt"></i></span></a>
-                                </td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>10</td>
-                                <td>11</td>
-                                <td>12</td>
-                                <td><span class="badge badge-warning"><i class="fad fa-exclamation"></i>Disabled</span></td>
-                                <td><span class="badge badge-success"><i class="fad fa-badge-check"></i>Verified</span></td>
-                                <td>15</td>
-                                <td>16</td>
+                                    </td>
 
-                            </tr>
- -->
+                                    <!-- Email Confirmed -->
+
+                                    <td>
+
+                                        @if($value->is_email_confirmed == 1)
+                                            <a href="{{url('/admin/users/'.$value->id.'/email_active')}}">
+                                            <span class="badge badge-success"><i class="fad fa-badge-check"></i>Verified</span></a>
+                                        @else
+                                            <a href="{{url('/admin/users/'.$value->id.'/unemail_active')}}">
+                                            <span class="badge text-danger"><i class="fad fa-exclamation-triangle"></i>Waiting</span></a>
+                                        @endif
+
+                                    </td>
+                                        <td>{{ ($value->created_at) }}</td>
+                                        <td>{{ ($value->updated_at) }}</td>
+                                </tr>
+                            @endforeach
 
                         </tbody>
                         <tfoot>
