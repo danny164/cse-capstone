@@ -62,6 +62,8 @@ class HomeController extends Controller
         $data['gender'] = $request->input('gender');
         $data['email'] = $request->input('email');
         $data['phone'] = $request->input('phone');
+        $data['student_id'] = $request->input('student_id');
+        $data['class'] = $request->input('class');
         $data['faculty'] = $request->input('faculty');
         $data['department'] = $request->input('department');
         $data['language'] = $request->input('language');
@@ -108,5 +110,14 @@ class HomeController extends Controller
             return redirect('profile/'.$id)->withSuccess('Updated Successfully!');
         }
 
+    }
+
+    // My Team
+    public function semesters(Request $request){
+        return view('user.semesters');
+    }
+
+    public function semester_details(Request $request){
+        return view('user.semester-details');
     }
 }

@@ -42,8 +42,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']], function() {
     // Route::get('/', [AdminController::class, 'index']);
 
-    Route::get('announcements/new', [AdminController::class, 'new_announcement']);
-    Route::get('announcements', [AdminController::class, 'manage_announcements']);
+    Route::get('/announcements/new', [AdminController::class, 'new_announcement']);
+    Route::get('/announcements', [AdminController::class, 'manage_announcements']);
 
     Route::POST('/announcements/save/{id}', [AdminController::class, 'save_announcement']);
     Route::POST('/announcements/home/save/{id}',[AdminController::class, 'save_announcement_home']);
@@ -59,8 +59,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     Route::post('/announcements/{id}/update', [AdminController::class, 'update_announcement_home']);
 
     // Faculty
-    Route::get('faculties/new',[AdminController:: class, 'new_faculty']);
-    Route::get('faculties',[AdminController:: class, 'manage_faculties']);
+    Route::get('/faculties/new',[AdminController:: class, 'new_faculty']);
+    Route::get('/faculties',[AdminController:: class, 'manage_faculties']);
     Route::POST('/faculty/new-faculty',[AdminController:: class, 'save_new_faculty']);
     Route::get('/faculties/management/{id}/edit',[AdminController:: class, 'edit_faculties']);
     Route::get('/faculties/management/{id}/delete',[AdminController:: class, 'delete_faculties']);
@@ -69,22 +69,22 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
 
     //  Departments
 
-    Route::get('departments/new',[AdminController :: class ,'new_department']);
-    Route::get('departments',[AdminController :: class,'manage_departments']);
+    Route::get('/departments/new',[AdminController :: class ,'new_department']);
+    Route::get('/departments',[AdminController :: class,'manage_departments']);
     Route::POST('/department/new-department',[AdminController :: class,'save_new_department']);
     Route::get('/departments/management/{id}/edit',[AdminController :: class,'edit_department']);
     Route::get('/departments/management/{id}/delete',[AdminController :: class,'delete_department']);
     Route::post('/departments/management/{id}/update',[AdminController :: class,'update_department']);
 
     // Control Panel
-    Route::get('control/users',[AdminController::class ,'control_panel']);
-    Route::get('control/users/add',[AdminController::class ,'add_user']);
-    Route::post('control/users/save',[AdminController::class ,'new_user']);
+    Route::get('/control/users',[AdminController::class ,'control_panel']);
+    Route::get('/control/users/add',[AdminController::class ,'add_user']);
+    Route::post('/control/users/save',[AdminController::class ,'new_user']);
 
     // Groups
-    Route::get('semesters/new',[AdminController::class, 'new_semester']);
-    Route::get('semesters',[AdminController::class, 'manage_semesters']);
-    Route::get('semester-details',[AdminController::class, 'semester_details']); // test
+    Route::get('/semesters/new',[AdminController::class, 'new_semester']);
+    Route::get('/semesters',[AdminController::class, 'manage_semesters']);
+    Route::get('/semester-details',[AdminController::class, 'semester_details']); // test
     Route::post('semester/new-semester',[AdminController:: class,'save_new_semesters']); // test
     Route::get('/search',[AdminController:: class,'search']);
     Route::post('/ajaxRequest',[AdminController:: class,'ajaxRequest']);
@@ -93,31 +93,41 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     //test
     // Route::get('teams/new',[AdminController::class,'new_team']);
     // Thiếu route quản lý team
-    Route::get('team-details',[AdminController::class,'team_details']);
+    Route::get('/team-details',[AdminController::class,'team_details']);
 
-    Route::get('topics/new',[AdminController:: class,'new_topic']);
-    Route::get('topics/pending',[AdminController::class, 'pending_topics']);
-    Route::get('topics',[AdminController:: class,'manage_topics']);
+    Route::get('/topics/new',[AdminController:: class,'new_topic']);
+    Route::get('/topics/pending',[AdminController::class, 'pending_topics']);
+    Route::get('/topics',[AdminController:: class,'manage_topics']);
 
-    Route::get('plans/new',[AdminController:: class,'new_plan']);
-    Route::get('plans',[AdminController:: class,'manage_plans']);
+    Route::get('/plans/new',[AdminController:: class,'new_plan']);
+    Route::get('/plans',[AdminController:: class,'manage_plans']);
     // Teams test
-    Route::get('new-team',[AdminController::class, 'new_team']); // test
+    Route::get('/new-team',[AdminController::class, 'new_team']); // test
 
 });
 
 
 // Mentor
 Route::group(['prefix' => 'mentor', 'middleware' => ['auth', 'mentor', 'verified']], function() {
-    // Route::get('/', [MentorController::class, 'index']);
+
+    Route::get('/teams',[MentorController::class,'team_list']);
+
 
 });
 
 // User
 Route::group(['middleware' => ['auth', 'verified']], function() {
 
-    Route::get('profile/{id}', [HomeController::class, 'account_settings'])->middleware('profile.owner')->name('profile');
-    Route::post('profile/{id}', [HomeController::class, 'account_update'])->middleware('profile.owner');
+    Route::get('/profile/{id}', [HomeController::class, 'account_settings'])->middleware('profile.owner')->name('profile');
+    Route::post('/profile/{id}', [HomeController::class, 'account_update'])->middleware('profile.owner');
+
+    // My Team
+    Route::get('/semesters', [HomeController::class,'semesters']);
+    Route::get('/semesters/id', [HomeController::class,'semester_details']);
+
+
+
+
 
 });
 

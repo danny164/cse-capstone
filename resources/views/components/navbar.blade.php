@@ -14,15 +14,15 @@
             <div class="d-block d-lg-none ml-2">
                 <div class="dropdown">
                     <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img alt="avatar" src="{{ URL::to('storage/images/'.Auth::user()->avatar_path) }}" class="avatar" />
+                        <img alt="avatar" src="{{ url('storage/images/'.Auth::user()->avatar_path) }}" class="avatar" />
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right text-center">
 
-                        <a href="{{ url('profile/'.Auth::user()->id) }}" class="dropdown-item">Profile</a>
+                        <a href="{{ url('/profile/'.Auth::user()->id) }}" class="dropdown-item">Profile</a>
 
                         @admin
-                            <a href="{{ url('admin/control/users') }}" class="dropdown-item">Control Panel</a>
+                            <a href="{{ url('/admin/control/users') }}" class="dropdown-item">Control Panel</a>
                         @endadmin
 
                         <a href="{{ url('logout') }}"
@@ -53,17 +53,17 @@
                             <ul class="nav nav-small flex-column">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('admin/announcements/new') }}">New Announcement</a>
+                                    <a class="nav-link" href="{{ url('/admin/announcements/new') }}">New Announcement</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('admin/announcements') }}">Announcement Management</a>
+                                    <a class="nav-link" href="{{ url('/admin/announcements') }}">Announcement Management</a>
                                 </li>
 
                             </ul>
                         </div>
                     @else
-                        <a class="nav-link" href="{{ url('home') }}">Announcements</a>
+                        <a class="nav-link" href="{{ url('/home') }}">Announcements</a>
                     @endadmin
 
                 </li>
@@ -75,11 +75,11 @@
                             <ul class="nav nav-small flex-column">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('admin/semesters/new') }}">New Semester</a>
+                                    <a class="nav-link" href="{{ url('/admin/semesters/new') }}">New Semester</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('admin/semesters') }}">Semester Management</a>
+                                    <a class="nav-link" href="{{ url('/admin/semesters') }}">Semester Management</a>
                                 </li>
 
                             </ul>
@@ -91,7 +91,7 @@
                     @endmentor
 
                     @user
-                        <a class="nav-link" href="{{ url('#') }}">My Team</a>
+                        <a class="nav-link" href="{{ url('/semesters') }}">My Team</a>
                     @enduser
 
                 </li>
@@ -104,15 +104,15 @@
                             <ul class="nav nav-small flex-column">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('admin/topics/new') }}">New Topic</a>
+                                    <a class="nav-link" href="{{ url('/admin/topics/new') }}">New Topic</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('admin/topics/pending') }}">Pending Topics</a>
+                                    <a class="nav-link" href="{{ url('/admin/topics/pending') }}">Pending Topics</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('admin/topics') }}">Topic Management</a>
+                                    <a class="nav-link" href="{{ url('/admin/topics') }}">Topic Management</a>
                                 </li>
 
                             </ul>
@@ -150,11 +150,11 @@
                             <ul class="nav nav-small flex-column">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('admin/plans/new') }}">New Plan</a>
+                                    <a class="nav-link" href="{{ url('/admin/plans/new') }}">New Plan</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('admin/plans') }}">Plan Management</a>
+                                    <a class="nav-link" href="{{ url('/admin/plans') }}">Plan Management</a>
                                 </li>
 
                             </ul>
@@ -170,7 +170,7 @@
                 @admin
                 <li class="nav-item">
 
-                    <a class="nav-link" href="{{ url('admin/statistics') }}">Statistics</a>
+                    <a class="nav-link" href="{{ url('/admin/statistics') }}">Statistics</a>
 
                 </li>
 
@@ -183,11 +183,11 @@
                         <ul class="nav nav-small flex-column">
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/faculties/new') }}">New Faculty</a>
+                                <a class="nav-link" href="{{ url('/admin/faculties/new') }}">New Faculty</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/faculties') }}">Faculty Management</a>
+                                <a class="nav-link" href="{{ url('/admin/faculties') }}">Faculty Management</a>
                             </li>
 
                         </ul>
@@ -202,11 +202,11 @@
                         <ul class="nav nav-small flex-column">
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/departments/new') }}">New Department</a>
+                                <a class="nav-link" href="{{ url('/admin/departments/new') }}">New Department</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/departments') }}">Department Management</a>
+                                <a class="nav-link" href="{{ url('/admin/departments') }}">Department Management</a>
                             </li>
 
                         </ul>
@@ -248,10 +248,10 @@
 
                 <div class="dropdown-menu text-center">
 
-                    <a href="{{ url('profile/'.Auth::user()->id) }}" class="dropdown-item">Profile</a>
+                    <a href="{{ url('/profile/'.Auth::user()->id) }}" class="dropdown-item">Profile</a>
 
                     @admin
-                        <a href="{{ url('admin/control/users') }}" class="dropdown-item">Control Panel</a>
+                        <a href="{{ url('/admin/control/users') }}" class="dropdown-item">Control Panel</a>
                     @endadmin
 
                     <a href="{{ url('logout') }}"
@@ -276,11 +276,11 @@
 
             <!-- For guest only -->
             <div class="d-block d-lg-none">
-            <a href="{{URL::to('/login')}}"><button type="button" class="btn btn-outline-warning">Login</button></a>
+            <a href="{{url('/login')}}"><button type="button" class="btn btn-outline-warning">Login</button></a>
             </div>
 
             <div class="d-block d-lg-none mx-2">
-            <a href="{{URL::to('/register')}}"><button type="button" class="btn btn-outline-info">Register</button></a>
+            <a href="{{url('/register')}}"><button type="button" class="btn btn-outline-info">Register</button></a>
             </div>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -317,8 +317,8 @@
 
         <div class="d-none d-lg-block">
             <!-- For guest only -->
-            <a href="{{URL::to('/login')}}"><button type="button" class="btn btn-outline-warning">Login</button></a>
-            <a href="{{URL::to('/register')}}" ><button type="button" class="btn btn-outline-info">Register</button></a>
+            <a href="{{url('/login')}}"><button type="button" class="btn btn-outline-warning">Login</button></a>
+            <a href="{{url('/register')}}" ><button type="button" class="btn btn-outline-info">Register</button></a>
         </div>
     @endguest
 </div>
