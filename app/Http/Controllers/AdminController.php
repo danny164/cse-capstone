@@ -404,7 +404,202 @@ class AdminController extends Controller
             }
 
 
-}
+        }
+
+              //======================================================================================= User List 
+
+       // Mệt quá éo làm nữa 
+       
+       public function unemail_active($id){
+           DB::table('users')->where('id',$id)->update(['is_email_confirmed'=>1]);
+           return  Redirect('admin/control/users');
+ 
+
+       }
+       public function email_active($id){
+        DB::table('users')->where('id',$id)->update(['is_email_confirmed'=>0]);
+        return  Redirect('admin/control/users');
+
+
+    }
+    public function active($id){
+        DB::table('users')->where('id',$id)->update(['is_active'=>0]);
+        return  Redirect('admin/control/users');
+
+
+    }
+    public function unactive($id){
+        DB::table('users')->where('id',$id)->update(['is_active'=>1]);
+        return  Redirect('admin/control/users');
+
+
+    }
+    //edit & delete
+    public function edit_account(Request $request, $id){
+
+        $departments=DB::table('departments')->orderBy('id','asc')->get();
+        $faculties=DB::table('faculties')->orderBy('id','asc')->get();
+        $users=DB::table('users')->where('users.id',$id)->get();
+
+        return view('admin.edit-user', compact('departments', 'faculties', 'users'));
+    }
+
+    public function account_update(Request $request,$id){
+
+        $data = [];
+        $data['full_name'] = Str::of($request->input('full_name'))->replaceMatches('/[^a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{1,}/', ' ')->replaceMatches('/[ ]{2,}/', ' ')->trim()->title();
+        $data['birthday'] = $request->input('birthday');
+        $data['gender'] = $request->input('gender');
+        $data['email'] = $request->input('email');
+        $data['phone'] = $request->input('phone');
+        $data['faculty'] = $request->input('faculty');
+        $data['department'] = $request->input('department');
+        $data['language'] = $request->input('language');
+        $data['about_me'] = Str::of($request->input('bio'))->replaceMatches('/[ ]{2,}/', ' ')->trim();
+        $get_image = $request ->file('avatar_path');
+
+
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,9999).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('images/',$new_image);
+            $data['avatar_path'] = $new_image;
+        }
+        if($request->isMethod('post')){
+
+            $messages = [
+                'phone.required' => 'We need to know your phone!',
+                'mimes' => 'Only jpeg, png, bmp,tiff are allowed.'
+            ];
+
+            $validator = Validator::make($request->all(), [
+
+                'full_name' => 'filled|min:3|max:50',
+                'student_id' => 'required_if:role_id,3|min:10|max:20|unique:users,student_id,'.$id,
+                'phone' => 'required|min:10|max:11|regex:/^[0-9]+$/i',
+                 'new_image' => 'mimes:jpg,jpeg,png,bmp,tiff |max:4096|unique:users,avatar_path,'.$id,
+            ], $messages);
+
+            if ($validator->fails()) {
+
+                return back()->withErrors($validator)->withInput();
+            }
+
+            DB::table('users')->where('id',$id)->update($data);
+            return redirect('admin/control/users')->withSuccess('Updated Successfully!');
+        }
+
+    }
+    public function delete_users(Request $request,$id){
+        DB::table('users')->where('id',$id)->delete();
+
+        return  redirect('admin/control/users')->withSuccess('Deleted Successfully!');
+    }
+    // Plan ======================================================================================= 
+
+    public function save_plan(Request $request){
+// Colum -> name
+        $data = [];
+        $data['title'] = Str::of($request->input('title'));
+        $data['description'] = $request->input('request-description');
+        $data['start_date'] = $request->input('request-start');
+        $data['due_date'] = $request->input('request-due');
+        $data['semester_id'] = $request->input('semesters');
+      
+        // $get_file = $request ->file('file_path');
+
+
+        // if($get_image){
+        //     $get_name_image = $get_image->getClientOriginalName();
+        //     $name_image = current(explode('.',$get_name_image));
+        //     $new_image = $name_image.rand(0,9999).'.'.$get_image->getClientOriginalExtension();
+        //     $get_image->move('images/',$new_image);
+        //     $data['avatar_path'] = $new_image;
+        // }
+        if($request->isMethod('post')){
+
+
+
+            $validator = Validator::make($request->all(), [
+
+                'title' => 'filled|min:3|max:50',
+            ]);
+
+            if ($validator->fails()) {
+
+                return back()->withErrors($validator)->withInput();
+            }
+
+            DB::table('plans')->insert($data);
+            return redirect('admin/plans/new')->withSuccess('Create Successfully!');
+        }
+
+    }
+    public function manage_plans(){
+        $plans=DB::table('plans')
+        ->join('semesters','semesters.id','=','plans.semester_id')
+        // còn join cái nữa đừng xóa
+        ->select('plans.id','plans.start_date','plans.due_date','semesters.semester_name','plans.semester_id','plans.title')
+        ->orderBy('plans.id','desc')->get();
+
+        return view('admin.manage-plans', compact('plans'));
+    }
+
+    public function delete_plans(Request $request,$id){
+        DB::table('plans')->where('id',$id)->delete();
+
+        return  redirect('admin/plans')->withSuccess('Deleted Successfully!');
+    }
+    public function edit_plans(Request $request, $id){
+
+        $plans=DB::table('plans')->where('plans.id',$id)->get();
+        $semesters=DB::table('semesters')->orderBy('id','asc')->get();
+        
+
+        return view('admin.edit-plan', compact('plans', 'semesters'));
+    }
+    public function update_plan(Request $request ,$id){
+        // Colum -> name
+                $data = [];
+                $data['title'] = Str::of($request->input('title'));
+                $data['description'] = $request->input('request-description');
+                $data['start_date'] = $request->input('request-start');
+                $data['due_date'] = $request->input('request-due');
+                $data['semester_id'] = $request->input('semesters');
+              
+                // $get_file = $request ->file('file_path');
+        
+        
+                // if($get_image){
+                //     $get_name_image = $get_image->getClientOriginalName();
+                //     $name_image = current(explode('.',$get_name_image));
+                //     $new_image = $name_image.rand(0,9999).'.'.$get_image->getClientOriginalExtension();
+                //     $get_image->move('images/',$new_image);
+                //     $data['avatar_path'] = $new_image;
+                // }
+                if($request->isMethod('post')){
+        
+        
+        
+                    $validator = Validator::make($request->all(), [
+        
+                        'title' => 'filled|min:3|max:50',
+                    ]);
+        
+                    if ($validator->fails()) {
+        
+                        return back()->withErrors($validator)->withInput();
+                    }
+        
+                    DB::table('plans')->where('id',$id)->update($data);
+                    return redirect('admin/plans')->withSuccess('Update Successfully!');
+                }
+        
+            }
+ 
+ //======================================================================================= 
+
     // ? CHO HẾT TẤT CẢ MỤC SHOW FORM NEW Ở DƯỚI ĐÂY
     public function new_announcement(){
         return view('admin.new-announcement');
@@ -420,7 +615,11 @@ class AdminController extends Controller
     }
 
     public function control_panel(){
-        return view('admin.control-panel');
+        $departments=DB::table('departments')->get();
+
+        $faculties=DB::table('faculties')->get();
+        $manage_users=DB::table('users')->orderBy('created_at','desc')->get();
+        return view('admin.control-panel', compact('manage_users','faculties','departments'));
     }
     public function add_user(){
         return view('admin.add-user');
@@ -438,9 +637,7 @@ class AdminController extends Controller
     }
 
 
-    public function manage_plans(){
-        return view('admin.manage-plans');
-    }
+
 
     public function manage_tasks(){
         return view('admin.manage-tasks');
@@ -463,7 +660,9 @@ class AdminController extends Controller
     }
 
     public function new_plan(){
-        return view('admin.new-plan');
+        $semesters=DB::table('semesters')->orderBy('id','asc')->get();
+        return view('admin.new-plan', compact('semesters'));
+       
     }
 
     public function new_topic(){
