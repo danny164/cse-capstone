@@ -41,7 +41,7 @@
                             <form method="POST" action="{{ url('profile/'.$cate_pro->id) }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="media mb-4">
-                                    <img id="img-avatar" alt="Image" src="{{ URL::to('images/'.$cate_pro->avatar_path) }}"class="avatar avatar-lg" />
+                                    <img id="img-avatar" alt="Image" src="{{ URL::to('storage/images/'.$cate_pro->avatar_path) }}"class="avatar avatar-lg" />
                                     <div class="media-body ml-3">
                                         <div class="custom-file custom-file-naked d-block mb-1">
 

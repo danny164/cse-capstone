@@ -14,7 +14,7 @@
             <div class="d-block d-lg-none ml-2">
                 <div class="dropdown">
                     <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img alt="Image" src="{{ URL::to('images/'.Auth::user()->avatar_path) }}" class="avatar" />
+                        <img alt="avatar" src="{{ URL::to('storage/images/'.Auth::user()->avatar_path) }}" class="avatar" />
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right text-center">
@@ -237,7 +237,7 @@
             <!-- already Logged in -->
             <div class="dropup media align-items-center">
                 <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img alt="avatar" src="{{ url('images/'.Auth::user()->avatar_path) }}"  class="avatar avatar--2" />
+                    <img alt="avatar" src="{{ url('storage/images/'.Auth::user()->avatar_path) }}"  class="avatar avatar--2" />
                 </a>
                 <p class="d-inline-block ml-1 mb-0 text-light">Welcome, <br>
                     <span class="text-warning">
