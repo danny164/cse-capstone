@@ -26,10 +26,10 @@
                         <div class="tab-content">
                             <div class="tab-pane fade show active" role="tabpanel" id="profile">
                             @foreach($users as $key => $cate_pro)
-                            <form method="POST" action="{{ url('admin/users/'.$cate_pro->id.'/edit')}}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ url('/admin/users/'.$cate_pro->id.'/edit')}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="media mb-4">
-                                    <img id="img-avatar" alt="Image" src="{{ URL::to('images/'.$cate_pro->avatar_path) }}"class="avatar avatar-lg" />
+                                    <img id="img-avatar" alt="Image" src="{{ URL::to('/storage/images/'.$cate_pro->avatar_path) }}"class="avatar avatar-lg" />
                                     <div class="media-body ml-3">
                                         <div class="custom-file custom-file-naked d-block mb-1">
 
@@ -77,7 +77,7 @@
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Email</label>
                                         <div class="col">
-                                            <input type="email" placeholder="Enter your email address" value="{{$cate_pro->email}}"  name="email" class="form-control" readonly />
+                                            <input type="email" placeholder="Enter your email address" value="{{$cate_pro->email}}"  name="email" class="form-control"/>
                                         </div>
                                     </div>
 
@@ -193,10 +193,6 @@
                                     </div>
                                 </form>
 
-                            </div>
-
-                            <div class="tab-pane fade" role="tabpanel" id="integrations">
-                                <p class="text-center">Coming soon!</p>
                             </div>
 
                         </div>

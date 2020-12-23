@@ -126,11 +126,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']
     Route::post('plan/{id}/update-plan', [AdminController::class, 'update_plan']);
 
 
-
-
-
-
-
 });
 
 

@@ -7,7 +7,9 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a>
                 </li>
-                <li class="breadcrumb-item active"><a href="{{ url('#') }}">Topics</a>
+                <li class="breadcrumb-item"><a href="{{ url('#') }}">Topics</a>
+                </li>
+                <li class="breadcrumb-item active"><a href="{{ url('#') }}">Pick Topic</a>
                 </li>
             </ol>
         </nav>
