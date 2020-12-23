@@ -44,9 +44,6 @@
                                 </div>
                                 <!--end of avatar-->
 
-
-
-
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Full Name</label>
                                         <div class="col">
@@ -107,7 +104,7 @@
                                         <label class="col-3">Faculty</label>
                                         <div class="col">
                                             <select name="faculty" class="form-control" >
-                                            <option value="" selected>Select a Faculty</option>
+                                            <option value="">Choose...</option>
 
                                                 @foreach($faculties as $key => $value)
                                                     @if($value->id == $cate_pro->faculty)
@@ -124,11 +121,11 @@
                                         <label class="col-3">Department</label>
                                         <div class="col">
                                             <select name="department" class="form-control">
-                                            <option value="" selected>Select a Department</option>
+                                            <option value="">Choose...</option>
 
                                                 @foreach($departments as $key => $value)
                                                     @if($value->id == $cate_pro->department)
-                                                        <option  value="{{$value->id}}"selected>{{$value->department_name}}</option>
+                                                        <option value="{{$value->id}}"selected>{{$value->department_name}}</option>
                                                     @else
                                                         <option value="{{$value->id}}">{{$value->department_name}}</option>
                                                     @endif

@@ -377,50 +377,51 @@ class AdminController extends Controller
 
 // add user
 
-        public function  new_user(Request $request){
-            $data = [];
-            $data['full_name'] = Str::of($request->input('full_name'))->replaceMatches('/[^a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{1,}/', ' ')->replaceMatches('/[ ]{2,}/', ' ')->trim()->title();
-            $data['email'] = $request->input('email');
-            $data['password'] = bcrypt($request->input('password'));
-            $data['role_id'] = $request->input('user-role');
-            $data['email_verified_at'] = now();
+    public function  new_user(Request $request){
+
+        $data = [];
+        $data['full_name'] = Str::of($request->input('full_name'))->replaceMatches('/[^a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{1,}/', ' ')->replaceMatches('/[ ]{2,}/', ' ')->trim()->title();
+        $data['email'] = $request->input('email');
+        $data['password'] = bcrypt($request->input('password'));
+        $data['role_id'] = $request->input('user-role');
+        $data['email_verified_at'] = now();
 
 
-            if($request->isMethod('post')){
-                $validator = Validator::make($request->all(), [
+        if($request->isMethod('post')){
+            $validator = Validator::make($request->all(), [
 
-                    'full_name' => ['required', 'string', 'min:3', 'max:50', 'regex:/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$/i'],
-                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'regex:/^[a-z|A-Z|0-9]+@((dtu|duytan)\.edu\.vn)$/i'],
-                    'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'full_name' => ['required', 'string', 'min:3', 'max:50', 'regex:/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$/i'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'regex:/^[a-z|A-Z|0-9]+@((dtu|duytan)\.edu\.vn)$/i'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
 
-                ]);
+            ]);
 
-                if ($validator->fails()) {
+            if ($validator->fails()) {
 
-                    return back()->withErrors($validator);
-                }
-
-                DB::table('users')->insert($data);
-               return back()->withSuccess('Update Successfully!');
+                return back()->withErrors($validator)->withInput();
             }
 
-
+            DB::table('users')->insert($data);
+            return back()->withSuccess('Update Successfully!');
         }
 
-              //======================================================================================= User List
 
-       // Mệt quá éo làm nữa
+    }
 
-       public function unemail_active($id){
-           DB::table('users')->where('id',$id)->update(['is_email_confirmed'=>1]);
-           return  Redirect('admin/control/users');
+    //======================================================================================= User List
 
+    // Mệt quá éo làm nữa
 
-       }
-       public function email_active($id){
-        DB::table('users')->where('id',$id)->update(['is_email_confirmed'=>0]);
+    public function unemail_active($id){
+
+        DB::table('users')->where('id',$id)->update(['is_email_confirmed'=>1]);
         return  Redirect('admin/control/users');
 
+    }
+    public function email_active($id){
+
+        DB::table('users')->where('id',$id)->update(['is_email_confirmed'=>0]);
+        return  Redirect('admin/control/users');
 
     }
     public function active($id){
@@ -568,8 +569,8 @@ class AdminController extends Controller
                 $data['start_date'] = $request->input('request-start');
                 $data['due_date'] = $request->input('request-due');
                 $data['semester_id'] = $request->input('semesters');
-              
-      
+
+
                 if($request->isMethod('post')){
 
 
@@ -589,26 +590,27 @@ class AdminController extends Controller
                 }
 
             }
- 
- //=====================================Topic================================================== 
+
+ //=====================================Topic==================================================
 
  public function new_topic(){
 
 
     $semesters=DB::table('semesters')->orderBy('id','desc')->get();
     $teams=DB::table('teams')->get();
-   
+
     return view('admin.new-topic', compact('semesters','teams'));
 
 }
 
 public function ajax_team(Request $request){
-     
+
     $semester_id = $request->cat_id;
-     
+
     $subcategories = DB::table('teams')->where('semester_id',$semester_id)->get();
+
     return Response($subcategories);
-  
+
 }
 public function save_topic(Request $request){
     // Colum -> name
@@ -623,9 +625,9 @@ public function save_topic(Request $request){
           
   
             if($request->isMethod('post')){
-    
-    
-    
+
+
+
                 $validator = Validator::make($request->all(), [
     
                     'eng_title' => 'filled|min:3|max:50|unique:topics',
@@ -634,16 +636,16 @@ public function save_topic(Request $request){
                     'groups' => 'filled|',
                     'team_id' => 'unique:topics,team_id,',
                 ]);
-    
+
                 if ($validator->fails()) {
-    
+
                     return back()->withErrors($validator)->withInput();
                 }
     
                 DB::table('topics')->insert($data);
                 return redirect('admin/topics/new')->withSuccess('Create Successfully!');
             }
-    
+
         }
         public function manage_topics(){
 

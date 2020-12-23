@@ -106,7 +106,7 @@ $(document).ready(function() {
                     if(data[i].is_closed==0){
                     $('#team').append('<option value="' + data[i].id + '">' + data[i].team_name + '</option>');
                     }
-                  
+
                 }
                 // $('#subcategory').empty();
                 // $.each(data.subcategories[0].subcategories, function(index, subcategory) {
@@ -115,7 +115,7 @@ $(document).ready(function() {
             }
         })
     });
-}); 
+});
 </script>
 
 
