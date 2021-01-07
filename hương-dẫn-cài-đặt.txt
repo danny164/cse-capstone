@@ -1,0 +1,8 @@
+Step 1: Create database name is "cse_capstone" on localhost/phpmyadmin/;
+Step 2: Import database.sql with the command "php artisan migrate";
+Step 3: Add data into the database with the command "php artisan db:seed";
+Step 4: Run command "composer install" to install composer;
+Step 5: Run command "composer update" to update composer;
+Step 6: Run command "php artisan serve " to use apache web server;
+Step 7: Run on https://localhost:8000;
+Step 8: Login with email: "man@duytan.edu.vn" and password "12345678";
